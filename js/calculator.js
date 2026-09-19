@@ -1,5 +1,5 @@
 /* =========================================================================
-   Lampson Lawn Service — Project Calculator
+   ET's Lawn Care & More — Project Calculator
    All pricing below is PLACEHOLDER. Edit the CONFIG object to match your
    real rates — nothing else in this file needs to change.
    ========================================================================= */

@@ -1,5 +1,5 @@
 /* =========================================================================
-   Static site generator for Lampson Lawn Service.
+   Static site generator for ET's Lawn Care & More.
    Reads build/data/*.json and writes plain static HTML files into the repo
    root (index.html, services/*.html, service-areas/*.html). Nothing at
    runtime depends on Node — the output is what gets hosted.
@@ -16,13 +16,34 @@ const services = JSON.parse(fs.readFileSync(path.join(__dirname, "data/services.
 const posts = JSON.parse(fs.readFileSync(path.join(__dirname, "data/posts.json"), "utf8"));
 const faqs = JSON.parse(fs.readFileSync(path.join(__dirname, "data/faq.json"), "utf8"));
 
-const SITE_NAME = "Lampson Lawn Service";
-const PHONE = "(417) 207-1577";
-const PHONE_HREF = "+14172071577";
-const EMAIL = "lampsonlawn@outlook.com";
-const FACEBOOK = "https://www.facebook.com/LampsonLawn/";
-const INSTAGRAM = "https://www.instagram.com/lampsonlawn";
-const YOUTUBE = "https://www.youtube.com/@lampsonlawnservice";
+const SITE_NAME = "ET&rsquo;s Lawn Care &amp; More";
+const TAGLINE = "The grass is greener with us";
+
+const PHONE = "(417) 849-7131";
+const PHONE_HREF = "+14178497131";
+const EMAIL = "etslawncare5@gmail.com";
+
+const FACEBOOK = "https://www.facebook.com/profile.php?id=61571089534194";
+
+// Only the channels we actually have for this brand. Add { label, url, icon }
+// entries here and every social block on the site picks them up.
+const SOCIALS = [{ label: "Facebook", url: FACEBOOK, icon: "facebook" }];
+
+const socialTextLinks = (sep = "\n      ") =>
+  SOCIALS.map((x) => `<a href="${x.url}" target="_blank" rel="noopener">${x.label}</a>`).join(sep);
+
+const socialIconLinks = () =>
+  SOCIALS.map(
+    (x) => `<a href="${x.url}" target="_blank" rel="noopener" aria-label="${x.label}">${SOCIAL_ICONS[x.icon]}</a>`
+  ).join("\n        ");
+
+// "Facebook" / "Facebook and Instagram" / "Facebook, Instagram, and YouTube"
+const socialProse = () => {
+  const links = SOCIALS.map((x) => `<a href="${x.url}" target="_blank" rel="noopener">${x.label}</a>`);
+  if (links.length <= 1) return links.join("");
+  if (links.length === 2) return links.join(" and ");
+  return `${links.slice(0, -1).join(", ")}, and ${links[links.length - 1]}`;
+};
 
 // Real jobsite photos, added to assets/gallery/. Reused across hero banners
 // and the homepage gallery so there's no separate stock-photo step.
@@ -74,33 +95,11 @@ const TOWN_HERO_PHOTOS = [
   PHOTOS.shadedTreeLawn,
 ];
 
-// Real customer reviews, copied from the Lampson Lawn Service Facebook page.
-const TESTIMONIALS = [
-  {
-    quote: "My lawn looks absolutely amazing, Jake was so very fast and professional! I told him about the bunny in my yard and he was kind enough to not only locate the nest, but show me where it was for future!",
-    name: "Jessi Baldwin",
-  },
-  {
-    quote: "Highly recommend Jake and his team! He truly cares about his clients and you can see it in his work as well! Communication is impeccable. Very understanding and always makes sure the job gets done.",
-    name: "Abbey Cunningham",
-  },
-  {
-    quote: "Jake is fabulous! Communication was good, he showed up on time and got several jobs done for me! I highly recommend!",
-    name: "Marissa Nicole Miller",
-  },
-  {
-    quote: "Jake operates with integrity and has a great eye for detail! Will be doing more business with him in the future.",
-    name: "Laine Dobbs",
-  },
-  {
-    quote: "Jake is a phenomenal guy. He operates with integrity and truly cares about his clients.",
-    name: "Quinten Smith",
-  },
-  {
-    quote: "Jake does a great job taking care of my bushes and making sure everything is all trimmed.",
-    name: "Kat Russell",
-  },
-];
+// Reviews for ET's Lawn Care & More. The previous brand's Facebook reviews
+// were removed with the rebrand — they name real customers and credit a
+// different operator, so they can't be carried over. Add real reviews here as
+// { quote, name } and the testimonial sections switch themselves back on.
+const TESTIMONIALS = [];
 
 const SERVICE_HERO_PHOTOS = {
   "mowing-edging": PHOTOS.mowerCrewAction,
@@ -115,12 +114,24 @@ const SOCIAL_ICONS = {
   youtube: `<svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.51 3.5 12 3.5 12 3.5s-7.51 0-9.38.55A3.02 3.02 0 0 0 .5 6.19 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.81 3.02 3.02 0 0 0 2.12 2.14c1.87.55 9.38.55 9.38.55s7.51 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.81ZM9.6 15.5v-7l6.42 3.5Z"/></svg>`,
 };
 
+function renderTestimonialCards(list) {
+  return list
+    .map(
+      (t) => `<div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>&ldquo;${t.quote}&rdquo;</p>
+          <span class="testimonial-name">&mdash; ${t.name}</span>
+        </div>`
+    )
+    .join("\n        ");
+}
+
 function heroBgStyle(base, photo) {
-  return `background-image: radial-gradient(ellipse at 50% 0%, rgba(247,148,29,.35), transparent 60%), linear-gradient(180deg, rgba(11,13,10,.75) 0%, rgba(20,23,15,.82) 55%, rgba(15,92,31,.85) 150%), url('${base}${photo}');`;
+  return `background-image: radial-gradient(ellipse at 50% 0%, rgba(14,242,1,.3), transparent 62%), linear-gradient(180deg, rgba(0,0,0,.78) 0%, rgba(7,9,10,.86) 55%, rgba(6,63,4,.9) 150%), url('${base}${photo}');`;
 }
 
 function serviceHeroBgStyle(base, photo) {
-  return `background-image: linear-gradient(180deg, rgba(11,13,10,.88), rgba(20,23,15,.9)), url('${base}${photo}');`;
+  return `background-image: linear-gradient(180deg, rgba(0,0,0,.86), rgba(7,9,10,.92)), url('${base}${photo}');`;
 }
 
 function head({ base, title, description }) {
@@ -128,10 +139,11 @@ function head({ base, title, description }) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>${title}</title>
 <meta name="description" content="${description}" />
-<link rel="icon" href="${base}assets/logo.jpg" />
+<meta name="theme-color" content="#000000" />
+<link rel="icon" href="${base}assets/favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${base}css/styles.css" />`;
 }
 
@@ -158,8 +170,8 @@ function header(base) {
   return `<header class="site-header">
   <div class="container header-inner">
     <a href="${base}index.html" class="brand">
-      <img src="${base}assets/logo.jpg" alt="${SITE_NAME} logo" class="brand-logo" />
-      <span class="brand-name">${SITE_NAME}</span>
+      <img src="${base}assets/logo-mark.png" alt="${SITE_NAME} logo" class="brand-logo" />
+      <span class="brand-name">${SITE_NAME}<span class="brand-tag">${TAGLINE}</span></span>
     </a>
     <nav class="main-nav" id="main-nav">
       <a href="${base}index.html">Home</a>
@@ -201,14 +213,13 @@ function footer(base) {
   return `<footer class="site-footer">
   <div class="container footer-inner">
     <div class="footer-brand">
-      <img src="${base}assets/logo.jpg" alt="${SITE_NAME} logo" />
+      <img src="${base}assets/logo-mark.png" alt="${SITE_NAME} logo" />
       <span>${SITE_NAME}</span>
     </div>
     <div class="footer-social">
-      <a href="${FACEBOOK}" target="_blank" rel="noopener">Facebook</a>
-      <a href="${INSTAGRAM}" target="_blank" rel="noopener">Instagram</a>
-      <a href="${YOUTUBE}" target="_blank" rel="noopener">YouTube</a>
+      ${socialTextLinks()}
     </div>
+    <p class="footer-tagline">&ldquo;${TAGLINE}&rdquo;</p>
     <p class="footer-copy">&copy; <span id="year"></span> ${SITE_NAME}. All rights reserved.</p>
   </div>
 </footer>
@@ -483,6 +494,17 @@ function renderTownPage(town, index) {
 function renderAboutPage() {
   const base = "";
   const featuredTestimonials = TESTIMONIALS.slice(0, 2);
+  const aboutTestimonials = featuredTestimonials.length
+    ? `<section class="section testimonials">
+    <div class="container">
+      <h2 class="section-title">In Our Customers' Words</h2>
+      <div class="testimonial-cards">
+        ${renderTestimonialCards(featuredTestimonials)}
+      </div>
+      <p class="gallery-cta">Read more on <a href="${FACEBOOK}" target="_blank" rel="noopener">Facebook</a>.</p>
+    </div>
+  </section>`
+    : "";
 
   const main = `<main>
   ${breadcrumb(base, [{ label: "Home", href: `${base}index.html` }, { label: "About" }])}
@@ -492,14 +514,14 @@ function renderAboutPage() {
     <div class="container">
       <div class="service-hero-icon">🌿</div>
       <h1>About ${SITE_NAME}</h1>
-      <p class="section-sub">Owner-operated lawn care, based in Springfield, MO.</p>
+      <p class="section-sub">Owner-operated lawn care, based in Springfield, MO. ${TAGLINE}.</p>
       <a href="${base}index.html#calculator" class="btn btn-primary btn-lg">Get an Instant Estimate</a>
     </div>
   </section>
 
   <section class="section">
     <div class="container narrow">
-      <p class="service-intro">${SITE_NAME} is a locally owned lawn care business based in Springfield, MO, run by Jake and a small crew who show up on schedule and treat every yard like it's their own. What started as mowing routes around Springfield has grown into a full-service operation covering mowing, cleanup, fertilization, weed control, mulching, and aeration for homeowners and businesses within about 60 miles of the city.</p>
+      <p class="service-intro">${SITE_NAME} is a locally owned, owner-operated lawn care business based in Springfield, MO. We show up on schedule and treat every yard like it's our own — mowing, cleanup, fertilization, weed control, mulching, and aeration for homeowners and businesses within about 60 miles of the city. The grass really is greener with us, and we'd rather prove it than say it.</p>
 
       <h2>What We're About</h2>
       <ul class="check-list">
@@ -516,23 +538,7 @@ function renderAboutPage() {
     </div>
   </section>
 
-  <section class="section testimonials">
-    <div class="container">
-      <h2 class="section-title">In Our Customers' Words</h2>
-      <div class="testimonial-cards">
-        ${featuredTestimonials
-          .map(
-            (t) => `<div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p>&ldquo;${t.quote}&rdquo;</p>
-          <span class="testimonial-name">&mdash; ${t.name}</span>
-        </div>`
-          )
-          .join("\n        ")}
-      </div>
-      <p class="gallery-cta">Read more on <a href="${FACEBOOK}" target="_blank" rel="noopener">Facebook</a>.</p>
-    </div>
-  </section>
+  ${aboutTestimonials}
 
   <section class="section gallery">
     <div class="container">
@@ -738,14 +744,28 @@ function renderHomepage() {
     .map((t) => `<a href="service-areas/${t.slug}.html">${t.name}, MO</a>`)
     .join("\n        ");
 
+  // Empty until real ET's Lawn Care & More reviews are added to TESTIMONIALS.
+  const testimonialsSection = TESTIMONIALS.length
+    ? `<section class="section testimonials">
+    <div class="container">
+      <h2 class="section-title">What Our Customers Say</h2>
+      <p class="section-sub">Real reviews from real customers on Facebook.</p>
+      <div class="testimonial-cards">
+        ${renderTestimonialCards(TESTIMONIALS)}
+      </div>
+      <p class="gallery-cta">See more reviews on <a href="${FACEBOOK}" target="_blank" rel="noopener">Facebook</a>.</p>
+    </div>
+  </section>`
+    : "";
+
   const main = `<main id="top">
 
   <section class="hero">
     <div class="hero-bg" style="${heroBgStyle(base, PHOTOS.houseGardenLawn)}" aria-hidden="true"></div>
     <div class="container hero-inner">
-      <img src="assets/logo.jpg" alt="${SITE_NAME}" class="hero-logo" />
-      <h1>Sharp Lawns. <span>Honest Prices.</span></h1>
-      <p class="hero-sub">Reliable mowing and lawn care for homes and businesses around Springfield, MO. Get an instant estimate below — no waiting on a callback.</p>
+      <img src="assets/logo.png" alt="${SITE_NAME} — ${TAGLINE}" class="hero-logo" />
+      <h1>The Grass Is <span>Greener</span> With Us.</h1>
+      <p class="hero-sub">Mowing, cleanup, and full lawn care for homes and businesses around Springfield, MO. Get an instant estimate below — no waiting on a callback.</p>
       <div class="hero-mow-strip" aria-hidden="true">
         <span class="mow-trail"></span>
         <span class="mower-emoji">🚜</span>
@@ -755,9 +775,7 @@ function renderHomepage() {
         <a href="#contact" class="btn btn-outline btn-lg">Contact Us</a>
       </div>
       <div class="hero-social">
-        <a href="${FACEBOOK}" target="_blank" rel="noopener" aria-label="Facebook">${SOCIAL_ICONS.facebook}</a>
-        <a href="${INSTAGRAM}" target="_blank" rel="noopener" aria-label="Instagram">${SOCIAL_ICONS.instagram}</a>
-        <a href="${YOUTUBE}" target="_blank" rel="noopener" aria-label="YouTube">${SOCIAL_ICONS.youtube}</a>
+        ${socialIconLinks()}
       </div>
     </div>
   </section>
@@ -848,22 +866,7 @@ function renderHomepage() {
     </div>
   </section>
 
-  <section class="section testimonials">
-    <div class="container">
-      <h2 class="section-title">What Our Customers Say</h2>
-      <p class="section-sub">Real reviews from real customers on Facebook.</p>
-      <div class="testimonial-cards">
-        ${TESTIMONIALS.map(
-          (t) => `<div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p>&ldquo;${t.quote}&rdquo;</p>
-          <span class="testimonial-name">&mdash; ${t.name}</span>
-        </div>`
-        ).join("\n        ")}
-      </div>
-      <p class="gallery-cta">See more reviews on <a href="${FACEBOOK}" target="_blank" rel="noopener">Facebook</a>.</p>
-    </div>
-  </section>
+  ${testimonialsSection}
 
   <section id="gallery" class="section gallery">
     <div class="container">
@@ -872,22 +875,20 @@ function renderHomepage() {
       <div class="gallery-placeholder">
         ${GALLERY_IMAGES.map((g) => `<div class="gallery-item"><img src="${g.src}" alt="${g.alt}" loading="lazy" /></div>`).join("\n        ")}
       </div>
-      <p class="gallery-cta">See more on <a href="${FACEBOOK}" target="_blank" rel="noopener">Facebook</a>, <a href="${INSTAGRAM}" target="_blank" rel="noopener">Instagram</a>, and <a href="${YOUTUBE}" target="_blank" rel="noopener">YouTube</a>.</p>
+      <p class="gallery-cta">See more on ${socialProse()}.</p>
     </div>
   </section>
 
   <section id="contact" class="section contact">
     <div class="container contact-inner">
       <div class="contact-info">
-        <h2 class="section-title">Ready For a Sharper Lawn?</h2>
+        <h2 class="section-title">Ready For a Greener Lawn?</h2>
         <p>Get your free instant estimate above, or reach out directly and we'll get back to you fast.</p>
         <a href="tel:${PHONE_HREF}" class="contact-phone">📞 ${PHONE}</a>
         <a href="mailto:${EMAIL}" class="contact-email">✉️ ${EMAIL}</a>
         <p class="contact-note">Serving Springfield, MO and the surrounding area — mowing, cleanup, and full lawn care.</p>
         <div class="social-links">
-          <a href="${FACEBOOK}" target="_blank" rel="noopener">Facebook</a>
-          <a href="${INSTAGRAM}" target="_blank" rel="noopener">Instagram</a>
-          <a href="${YOUTUBE}" target="_blank" rel="noopener">YouTube</a>
+          ${socialTextLinks("\n          ")}
         </div>
       </div>
       <form class="contact-form" id="contact-form">
