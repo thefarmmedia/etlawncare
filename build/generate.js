@@ -102,10 +102,16 @@ const TOWN_HERO_PHOTOS = [
 const TESTIMONIALS = [];
 
 const SERVICE_HERO_PHOTOS = {
-  "mowing-edging": PHOTOS.mowerCrewAction,
-  "yard-cleanup": PHOTOS.trimming,
+  "mowing-trimming": PHOTOS.mowerCrewAction,
+  "landscaping-bed-cleanups": PHOTOS.backyardLandscaping,
+  "leaf-seasonal-cleanups": PHOTOS.trimming,
+  "aeration-overseeding": PHOTOS.dewGrassMacro,
   "fertilization-weed-control": PHOTOS.dewGrassMacro,
-  "mulching-aeration": PHOTOS.mulchBed,
+  "mulch-rock-installation": PHOTOS.mulchBed,
+  "shrub-trimming": PHOTOS.trimming2,
+  "pavers-small-hardscaping": PHOTOS.backyardPatioGarden,
+  "snow-removal": PHOTOS.shadedTreeLawn,
+  "pressure-washing": PHOTOS.modernHouseLawn,
 };
 
 const SOCIAL_ICONS = {
@@ -521,13 +527,16 @@ function renderAboutPage() {
 
   <section class="section">
     <div class="container narrow">
-      <p class="service-intro">${SITE_NAME} is a locally owned, owner-operated lawn care business based in Springfield, MO. We show up on schedule and treat every yard like it's our own — mowing, cleanup, fertilization, weed control, mulching, and aeration for homeowners and businesses within about 60 miles of the city. The grass really is greener with us, and we'd rather prove it than say it.</p>
+      <p class="eyebrow">Meet the owner</p>
+      <h2>Hi, I&rsquo;m Eli.</h2>
+      <p class="service-intro">I started ${SITE_NAME} five years ago with the goal of providing dependable, high-quality lawn care and landscaping services to homeowners and businesses throughout the Springfield, Missouri area. I take pride in showing up, communicating with my customers, and treating every property like it&rsquo;s my own.</p>
+      <p>From routine mowing and property cleanups to landscaping, mulch, aeration, overseeding, and larger outdoor projects, my goal is to make your property look its best while making the process easy for you. Thank you for considering ${SITE_NAME}. I look forward to earning your business and helping take care of your property.</p>
 
       <h2>What We're About</h2>
       <ul class="check-list">
         <li>Integrity — we do what we say we're going to do, every visit</li>
         <li>Clear communication — you'll always know when we're coming and what's included</li>
-        <li>Fair, straightforward pricing — no surprise add-ons after the fact</li>
+        <li>Insured service for residential and commercial properties</li>
         <li>Quality you can see — clean lines, healthy grass, a yard that looks cared for</li>
       </ul>
 
@@ -554,7 +563,7 @@ function renderAboutPage() {
   <section class="section area-teaser">
     <div class="container">
       <h2 class="section-title">Proudly Serving Springfield, MO &amp; Beyond</h2>
-      <p class="section-sub">We serve homeowners and businesses within about a 60-mile radius of Springfield, Missouri.</p>
+      <p class="section-sub">Routine service throughout the Springfield area, with travel of 75+ miles available for larger projects.</p>
       <a href="${base}service-areas/index.html" class="btn btn-outline">See All Service Areas</a>
     </div>
   </section>
@@ -727,16 +736,6 @@ function renderHomepage() {
     )
     .join("\n        ");
 
-  const addonTags = [
-    "edging",
-    "trimming",
-    "cleanup",
-    "fertilization",
-    "weedControl",
-    "mulching",
-    "aeration",
-  ];
-
   const areaSample = towns
     .slice()
     .sort((a, b) => a.miles - b.miles)
@@ -765,7 +764,7 @@ function renderHomepage() {
     <div class="container hero-inner">
       <img src="assets/logo.png" alt="${SITE_NAME} — ${TAGLINE}" class="hero-logo" />
       <h1>The Grass Is <span>Greener</span> With Us.</h1>
-      <p class="hero-sub">Mowing, cleanup, and full lawn care for homes and businesses around Springfield, MO. Get an instant estimate below — no waiting on a callback.</p>
+      <p class="hero-sub">Dependable mowing, landscaping, leaf cleanup, and outdoor property care for homes and businesses around Springfield, MO.</p>
       <div class="hero-mow-strip" aria-hidden="true">
         <span class="mow-trail"></span>
         <span class="mower-emoji">🚜</span>
@@ -792,12 +791,24 @@ function renderHomepage() {
 
   <section id="calculator" class="section calculator-section">
     <div class="container">
-      <h2 class="section-title">Lawn Care Project Calculator</h2>
-      <p class="section-sub">Answer a few quick questions to get an instant price estimate. This is a ballpark figure — we'll confirm exact pricing after a quick look at your property.</p>
+      <h2 class="section-title">Get a Quick Ballpark Estimate</h2>
+      <p class="section-sub">Choose a service below. We can give you a useful mowing range or starting price now, then confirm your exact price with a free estimate.</p>
 
       <div class="calculator" id="calculator-tool">
         <form id="calc-form" class="calc-form">
 
+          <div class="calc-field">
+            <label for="serviceType">What service do you need?</label>
+            <select id="serviceType">
+              <option value="mowing">Lawn Mowing & Trimming</option>
+              <option value="leaf">Leaf / Seasonal Cleanup</option>
+              <option value="landscaping">Landscaping & Bed Cleanup</option>
+              <option value="aeration">Aeration & Overseeding</option>
+              <option value="other">Another Service</option>
+            </select>
+          </div>
+
+          <div id="mowing-fields">
           <div class="calc-field">
             <label for="lawnSize">Lawn Size</label>
             <div class="input-row">
@@ -807,7 +818,7 @@ function renderHomepage() {
                 <option value="acres">acres</option>
               </select>
             </div>
-            <small>Not sure? A typical suburban front + back yard is around 8,000–10,000 sq ft.</small>
+            <small>Not sure? An approximate size is fine. Mowing has a $50 minimum; acreage mowing generally runs $95–$135 per acre.</small>
           </div>
 
           <div class="calc-field">
@@ -828,17 +839,7 @@ function renderHomepage() {
               <option value="difficult">Steep / Heavily Obstructed</option>
             </select>
           </div>
-
-          <fieldset class="calc-field addons">
-            <legend>Add-On Services</legend>
-            <label class="checkbox"><input type="checkbox" name="addon" value="edging" /> Edging (<span class="price-tag" data-price="edging"></span>)</label>
-            <label class="checkbox"><input type="checkbox" name="addon" value="trimming" /> Trimming / Weed-Eating (<span class="price-tag" data-price="trimming"></span>)</label>
-            <label class="checkbox"><input type="checkbox" name="addon" value="cleanup" /> Leaf / Debris Cleanup (<span class="price-tag" data-price="cleanup"></span>)</label>
-            <label class="checkbox"><input type="checkbox" name="addon" value="fertilization" /> Fertilization (<span class="price-tag" data-price="fertilization"></span>)</label>
-            <label class="checkbox"><input type="checkbox" name="addon" value="weedControl" /> Weed Control Treatment (<span class="price-tag" data-price="weedControl"></span>)</label>
-            <label class="checkbox"><input type="checkbox" name="addon" value="mulching" /> Mulching (<span class="price-tag" data-price="mulching"></span>)</label>
-            <label class="checkbox"><input type="checkbox" name="addon" value="aeration" /> Aeration (<span class="price-tag" data-price="aeration"></span>)</label>
-          </fieldset>
+          </div>
 
           <button type="submit" class="btn btn-primary btn-lg calc-submit">Calculate My Estimate</button>
         </form>
@@ -848,8 +849,8 @@ function renderHomepage() {
           <div class="result-price" id="result-price">$0</div>
           <div class="result-sub" id="result-sub"></div>
           <ul class="result-breakdown" id="result-breakdown"></ul>
-          <p class="result-note">This estimate is generated from typical regional rates and may vary based on an on-site look at your property. Ready to lock in your price?</p>
-          <a href="#contact" class="btn btn-outline">Get This Quote &rarr;</a>
+          <p class="result-note">This is a ballpark estimate, not a final quote. Property condition, access, obstacles, and the amount of work required may affect the final price.</p>
+          <a href="#contact" class="btn btn-outline">Request My Free Estimate &rarr;</a>
         </div>
       </div>
     </div>
@@ -858,7 +859,7 @@ function renderHomepage() {
   <section id="service-areas" class="section area-teaser">
     <div class="container">
       <h2 class="section-title">Proudly Serving Springfield, MO &amp; Beyond</h2>
-      <p class="section-sub">We serve homeowners and businesses within about a 60-mile radius of Springfield, Missouri, including:</p>
+      <p class="section-sub">Routine service throughout the Springfield area, with travel of 75+ miles available for larger landscaping and outdoor projects.</p>
       <div class="area-sample">
         ${areaSample}
       </div>
@@ -883,10 +884,10 @@ function renderHomepage() {
     <div class="container contact-inner">
       <div class="contact-info">
         <h2 class="section-title">Ready For a Greener Lawn?</h2>
-        <p>Get your free instant estimate above, or reach out directly and we'll get back to you fast.</p>
+        <p>Get a quick ballpark above, or reach out for a free property-specific estimate.</p>
         <a href="tel:${PHONE_HREF}" class="contact-phone">📞 ${PHONE}</a>
         <a href="mailto:${EMAIL}" class="contact-email">✉️ ${EMAIL}</a>
-        <p class="contact-note">Serving Springfield, MO and the surrounding area — mowing, cleanup, and full lawn care.</p>
+        <p class="contact-note">Insured • Residential & commercial • One-time and recurring service available</p>
         <div class="social-links">
           ${socialTextLinks("\n          ")}
         </div>
@@ -896,7 +897,7 @@ function renderHomepage() {
         <input type="text" placeholder="Full Name" required />
         <input type="email" placeholder="Email Address" required />
         <input type="tel" placeholder="Phone Number" />
-        <textarea rows="4" placeholder="Tell us about your yard..."></textarea>
+        <textarea rows="4" placeholder="What service do you need? Tell us about your property..."></textarea>
         <button type="submit" class="btn btn-primary">Send Message</button>
         <p class="form-note" id="form-note" hidden>Thanks! This form isn't wired to an inbox yet — please call or message us on social media in the meantime.</p>
       </form>
@@ -908,7 +909,7 @@ function renderHomepage() {
   return page({
     base,
     title: `${SITE_NAME} | Free Instant Lawn Care Quote`,
-    description: `${SITE_NAME} - professional mowing, edging, cleanup, and lawn care around Springfield, MO. Get an instant price estimate with our project calculator.`,
+    description: `${SITE_NAME} provides insured mowing, landscaping, leaf cleanup, lawn care, and outdoor property services around Springfield, Missouri. Free estimates available.`,
     main,
     extraScripts: `<script src="js/calculator.js"></script>`,
   });

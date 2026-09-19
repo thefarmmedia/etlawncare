@@ -1,86 +1,12 @@
 [
-  {
-    "slug": "mowing-edging",
-    "navLabel": "Mowing & Edging",
-    "icon": "🌱",
-    "heroTitle": "Weekly &amp; Bi-Weekly Mowing You Can Set Your Watch To",
-    "heroSubtitle": "Consistent cuts, clean edges, and a crew that shows up on schedule.",
-    "intro": "Our core service is dependable mowing on a schedule that fits your lawn — weekly, bi-weekly, or a one-time cut when you need your yard looking sharp fast. Every visit includes trimming and edging so nothing looks half-finished.",
-    "included": [
-      "Precision mowing at the right height for your grass type",
-      "String trimming around trees, fences, and garden beds",
-      "Clean-line edging along walkways, driveways, and curbs",
-      "Clippings and debris blown off hardscapes and porches",
-      "Flexible weekly, bi-weekly, or one-time scheduling"
-    ],
-    "why": [
-      "The same reliable crew and schedule every visit",
-      "Fully equipped, insured lawn care team",
-      "Instant online estimate before you ever commit"
-    ],
-    "metaDescription": "Weekly and bi-weekly mowing, trimming, and edging from ET&rsquo;s Lawn Care &amp; More. Serving Springfield, MO and surrounding areas. Get an instant online estimate."
-  },
-  {
-    "slug": "yard-cleanup",
-    "navLabel": "Yard Cleanup",
-    "icon": "🍂",
-    "heroTitle": "Seasonal Cleanups That Get Your Yard Back In Shape",
-    "heroSubtitle": "Leaf removal, debris hauling, and full property cleanups.",
-    "intro": "Whether it's a fall leaf pile-up, storm debris, or a yard that's been neglected for a season, our cleanup crews clear it out fast and leave your property looking cared for again.",
-    "included": [
-      "Leaf removal and hauling",
-      "Storm debris and fallen limb pickup",
-      "Flower bed clean-outs",
-      "Ground-level debris and clutter clearing",
-      "Spring and fall cleanup packages"
-    ],
-    "why": [
-      "Available as a one-time job or recurring seasonal service",
-      "Fast turnaround so your yard doesn't stay a mess",
-      "Pairs perfectly with our mowing and mulching services"
-    ],
-    "metaDescription": "Leaf removal, storm debris hauling, and seasonal yard cleanups from ET&rsquo;s Lawn Care &amp; More in the Springfield, MO area. Get an instant online estimate."
-  },
-  {
-    "slug": "fertilization-weed-control",
-    "navLabel": "Fertilization & Weed Control",
-    "icon": "🌾",
-    "heroTitle": "Greener Grass, Fewer Weeds",
-    "heroSubtitle": "Seasonal treatment programs built for Missouri lawns.",
-    "intro": "Healthy soil grows a healthy lawn. Our fertilization and weed control programs are timed to Missouri's growing seasons to green up your grass while keeping weeds from taking over.",
-    "included": [
-      "Seasonal fertilization applications",
-      "Pre-emergent and post-emergent weed treatments",
-      "Broadleaf weed spot-treatment",
-      "Soil-friendly, properly timed product application",
-      "Custom treatment schedules by season"
-    ],
-    "why": [
-      "Programs built around Missouri's actual growing seasons",
-      "Visible, measurable results over the season",
-      "Best results when paired with regular mowing"
-    ],
-    "metaDescription": "Seasonal fertilization and weed control programs from ET&rsquo;s Lawn Care &amp; More, serving Springfield, MO and the surrounding area. Get an instant online estimate."
-  },
-  {
-    "slug": "mulching-aeration",
-    "navLabel": "Mulching & Aeration",
-    "icon": "🪵",
-    "heroTitle": "Healthier Beds, Healthier Soil",
-    "heroSubtitle": "Fresh mulch installs and core aeration for a lawn that actually breathes.",
-    "intro": "Mulching keeps your beds clean and your landscaping healthy, while aeration relieves compacted soil so water, air, and nutrients can actually reach the roots. Both are easy add-ons to any mowing plan.",
-    "included": [
-      "Fresh mulch install in beds and borders",
-      "Bed edging and weed-barrier touch-up",
-      "Core aeration to relieve soil compaction",
-      "Improved water and nutrient absorption",
-      "Best paired with fertilization for maximum results"
-    ],
-    "why": [
-      "Noticeably improves curb appeal right away",
-      "Long-term lawn health, not just a quick fix",
-      "Easy to bundle with your regular mowing visit"
-    ],
-    "metaDescription": "Mulch installation and core aeration services from ET&rsquo;s Lawn Care &amp; More, serving Springfield, MO and surrounding towns. Get an instant online estimate."
-  }
+  {"slug":"mowing-trimming","navLabel":"Lawn Mowing & Trimming","icon":"🌱","heroTitle":"Dependable Lawn Mowing &amp; Trimming","heroSubtitle":"Recurring or one-time mowing for residential and commercial properties.","intro":"Keep your property looking sharp without giving up your free time. ET's Lawn Care & More provides dependable mowing and trimming for homes and businesses throughout the Springfield area, with one-time and recurring service available.","included":["Lawn mowing at an appropriate cutting height","Trimming around trees, fences, beds, and structures","Clean-up of clippings from hard surfaces","One-time and recurring service options","Residential and commercial properties"],"why":["$50 minimum mowing service","$95–$135 per acre depending on the property","Clear communication from an insured, owner-operated local business"],"metaDescription":"Residential and commercial lawn mowing and trimming in Springfield, Fair Grove, and surrounding Missouri communities. One-time and recurring service available."},
+  {"slug":"landscaping-bed-cleanups","navLabel":"Landscaping & Bed Cleanups","icon":"🌿","heroTitle":"Landscaping That Makes Your Property Stand Out","heroSubtitle":"Bed cleanups, outdoor improvements, and larger landscaping projects.","intro":"From cleaning up overgrown beds to building a more polished outdoor space, ET's Lawn Care & More handles landscaping projects for homeowners and businesses. Every property is different, so landscaping is priced with a free custom estimate.","included":["Landscape and flower-bed cleanups","Bed reshaping and preparation","Mulch and rock installation","Shrub trimming and detail work","Larger outdoor improvement projects"],"why":["Free estimates tailored to the property","Travel available beyond the normal service area for larger projects","One company for routine care and larger improvements"],"metaDescription":"Landscaping and flower-bed cleanup services for homes and businesses around Springfield, Missouri. Free custom estimates available."},
+  {"slug":"leaf-seasonal-cleanups","navLabel":"Leaf & Seasonal Cleanups","icon":"🍂","heroTitle":"Leaf &amp; Seasonal Cleanups Without the Hassle","heroSubtitle":"One-time cleanups starting at $150, based on property size and conditions.","intro":"Whether leaves have piled up, a storm left debris behind, or the property needs a seasonal reset, ET's Lawn Care & More can get it cleaned up and looking cared for again. Leaf cleanup starts at $150, with final pricing based on the amount of material and work required.","included":["Leaf collection and removal","Spring and fall property cleanups","Light yard and storm-debris cleanup","Bed and lawn cleanup","One-time service available"],"why":["Leaf cleanup starts at $150","Free estimate before work begins","Residential and commercial service"],"metaDescription":"Leaf removal and seasonal property cleanup around Springfield, Missouri. Residential and commercial cleanups start at $150."},
+  {"slug":"aeration-overseeding","navLabel":"Aeration & Overseeding","icon":"🌾","heroTitle":"Build a Thicker, Healthier Lawn","heroSubtitle":"Core aeration and overseeding with free property-specific estimates.","intro":"Aeration helps loosen compacted soil so air, water, and nutrients can reach the roots. Overseeding helps fill thin areas and improve the lawn's overall density. Because every yard is different, we provide a free estimate rather than a one-size-fits-all online price.","included":["Core aeration","Overseeding options","Property-specific recommendations","Residential and commercial lawns","Free on-site estimate"],"why":["Pricing based on actual lawn size and condition","Convenient seasonal scheduling","Can be paired with fertilization and weed control"],"metaDescription":"Core aeration and overseeding services in the Springfield, Missouri area. Request a free property-specific estimate."},
+  {"slug":"fertilization-weed-control","navLabel":"Fertilization & Weed Control","icon":"🌾","heroTitle":"Greener Grass, Fewer Weeds","heroSubtitle":"Fertilization and weed-control service tailored to your property.","intro":"Give your lawn the nutrients it needs while controlling weeds that compete for space, water, and sunlight. ET's Lawn Care & More offers fertilization and weed-control options for residential and commercial properties.","included":["Fertilization applications","Weed-control treatments","Seasonal service options","Residential and commercial properties","Free estimate"],"why":["Recommendations based on your lawn","Easy to combine with mowing service","Straightforward communication and scheduling"],"metaDescription":"Lawn fertilization and weed-control services for homes and businesses around Springfield, Missouri. Free estimates available."},
+  {"slug":"mulch-rock-installation","navLabel":"Mulch & Rock Installation","icon":"🪨","heroTitle":"Fresh Mulch &amp; Rock, Installed Right","heroSubtitle":"Refresh landscape beds and improve curb appeal with a free custom estimate.","intro":"Fresh mulch or decorative rock can quickly clean up a landscape and give beds a finished look. We'll look at the area, discuss the material you want, and provide a free estimate based on the actual project.","included":["Mulch installation","Decorative rock installation","Bed preparation and cleanup","Material and layout planning","Residential and commercial projects"],"why":["Free project-specific estimates","Clean, finished installation","Can be combined with bed cleanup and shrub trimming"],"metaDescription":"Mulch and decorative rock installation for landscaping around Springfield, Missouri. Request a free estimate."},
+  {"slug":"shrub-trimming","navLabel":"Shrub Trimming","icon":"✂️","heroTitle":"Clean, Well-Kept Shrubs &amp; Beds","heroSubtitle":"Professional shrub trimming for a neater, more polished property.","intro":"Overgrown or uneven shrubs can make the entire property look neglected. We trim and shape shrubs, clean up the clippings, and leave the surrounding beds looking neat.","included":["Shrub and hedge trimming","Light shaping","Clipping cleanup","One-time or seasonal service","Residential and commercial properties"],"why":["Free estimates","Easy to pair with mowing or bed cleanup","Dependable owner-operated service"],"metaDescription":"Shrub and hedge trimming services for homes and businesses around Springfield, Missouri. Free estimates available."},
+  {"slug":"pavers-small-hardscaping","navLabel":"Pavers & Small Hardscaping","icon":"🧱","heroTitle":"Small Hardscaping With a Big Impact","heroSubtitle":"Pavers and smaller outdoor projects designed around your space.","intro":"Add function and a more finished look to your outdoor space with pavers and small hardscaping projects. We'll review the area and provide a free custom estimate based on materials, preparation, and project size.","included":["Paver projects","Small hardscape improvements","Site preparation","Material and layout planning","Free project estimate"],"why":["Custom pricing for the actual project","Travel available for larger jobs","Landscaping and hardscaping handled together"],"metaDescription":"Pavers and small hardscaping projects around Springfield, Missouri. Contact ET's Lawn Care & More for a free estimate."},
+  {"slug":"snow-removal","navLabel":"Snow Removal","icon":"❄️","heroTitle":"Dependable Snow Removal When Winter Hits","heroSubtitle":"Seasonal snow-removal help for residential and commercial properties.","intro":"When snow makes driveways, walks, and access areas difficult to use, ET's Lawn Care & More offers snow-removal service based on availability and property needs.","included":["Residential snow removal","Commercial snow removal","Driveway and access-area clearing","One-time service options","Free estimate"],"why":["Local service and direct communication","Residential and commercial availability","Pricing based on the property and snowfall"],"metaDescription":"Residential and commercial snow removal around Springfield, Missouri. Contact ET's Lawn Care & More for availability and a free estimate."},
+  {"slug":"pressure-washing","navLabel":"Pressure Washing","icon":"💦","heroTitle":"A Cleaner Property From the Ground Up","heroSubtitle":"Pressure washing to freshen up exterior surfaces around your property.","intro":"Pressure washing can remove built-up dirt and grime from suitable exterior surfaces and help the rest of your property look as cared for as the lawn.","included":["Exterior surface cleaning","Property-specific evaluation","Residential and commercial service","One-time appointments","Free estimate"],"why":["Convenient add-on to outdoor property care","Free estimate before scheduling","Direct communication with a local owner-operated company"],"metaDescription":"Pressure washing services for residential and commercial properties around Springfield, Missouri. Free estimates available."}
 ]

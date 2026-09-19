@@ -376,6 +376,16 @@ h1, h2, h3, h4 {
   box-shadow: var(--shadow);
 }
 .calc-form { display: grid; gap: 22px; }
+#mowing-fields { display: grid; gap: 22px; }
+#mowing-fields[hidden] { display: none; }
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--lime);
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
 .calc-field label, .calc-field legend {
   display: block;
   font-family: var(--font-display);

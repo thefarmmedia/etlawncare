@@ -1,153 +1,56 @@
-/* =========================================================================
-   ET's Lawn Care & More — Project Calculator
-   All pricing below is PLACEHOLDER. Edit the CONFIG object to match your
-   real rates — nothing else in this file needs to change.
-   ========================================================================= */
-
-const CONFIG = {
-  // Base mowing rate, priced per square foot, at weekly frequency on easy terrain.
-  mowing: {
-    baseRatePerSqFt: 0.006,
-    minimumPrice: 35,
-  },
-
-  // Multiplies the base mowing price depending on how often you cut.
-  frequencyMultiplier: {
-    weekly:   { label: "Weekly",        value: 1.0 },
-    biweekly: { label: "Bi-Weekly",     value: 1.15 },
-    monthly:  { label: "Monthly",       value: 1.35 },
-    onetime:  { label: "One-Time Cut",  value: 1.5 },
-  },
-
-  // Multiplies the base mowing price depending on yard difficulty.
-  terrainMultiplier: {
-    easy:      { label: "Flat / Open",           value: 1.0 },
-    moderate:  { label: "Some Slopes/Obstacles",  value: 1.12 },
-    difficult: { label: "Steep / Heavily Obstructed", value: 1.28 },
-  },
-
-  // Flat-rate add-on services.
-  addons: {
-    edging:        { label: "Edging",                    price: 15 },
-    trimming:      { label: "Trimming / Weed-Eating",     price: 12 },
-    cleanup:       { label: "Leaf / Debris Cleanup",      price: 35 },
-    fertilization: { label: "Fertilization",              price: 45 },
-    weedControl:   { label: "Weed Control Treatment",     price: 40 },
-    mulching:      { label: "Mulching",                   price: 75 },
-    aeration:      { label: "Aeration",                   price: 60 },
-  },
-
-  sqftPerAcre: 43560,
-  estimateRangePct: 0.1, // +/- 10% shown as a low-high range
-};
-
-function toSqFt(value, unit) {
-  const num = Number(value) || 0;
-  return unit === "acres" ? num * CONFIG.sqftPerAcre : num;
-}
-
-function roundToNearest(value, step) {
-  return Math.round(value / step) * step;
-}
-
-function formatCurrency(value) {
-  return `$${Math.round(value).toLocaleString()}`;
-}
-
-function calculateEstimate({ sqft, frequencyKey, terrainKey, addonKeys }) {
-  const frequency = CONFIG.frequencyMultiplier[frequencyKey];
-  const terrain = CONFIG.terrainMultiplier[terrainKey];
-
-  const rawMowing = sqft * CONFIG.mowing.baseRatePerSqFt * frequency.value * terrain.value;
-  const mowingPrice = Math.max(CONFIG.mowing.minimumPrice, rawMowing);
-
-  const addonLines = addonKeys.map((key) => ({
-    key,
-    label: CONFIG.addons[key].label,
-    price: CONFIG.addons[key].price,
-  }));
-
-  const addonsTotal = addonLines.reduce((sum, line) => sum + line.price, 0);
-  const total = mowingPrice + addonsTotal;
-
-  return {
-    mowingPrice,
-    addonLines,
-    addonsTotal,
-    total,
-    low: roundToNearest(total * (1 - CONFIG.estimateRangePct), 5),
-    high: roundToNearest(total * (1 + CONFIG.estimateRangePct), 5),
-    frequencyLabel: frequency.label,
-    terrainLabel: terrain.label,
-  };
-}
-
-function populateAddonPriceTags() {
-  document.querySelectorAll("[data-price]").forEach((el) => {
-    const key = el.getAttribute("data-price");
-    const addon = CONFIG.addons[key];
-    if (addon) el.textContent = formatCurrency(addon.price);
-  });
-}
+const SQFT_PER_ACRE = 43560;
+const money = (value) => `$${Math.round(value).toLocaleString()}`;
 
 function initCalculatorForm() {
   const form = document.getElementById("calc-form");
+  if (!form) return;
+  const serviceType = document.getElementById("serviceType");
+  const mowingFields = document.getElementById("mowing-fields");
+  const lawnSize = document.getElementById("lawnSize");
   const resultBox = document.getElementById("calc-result");
   const priceEl = document.getElementById("result-price");
   const subEl = document.getElementById("result-sub");
   const breakdownEl = document.getElementById("result-breakdown");
 
-  if (!form) return;
+  function syncFields() {
+    const isMowing = serviceType.value === "mowing";
+    mowingFields.hidden = !isMowing;
+    lawnSize.required = isMowing;
+  }
+  serviceType.addEventListener("change", syncFields);
+  syncFields();
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const sizeValue = document.getElementById("lawnSize").value;
-    const sizeUnit = document.getElementById("sizeUnit").value;
-    const frequencyKey = document.getElementById("frequency").value;
-    const terrainKey = document.getElementById("terrain").value;
-    const addonKeys = Array.from(
-      form.querySelectorAll('input[name="addon"]:checked')
-    ).map((input) => input.value);
-
-    const sqft = toSqFt(sizeValue, sizeUnit);
-    if (sqft <= 0) return;
-
-    const estimate = calculateEstimate({ sqft, frequencyKey, terrainKey, addonKeys });
-
-    priceEl.textContent = `${formatCurrency(estimate.low)} – ${formatCurrency(estimate.high)}`;
-    subEl.textContent = `${estimate.frequencyLabel} mowing • ${estimate.terrainLabel} • ${sqft.toLocaleString()} sq ft`;
-
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
     breakdownEl.innerHTML = "";
-    const mowingLine = document.createElement("li");
-    mowingLine.innerHTML = `<span>Mowing (${estimate.frequencyLabel})</span><span>${formatCurrency(estimate.mowingPrice)}</span>`;
-    breakdownEl.appendChild(mowingLine);
-
-    estimate.addonLines.forEach((line) => {
-      const li = document.createElement("li");
-      li.innerHTML = `<span>${line.label}</span><span>${formatCurrency(line.price)}</span>`;
-      breakdownEl.appendChild(li);
-    });
-
+    if (serviceType.value === "mowing") {
+      const value = Number(lawnSize.value) || 0;
+      const unit = document.getElementById("sizeUnit").value;
+      const acres = unit === "acres" ? value : value / SQFT_PER_ACRE;
+      if (acres <= 0) return;
+      if (acres < 1) {
+        priceEl.textContent = "Starting at $50";
+        subEl.textContent = "Mowing & trimming minimum service price";
+      } else {
+        priceEl.textContent = `${money(acres * 95)} – ${money(acres * 135)}`;
+        subEl.textContent = `${acres.toFixed(acres % 1 ? 2 : 0)} acre${acres === 1 ? "" : "s"} at $95–$135 per acre`;
+      }
+      const frequency = document.getElementById("frequency").selectedOptions[0].textContent;
+      const terrain = document.getElementById("terrain").selectedOptions[0].textContent;
+      breakdownEl.innerHTML = `<li><span>Schedule</span><span>${frequency}</span></li><li><span>Property</span><span>${terrain}</span></li>`;
+    } else if (serviceType.value === "leaf") {
+      priceEl.textContent = "Starting at $150";
+      subEl.textContent = "Leaf and seasonal cleanup";
+      breakdownEl.innerHTML = "<li><span>Final price</span><span>Based on leaf volume and property</span></li>";
+    } else {
+      const labels = { landscaping: "Landscaping & bed cleanup", aeration: "Aeration & overseeding", other: "Outdoor property service" };
+      priceEl.textContent = "Free Estimate";
+      subEl.textContent = labels[serviceType.value];
+      breakdownEl.innerHTML = "<li><span>Pricing</span><span>Customized to your property</span></li>";
+    }
     resultBox.hidden = false;
     resultBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
   });
 }
 
-function initContactForm() {
-  const form = document.getElementById("contact-form");
-  const note = document.getElementById("form-note");
-  if (!form) return;
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    note.hidden = false;
-    form.reset();
-  });
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  populateAddonPriceTags();
-  initCalculatorForm();
-  initContactForm();
-});
+document.addEventListener("DOMContentLoaded", initCalculatorForm);
