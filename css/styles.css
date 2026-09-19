@@ -565,7 +565,8 @@ fieldset.addons legend { padding: 0 6px; }
 .gallery { background: var(--panel); }
 .gallery-placeholder {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  /* 4 across at full width so the 24-photo grid fills whole rows. */
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 18px;
 }
 .gallery-item {
@@ -949,12 +950,143 @@ fieldset.addons legend { padding: 0 6px; }
 .area-group a:hover { color: var(--lime); text-decoration: underline; }
 .area-group .muted { color: var(--steel-dim); font-size: .82rem; white-space: nowrap; }
 
+/* ===== Trust strip (years, insured, free estimates, res/comm) ===== */
+.trust-section { padding: 42px 0; background: var(--black); border-bottom: 1px solid var(--line); }
+.trust-strip {
+  display: grid;
+  /* 160px keeps all four on one row inside .container.narrow too. */
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin: 36px 0;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 18px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .95rem;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--white);
+  text-align: center;
+}
+.trust-icon { font-size: 1.3rem; }
+
+/* ===== Owner photo (About) ===== */
+.owner-photo { margin: 0 0 28px; }
+.owner-photo img {
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--lime);
+  box-shadow: var(--shadow);
+}
+.owner-photo figcaption {
+  margin-top: 12px;
+  font-family: var(--font-display);
+  font-size: .85rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--lime);
+  text-align: center;
+}
+/* Float it beside the introduction on wider screens. */
+@media (min-width: 761px) {
+  .owner-photo-inline {
+    float: right;
+    width: 300px;
+    margin: 0 0 22px 32px;
+  }
+}
+
+/* ===== Featured service cards (homepage) ===== */
+.cards-feature { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.card-feature { padding: 0; overflow: hidden; }
+.card-photo {
+  aspect-ratio: 16 / 10;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 2px solid var(--lime);
+}
+.card-feature .card-body { padding: 24px; }
+.card-feature .card-icon { margin-bottom: 8px; }
+.subsection-title {
+  text-align: center;
+  margin: 52px 0 4px;
+  font-size: 1.05rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--steel-dim);
+  font-weight: 600;
+}
+
+/* ===== Footer contact ===== */
+.footer-contact {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-size: .9rem;
+}
+.footer-phone {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--lime);
+  letter-spacing: .02em;
+}
+.footer-contact a:hover { color: var(--lime); }
+
+/* ===== Sticky call bar (mobile only) ===== */
+.sticky-call { display: none; }
+@media (max-width: 760px) {
+  .sticky-call {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    /* Sit above the iOS home indicator rather than under it. */
+    padding: 15px 18px calc(15px + env(safe-area-inset-bottom));
+    background: linear-gradient(135deg, var(--lime-soft), var(--lime) 45%, var(--green) 100%);
+    color: var(--black);
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    box-shadow: 0 -6px 22px rgba(0,0,0,.6), 0 0 26px rgba(14,242,1,.3);
+    border-top: 1px solid rgba(0,0,0,.25);
+  }
+  .sticky-call:active { filter: brightness(.92); }
+  .sticky-call-icon { font-size: 1.15rem; }
+  /* Keep the bar from covering the last of the page content. */
+  body { padding-bottom: 68px; }
+}
+@media (max-width: 760px) and (prefers-reduced-motion: no-preference) {
+  .sticky-call { transition: filter .15s ease; }
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 860px) {
   .contact-inner { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   .service-columns { grid-template-columns: 1fr; }
+  /* Two-up on phones instead of one full-width square per photo. */
+  .gallery-placeholder { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .trust-strip { grid-template-columns: 1fr 1fr; }
+  .trust-item { font-size: .78rem; padding: 14px 10px; flex-direction: column; gap: 6px; }
 }
 @media (max-width: 760px) {
   .main-nav { display: none; }

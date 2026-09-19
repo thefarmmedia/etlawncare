@@ -18,6 +18,7 @@ const faqs = JSON.parse(fs.readFileSync(path.join(__dirname, "data/faq.json"), "
 
 const SITE_NAME = "ET&rsquo;s Lawn Care &amp; More";
 const TAGLINE = "The grass is greener with us";
+const OWNER = "Eli";
 
 const PHONE = "(417) 849-7131";
 const PHONE_HREF = "+14178497131";
@@ -48,77 +49,138 @@ const socialProse = () => {
 // Real jobsite photos, added to assets/gallery/. Reused across hero banners
 // and the homepage gallery so there's no separate stock-photo step.
 const PHOTOS = {
-  mowerAction: "assets/gallery/mower-action.jpg",
-  mowerLowAngle: "assets/gallery/mower-lowangle.jpg",
-  lawnStripes: "assets/gallery/lawn-stripes-closeup.jpg",
-  mulchBed: "assets/gallery/mulch-bed.jpg",
-  backyardLandscaping: "assets/gallery/backyard-landscaping.jpg",
-  trimming: "assets/gallery/trimming-action.jpg",
-  trimming2: "assets/gallery/trimming-action-2.jpg",
-  lawnWideTrees: "assets/gallery/lawn-wide-trees.jpg",
-  brickHouseLawn: "assets/gallery/brick-house-lawn.jpg",
-  houseGardenLawn: "assets/gallery/house-garden-lawn.jpg",
-  backyardPatioGarden: "assets/gallery/backyard-patio-garden.jpg",
-  slopedSideYard: "assets/gallery/sloped-side-yard.jpg",
-  manicuredTopiaryYard: "assets/gallery/manicured-topiary-yard.jpg",
-  courtyardTreesLawn: "assets/gallery/courtyard-trees-lawn.jpg",
-  luxuryPoolLawn: "assets/gallery/luxury-pool-lawn.jpg",
-  mowerCrewAction: "assets/gallery/mower-crew-action.jpg",
-  dewGrassMacro: "assets/gallery/dew-grass-macro.jpg",
-  modernHouseLawn: "assets/gallery/modern-house-lawn.jpg",
-  shadedTreeLawn: "assets/gallery/shaded-tree-lawn.jpg",
-  brickMansionFrontyard: "assets/gallery/brick-mansion-frontyard.jpg",
+  // Striped lawns / finished mows
+  fencedDeepStripes: "assets/gallery/fenced-lawn-deep-stripes.jpg",
+  brickHomeStripes: "assets/gallery/brick-home-striped-lawn.jpg",
+  farmhouseSunset: "assets/gallery/farmhouse-sunset-lawn.jpg",
+  countryWideLawn: "assets/gallery/country-home-wide-lawn.jpg",
+  largeBrickHome: "assets/gallery/large-brick-home-lawn.jpg",
+  brickHomeFront: "assets/gallery/brick-home-front-lawn.jpg",
+  brickCurbAppeal: "assets/gallery/brick-home-curb-appeal.jpg",
+  garageHomeStripes: "assets/gallery/garage-home-stripes.jpg",
+  solarHomeStripes: "assets/gallery/solar-home-backyard-stripes.jpg",
+  modernHomeBackyard: "assets/gallery/modern-home-backyard.jpg",
+  woodedBackyard: "assets/gallery/wooded-backyard-stripes.jpg",
+  deckShadedLawn: "assets/gallery/deck-shaded-lawn.jpg",
+  deckBackyardStripes: "assets/gallery/deck-backyard-stripes.jpg",
+  treeLinedStripes: "assets/gallery/tree-lined-stripes.jpg",
+  fencedYardStripes: "assets/gallery/fenced-yard-stripes.jpg",
+  fencedTreeBackyard: "assets/gallery/fenced-tree-backyard.jpg",
+  patioYardStripes: "assets/gallery/patio-yard-stripes.jpg",
+  backyardShedStripes: "assets/gallery/backyard-shed-stripes.jpg",
+  backyardTrampoline: "assets/gallery/backyard-trampoline-lawn.jpg",
+  frontLawnNeighborhood: "assets/gallery/front-lawn-neighborhood.jpg",
+  streetViewBeds: "assets/gallery/street-view-lawn-beds.jpg",
+  sideYardStrip: "assets/gallery/side-yard-strip.jpg",
+  // Edging / detail
+  drivewayEdge: "assets/gallery/driveway-edge-detail.jpg",
+  cornerLotEdging: "assets/gallery/corner-lot-edging.jpg",
+  // Equipment and work in progress
+  mowerOnLawn: "assets/gallery/mower-on-open-lawn.jpg",
+  mowerLargeProperty: "assets/gallery/mower-large-property.jpg",
+  mowingInProgress: "assets/gallery/mowing-in-progress.jpg",
+  mowersParkedShade: "assets/gallery/mowers-parked-shade.jpg",
+  trailerLoaded: "assets/gallery/trailer-mowers-loaded.jpg",
+  trailerSunset: "assets/gallery/trailer-sunset.jpg",
+  truckRainbow: "assets/gallery/truck-trailer-rainbow.jpg",
+  truckNeighborhood: "assets/gallery/truck-trailer-neighborhood.jpg",
+  crewOnProperty: "assets/gallery/crew-on-property.jpg",
+  // Cleanups
+  leafCleanup: "assets/gallery/leaf-cleanup-bagged.jpg",
+  // Commercial
+  commercialHedgeRow: "assets/gallery/commercial-hedge-row.jpg",
+  commercialPropertyLawn: "assets/gallery/commercial-property-lawn.jpg",
+  commercialBuildingLawn: "assets/gallery/commercial-building-lawn.jpg",
+  commercialShrubs: "assets/gallery/commercial-shrub-trimming.jpg",
+  // Landscaping and hardscaping
+  rockBedLandscaping: "assets/gallery/rock-bed-landscaping.jpg",
+  paverPatioFinished: "assets/gallery/paver-patio-finished.jpg",
+  paverPatioInstall: "assets/gallery/paver-patio-install.jpg",
 };
 
 const GALLERY_IMAGES = [
-  { src: PHOTOS.mowerCrewAction, alt: "Crew member mowing a front lawn with a commercial zero-turn mower" },
-  { src: PHOTOS.backyardPatioGarden, alt: "Landscaped backyard patio with manicured lawn" },
-  { src: PHOTOS.brickMansionFrontyard, alt: "Manicured front lawn of a brick home" },
-  { src: PHOTOS.mulchBed, alt: "Freshly mulched flower bed" },
-  { src: PHOTOS.modernHouseLawn, alt: "Modern home with a freshly cut lawn" },
-  { src: PHOTOS.slopedSideYard, alt: "Freshly mowed sloped side yard" },
-  { src: PHOTOS.lawnStripes, alt: "Freshly striped lawn close-up" },
-  { src: PHOTOS.courtyardTreesLawn, alt: "Shaded backyard lawn with mature trees" },
+  { src: PHOTOS.fencedDeepStripes, alt: "Fenced backyard mowed with deep, even stripes" },
+  { src: PHOTOS.farmhouseSunset, alt: "White farmhouse with a freshly mowed lawn at sunset" },
+  { src: PHOTOS.largeBrickHome, alt: "Large brick home with a striped front lawn" },
+  { src: PHOTOS.rockBedLandscaping, alt: "Decorative rock bed and shrubs along a brick home" },
+  { src: PHOTOS.countryWideLawn, alt: "Wide country property mowed in clean stripes" },
+  { src: PHOTOS.mowingInProgress, alt: "Mowing in progress on a shaded property" },
+  { src: PHOTOS.solarHomeStripes, alt: "Striped backyard behind a brick home with solar panels" },
+  { src: PHOTOS.paverPatioFinished, alt: "Finished paver landing at a back entry" },
+  { src: PHOTOS.brickHomeStripes, alt: "Brick home with a striped lawn along a wood fence" },
+  { src: PHOTOS.leafCleanup, alt: "Bagged leaves ready to haul off after a fall cleanup" },
+  { src: PHOTOS.commercialHedgeRow, alt: "Trimmed hedge row along a commercial building" },
+  { src: PHOTOS.deckShadedLawn, alt: "Shaded backyard with mature trees mowed in stripes" },
+  { src: PHOTOS.cornerLotEdging, alt: "Corner lot with crisp edging along the sidewalk" },
+  { src: PHOTOS.trailerSunset, alt: "Mower trailer loaded up at sunset after a day of routes" },
+  { src: PHOTOS.brickCurbAppeal, alt: "Brick home front lawn mowed for curb appeal" },
+  { src: PHOTOS.woodedBackyard, alt: "Large wooded backyard mowed in clean stripes" },
+  { src: PHOTOS.commercialPropertyLawn, alt: "Commercial property lawn mowed in stripes" },
+  { src: PHOTOS.paverPatioInstall, alt: "Paver patio installation at a back door" },
+  { src: PHOTOS.streetViewBeds, alt: "Street view of a striped lawn and landscaped beds" },
+  { src: PHOTOS.mowerOnLawn, alt: "Zero-turn mower on a large open lawn" },
+  { src: PHOTOS.modernHomeBackyard, alt: "Modern home backyard freshly mowed" },
+  { src: PHOTOS.truckRainbow, alt: "Truck and mower trailer under a rainbow after a storm" },
+  { src: PHOTOS.fencedTreeBackyard, alt: "Fenced backyard with a shade tree mowed in stripes" },
+  { src: PHOTOS.commercialShrubs, alt: "Shaped shrubs along a commercial building" },
+  { src: PHOTOS.backyardShedStripes, alt: "Backyard mowed in stripes beside a shed and white fence" },
+  { src: PHOTOS.backyardTrampoline, alt: "Backyard with a trampoline mowed in clean stripes" },
+  { src: PHOTOS.commercialBuildingLawn, alt: "Commercial building with a freshly mowed lawn" },
+  { src: PHOTOS.drivewayEdge, alt: "Crisp mowing and edging along a driveway and walkway" },
+  { src: PHOTOS.fencedYardStripes, alt: "Fenced backyard mowed in even stripes" },
+  { src: PHOTOS.mowerLargeProperty, alt: "Zero-turn mower working a large open property" },
+  { src: PHOTOS.mowersParkedShade, alt: "Mowers parked in the shade between jobs" },
+  { src: PHOTOS.patioYardStripes, alt: "Striped backyard lawn beside a patio seating area" },
+  { src: PHOTOS.sideYardStrip, alt: "Narrow side yard mowed clean end to end" },
+  { src: PHOTOS.trailerLoaded, alt: "Trailer loaded with commercial mowers, ready for the route" },
+  { src: PHOTOS.garageHomeStripes, alt: "Detached garage with a boldly striped lawn" },
+  { src: PHOTOS.treeLinedStripes, alt: "Tree-lined backyard mowed in clean stripes" },
 ];
 
 // Rotated across town pages so nearby pages don't all look identical.
 const TOWN_HERO_PHOTOS = [
-  PHOTOS.lawnWideTrees,
-  PHOTOS.brickHouseLawn,
-  PHOTOS.houseGardenLawn,
-  PHOTOS.backyardLandscaping,
-  PHOTOS.backyardPatioGarden,
-  PHOTOS.slopedSideYard,
-  PHOTOS.courtyardTreesLawn,
-  PHOTOS.modernHouseLawn,
-  PHOTOS.brickMansionFrontyard,
-  PHOTOS.shadedTreeLawn,
+  PHOTOS.countryWideLawn,
+  PHOTOS.brickHomeStripes,
+  PHOTOS.farmhouseSunset,
+  PHOTOS.largeBrickHome,
+  PHOTOS.deckBackyardStripes,
+  PHOTOS.garageHomeStripes,
+  PHOTOS.woodedBackyard,
+  PHOTOS.modernHomeBackyard,
+  PHOTOS.brickCurbAppeal,
+  PHOTOS.fencedTreeBackyard,
+  PHOTOS.frontLawnNeighborhood,
+  PHOTOS.treeLinedStripes,
 ];
 
-// Reviews for ET's Lawn Care & More. The previous brand's Facebook reviews
-// were removed with the rebrand — they name real customers and credit a
-// different operator, so they can't be carried over. Add real reviews here as
+// Reviews for ET's Lawncare & More. The previous brand's Facebook reviews were
+// removed with the rebrand — they name real customers and credit a different
+// operator, so they can't be carried over. Add real reviews here as
 // { quote, name } and the testimonial sections switch themselves back on.
 const TESTIMONIALS = [];
 
-const SERVICE_HERO_PHOTOS = {
-  "mowing-trimming": PHOTOS.mowerCrewAction,
-  "landscaping-bed-cleanups": PHOTOS.backyardLandscaping,
-  "leaf-seasonal-cleanups": PHOTOS.trimming,
-  "aeration-overseeding": PHOTOS.dewGrassMacro,
-  "fertilization-weed-control": PHOTOS.dewGrassMacro,
-  "mulch-rock-installation": PHOTOS.mulchBed,
-  "shrub-trimming": PHOTOS.trimming2,
-  "pavers-small-hardscaping": PHOTOS.backyardPatioGarden,
-  "snow-removal": PHOTOS.shadedTreeLawn,
-  "pressure-washing": PHOTOS.modernHouseLawn,
-};
+const SERVICE_HERO_PHOTOS = Object.fromEntries(services.map((x) => [x.slug, x.photo]));
 
 const SOCIAL_ICONS = {
   facebook: `<svg viewBox="0 0 24 24"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.89h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94Z"/></svg>`,
   instagram: `<svg viewBox="0 0 24 24"><path d="M12 2c2.72 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.21.6 1.76 1.15.55.55.89 1.1 1.15 1.76.25.64.42 1.37.47 2.43.05 1.06.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.15 1.76 4.9 4.9 0 0 1-1.76 1.15c-.64.25-1.37.42-2.43.47-1.06.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.76-1.15 4.9 4.9 0 0 1-1.15-1.76c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.21 1.15-1.76A4.9 4.9 0 0 1 5.44.54C6.08.29 6.81.12 7.87.07 8.94.02 9.28 0 12 0Zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4Zm5.2-8.4a1.17 1.17 0 1 1 0-2.34 1.17 1.17 0 0 1 0 2.34Z"/></svg>`,
   youtube: `<svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.51 3.5 12 3.5 12 3.5s-7.51 0-9.38.55A3.02 3.02 0 0 0 .5 6.19 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.81 3.02 3.02 0 0 0 2.12 2.14c1.87.55 9.38.55 9.38.55s7.51 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.81ZM9.6 15.5v-7l6.42 3.5Z"/></svg>`,
 };
+
+const TRUST_POINTS = [
+  { icon: "🗓️", label: "5 Years in Business" },
+  { icon: "🛡️", label: "Fully Insured" },
+  { icon: "💬", label: "Free Estimates" },
+  { icon: "🏠", label: "Residential &amp; Commercial" },
+];
+
+function trustStrip() {
+  return `<div class="trust-strip">
+        ${TRUST_POINTS.map(
+          (t) => `<div class="trust-item"><span class="trust-icon">${t.icon}</span><span>${t.label}</span></div>`
+        ).join("\n        ")}
+      </div>`;
+}
 
 function renderTestimonialCards(list) {
   return list
@@ -222,6 +284,10 @@ function footer(base) {
       <img src="${base}assets/logo-mark.png" alt="${SITE_NAME} logo" />
       <span>${SITE_NAME}</span>
     </div>
+    <div class="footer-contact">
+      <a href="tel:${PHONE_HREF}" class="footer-phone">&#128222; ${PHONE}</a>
+      <a href="mailto:${EMAIL}">${EMAIL}</a>
+    </div>
     <div class="footer-social">
       ${socialTextLinks()}
     </div>
@@ -229,6 +295,11 @@ function footer(base) {
     <p class="footer-copy">&copy; <span id="year"></span> ${SITE_NAME}. All rights reserved.</p>
   </div>
 </footer>
+
+<a href="tel:${PHONE_HREF}" class="sticky-call" aria-label="Call ${SITE_NAME} at ${PHONE}">
+  <span class="sticky-call-icon" aria-hidden="true">&#128222;</span>
+  <span class="sticky-call-text">Call Now &middot; ${PHONE}</span>
+</a>
 <script src="${base}js/main.js"></script>`;
 }
 
@@ -376,7 +447,7 @@ function renderAreaHub() {
   ${breadcrumb(base, [{ label: "Home", href: `${base}index.html` }, { label: "Service Areas" }])}
 
   <section class="section service-hero">
-    <div class="service-hero-bg" style="${serviceHeroBgStyle(base, PHOTOS.brickMansionFrontyard)}" aria-hidden="true"></div>
+    <div class="service-hero-bg" style="${serviceHeroBgStyle(base, PHOTOS.largeBrickHome)}" aria-hidden="true"></div>
     <div class="container">
       <div class="service-hero-icon">📍</div>
       <h1>Service Areas</h1>
@@ -516,7 +587,7 @@ function renderAboutPage() {
   ${breadcrumb(base, [{ label: "Home", href: `${base}index.html` }, { label: "About" }])}
 
   <section class="section service-hero">
-    <div class="service-hero-bg" style="${serviceHeroBgStyle(base, PHOTOS.brickHouseLawn)}" aria-hidden="true"></div>
+    <div class="service-hero-bg" style="${serviceHeroBgStyle(base, PHOTOS.crewOnProperty)}" aria-hidden="true"></div>
     <div class="container">
       <div class="service-hero-icon">🌿</div>
       <h1>About ${SITE_NAME}</h1>
@@ -527,6 +598,10 @@ function renderAboutPage() {
 
   <section class="section">
     <div class="container narrow">
+      <figure class="owner-photo owner-photo-inline">
+        <img src="${base}assets/eli-owner.jpg" alt="${OWNER}, owner of ${SITE_NAME}" />
+        <figcaption>${OWNER} &mdash; Owner, ${SITE_NAME}</figcaption>
+      </figure>
       <p class="eyebrow">Meet the owner</p>
       <h2>Hi, I&rsquo;m Eli.</h2>
       <p class="service-intro">I started ${SITE_NAME} five years ago with the goal of providing dependable, high-quality lawn care and landscaping services to homeowners and businesses throughout the Springfield, Missouri area. I take pride in showing up, communicating with my customers, and treating every property like it&rsquo;s my own.</p>
@@ -539,6 +614,8 @@ function renderAboutPage() {
         <li>Insured service for residential and commercial properties</li>
         <li>Quality you can see — clean lines, healthy grass, a yard that looks cared for</li>
       </ul>
+
+      ${trustStrip()}
 
       <div class="cta-banner">
         <p>See what lawn care costs for your property.</p>
@@ -553,7 +630,7 @@ function renderAboutPage() {
     <div class="container">
       <h2 class="section-title">Recent Work</h2>
       <div class="gallery-placeholder">
-        ${GALLERY_IMAGES.slice(0, 3)
+        ${GALLERY_IMAGES.slice(0, 8)
           .map((g) => `<div class="gallery-item"><img src="${g.src}" alt="${g.alt}" loading="lazy" /></div>`)
           .join("\n        ")}
       </div>
@@ -606,7 +683,7 @@ function renderBlogIndex() {
   ${breadcrumb(base, [{ label: "Home", href: `${base}index.html` }, { label: "Blog" }])}
 
   <section class="section service-hero">
-    <div class="service-hero-bg" style="${serviceHeroBgStyle(base, PHOTOS.courtyardTreesLawn)}" aria-hidden="true"></div>
+    <div class="service-hero-bg" style="${serviceHeroBgStyle(base, PHOTOS.deckShadedLawn)}" aria-hidden="true"></div>
     <div class="container">
       <div class="service-hero-icon">📝</div>
       <h1>Lawn Care Tips &amp; Guides</h1>
@@ -691,7 +768,7 @@ function renderFAQPage() {
   ${breadcrumb(base, [{ label: "Home", href: `${base}index.html` }, { label: "FAQ" }])}
 
   <section class="section service-hero">
-    <div class="service-hero-bg" style="${serviceHeroBgStyle(base, PHOTOS.manicuredTopiaryYard)}" aria-hidden="true"></div>
+    <div class="service-hero-bg" style="${serviceHeroBgStyle(base, PHOTOS.streetViewBeds)}" aria-hidden="true"></div>
     <div class="container">
       <div class="service-hero-icon">❓</div>
       <h1>Frequently Asked Questions</h1>
@@ -725,13 +802,27 @@ function renderFAQPage() {
 
 function renderHomepage() {
   const base = "";
-  const serviceCards = services
+  const featuredCards = services
+    .filter((s) => s.featured)
     .map(
-      (s) => `<a class="card" href="services/${s.slug}.html">
-          <div class="card-icon">${s.icon}</div>
-          <h3>${s.navLabel}</h3>
-          <p>${s.heroSubtitle}</p>
-          <span class="card-link">Learn more &rarr;</span>
+      (s) => `<a class="card card-feature" href="services/${s.slug}.html">
+          <div class="card-photo" style="background-image: url('${s.photo}');" aria-hidden="true"></div>
+          <div class="card-body">
+            <div class="card-icon">${s.icon}</div>
+            <h3>${s.navLabel}</h3>
+            <p>${s.heroSubtitle}</p>
+            <span class="card-link">Learn more &rarr;</span>
+          </div>
+        </a>`
+    )
+    .join("\n        ");
+
+  const otherServiceCards = services
+    .filter((s) => !s.featured)
+    .map(
+      (s) => `<a class="mini-card" href="services/${s.slug}.html">
+          <span class="card-icon">${s.icon}</span>
+          <span>${s.navLabel}</span>
         </a>`
     )
     .join("\n        ");
@@ -760,7 +851,7 @@ function renderHomepage() {
   const main = `<main id="top">
 
   <section class="hero">
-    <div class="hero-bg" style="${heroBgStyle(base, PHOTOS.houseGardenLawn)}" aria-hidden="true"></div>
+    <div class="hero-bg" style="${heroBgStyle(base, PHOTOS.farmhouseSunset)}" aria-hidden="true"></div>
     <div class="container hero-inner">
       <img src="assets/logo.png" alt="${SITE_NAME} — ${TAGLINE}" class="hero-logo" />
       <h1>The Grass Is <span>Greener</span> With Us.</h1>
@@ -779,12 +870,23 @@ function renderHomepage() {
     </div>
   </section>
 
+  <section class="section trust-section">
+    <div class="container">
+      ${trustStrip()}
+    </div>
+  </section>
+
   <section id="services" class="section services">
     <div class="container">
       <h2 class="section-title">What We Do</h2>
-      <p class="section-sub">Full-service lawn care, priced fair and done right.</p>
-      <div class="cards">
-        ${serviceCards}
+      <p class="section-sub">Mowing, landscaping, and leaf removal are the backbone &mdash; but the &ldquo;&amp; More&rdquo; is the rest of this list.</p>
+      <div class="cards cards-feature">
+        ${featuredCards}
+      </div>
+
+      <h3 class="subsection-title">Also Offered</h3>
+      <div class="mini-cards">
+        ${otherServiceCards}
       </div>
     </div>
   </section>
@@ -872,7 +974,7 @@ function renderHomepage() {
   <section id="gallery" class="section gallery">
     <div class="container">
       <h2 class="section-title">Our Work</h2>
-      <p class="section-sub">Photos from recent jobs around the Springfield area. Follow us for the latest cuts and transformations.</p>
+      <p class="section-sub">Real jobs, real properties, all around the Springfield area &mdash; every photo on this page is ${OWNER}&rsquo;s own work.</p>
       <div class="gallery-placeholder">
         ${GALLERY_IMAGES.map((g) => `<div class="gallery-item"><img src="${g.src}" alt="${g.alt}" loading="lazy" /></div>`).join("\n        ")}
       </div>
