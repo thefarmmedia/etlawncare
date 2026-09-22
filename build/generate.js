@@ -96,7 +96,6 @@ const PHOTOS = {
   // Landscaping and hardscaping
   rockBedLandscaping: "assets/gallery/rock-bed-landscaping.jpg",
   paverPatioFinished: "assets/gallery/paver-patio-finished.jpg",
-  paverPatioInstall: "assets/gallery/paver-patio-install.jpg",
 };
 
 const GALLERY_IMAGES = [
@@ -117,7 +116,6 @@ const GALLERY_IMAGES = [
   { src: PHOTOS.brickCurbAppeal, alt: "Brick home front lawn mowed for curb appeal" },
   { src: PHOTOS.woodedBackyard, alt: "Large wooded backyard mowed in clean stripes" },
   { src: PHOTOS.commercialPropertyLawn, alt: "Commercial property lawn mowed in stripes" },
-  { src: PHOTOS.paverPatioInstall, alt: "Paver patio installation at a back door" },
   { src: PHOTOS.streetViewBeds, alt: "Street view of a striped lawn and landscaped beds" },
   { src: PHOTOS.mowerOnLawn, alt: "Zero-turn mower on a large open lawn" },
   { src: PHOTOS.modernHomeBackyard, alt: "Modern home backyard freshly mowed" },
