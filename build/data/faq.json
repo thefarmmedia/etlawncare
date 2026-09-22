@@ -1,34 +1,54 @@
 [
   {
-    "q": "How does the online price estimate work?",
-    "a": "Our project calculator uses your lawn size, mowing frequency, terrain, and any add-on services to generate an instant ballpark estimate. It's a great starting point, but we confirm exact pricing after a quick look at your property, since things like access, obstacles, and overgrowth can affect the final price."
+    "q": "Do you offer free estimates?",
+    "a": "Yes, every estimate is free. Fill out the estimate form on the homepage, or call or text (417) 849-7131 and we'll get you a price for your property."
+  },
+  {
+    "q": "Are you insured?",
+    "a": "Yes, ET's Lawn Care & More is fully insured. If you need proof of insurance for an HOA or a commercial property manager, just ask and we'll send it over."
+  },
+  {
+    "q": "How long have you been in business?",
+    "a": "Five years. Eli started ET's Lawn Care & More to do dependable, high-quality work around Springfield, and it's grown on repeat customers and referrals since."
+  },
+  {
+    "q": "What does mowing cost?",
+    "a": "Mowing starts at a $50 minimum. Larger properties run $95 to $135 per acre depending on terrain, obstacles, and how tall the grass has gotten. Send in the estimate form and you'll get an exact price for your property, not a guess."
+  },
+  {
+    "q": "What does a leaf cleanup cost?",
+    "a": "Leaf and seasonal cleanups start at a $150 minimum. Where it lands above that depends on the size of the property and how heavy the leaf cover is."
+  },
+  {
+    "q": "How is landscaping or aeration priced?",
+    "a": "Per project, because no two properties are alike. Landscaping, aeration and overseeding, mulch and rock, hardscaping, and pressure washing all get a free on-site estimate rather than a one-size-fits-all number."
   },
   {
     "q": "What areas do you service?",
-    "a": "We're based in Springfield, MO and serve homeowners and businesses within roughly a 60-mile radius, including Ozark, Nixa, Republic, Branson, Bolivar, and dozens of other nearby towns. Check our Service Areas page for the full list, and reach out if you don't see your town — we're always adding areas."
+    "a": "We're based in Springfield, MO and cover the surrounding towns — Ozark, Nixa, Republic, Branson, Bolivar, and dozens more. For bigger jobs we'll travel over 75 miles, so if you're farther out than you'd expect, still reach out and ask."
+  },
+  {
+    "q": "Do you work with businesses, or just homes?",
+    "a": "Both. Residential properties and commercial accounts alike — office buildings, lots, and hedge rows included. Commercial work can be scheduled around your business hours."
+  },
+  {
+    "q": "Do you offer one-time services, or only recurring?",
+    "a": "Both. Plenty of customers start with a single mow or a one-time cleanup, and many move to a regular schedule once they see the work. There's no pressure to commit upfront."
   },
   {
     "q": "Do I need to sign a contract?",
-    "a": "No long-term contracts required. You can schedule weekly, bi-weekly, monthly, or one-time service, and adjust or cancel as your needs change."
+    "a": "No. You can schedule weekly, bi-weekly, monthly, or one-time service, and change or cancel it as your needs change."
   },
   {
     "q": "What if it rains on my scheduled mowing day?",
-    "a": "We'll reschedule for the next available day rather than mow a soaked lawn, which can damage grass and leave ruts. You don't need to do anything — we'll handle the rescheduling and keep you posted."
-  },
-  {
-    "q": "How do I pay for service?",
-    "a": "We offer flexible payment options, including card-on-file billing so you don't have to worry about it after each visit."
-  },
-  {
-    "q": "Do you offer one-time cleanups, or only recurring service?",
-    "a": "Both. Plenty of customers start with a one-time cleanup or single mow, and many move to a recurring schedule once they see the results. There's no pressure to commit upfront."
-  },
-  {
-    "q": "Is fertilization and weed control safe for kids and pets?",
-    "a": "We use properly timed, professionally applied treatments and can walk you through recommended re-entry times for your yard. Let us know if you have specific concerns and we'll factor that into your treatment plan."
+    "a": "We'll move you to the next available day rather than mow a soaked lawn, which tears up the turf and leaves ruts. You don't need to do anything — we'll handle the rescheduling and keep you posted."
   },
   {
     "q": "How quickly can you get to a new customer?",
-    "a": "It depends on the season and our route schedule, but we move quickly to get new customers on the calendar. Reach out and we'll give you a straight answer on timing for your area."
+    "a": "It depends on the season and how the route is running, but we move fast on new customers. Reach out and you'll get a straight answer on timing for your area."
+  },
+  {
+    "q": "What else do you do besides mowing?",
+    "a": "Landscaping and bed cleanups, leaf and seasonal cleanups, aeration and overseeding, fertilization and weed control, mulch and rock installation, shrub trimming, pavers and small hardscaping, pressure washing, and snow removal. If it's an outdoor project on your property, ask — that's what the \"& More\" is for."
   }
 ]

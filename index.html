@@ -107,10 +107,10 @@
         <a href="faq.html">FAQ</a>
         </div>
       </details>
-      <a href="index.html#calculator">Get a Quote</a>
+      <a href="index.html#estimate">Get a Quote</a>
       <a href="index.html#contact">Contact</a>
     </nav>
-    <a href="index.html#calculator" class="btn btn-primary nav-cta">Free Quote</a>
+    <a href="index.html#estimate" class="btn btn-primary nav-cta">Free Quote</a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -130,7 +130,7 @@
         <span class="mower-emoji">🚜</span>
       </div>
       <div class="hero-actions">
-        <a href="#calculator" class="btn btn-primary btn-lg">Calculate My Price</a>
+        <a href="#estimate" class="btn btn-primary btn-lg">Request a Free Estimate</a>
         <a href="#contact" class="btn btn-outline btn-lg">Contact Us</a>
       </div>
       <div class="hero-social">
@@ -218,68 +218,76 @@
     </div>
   </section>
 
-  <section id="calculator" class="section calculator-section">
+  <section id="estimate" class="section calculator-section">
     <div class="container">
-      <h2 class="section-title">Get a Quick Ballpark Estimate</h2>
-      <p class="section-sub">Choose a service below. We can give you a useful mowing range or starting price now, then confirm your exact price with a free estimate.</p>
+      <h2 class="section-title">Request a Free Estimate</h2>
+      <p class="section-sub">Tell Eli about your property and what you need. Every estimate is free, and you&rsquo;ll usually hear back the same day. In a hurry? Call or text <a href="tel:+14178497131" class="inline-phone">(417) 849-7131</a>.</p>
 
-      <div class="calculator" id="calculator-tool">
-        <form id="calc-form" class="calc-form">
+      <div class="calculator">
+        <form id="estimate-form" class="calc-form" novalidate>
 
           <div class="calc-field">
-            <label for="serviceType">What service do you need?</label>
-            <select id="serviceType">
-              <option value="mowing">Lawn Mowing & Trimming</option>
-              <option value="leaf">Leaf / Seasonal Cleanup</option>
-              <option value="landscaping">Landscaping & Bed Cleanup</option>
-              <option value="aeration">Aeration & Overseeding</option>
-              <option value="other">Another Service</option>
-            </select>
-          </div>
-
-          <div id="mowing-fields">
-          <div class="calc-field">
-            <label for="lawnSize">Lawn Size</label>
-            <div class="input-row">
-              <input type="number" id="lawnSize" min="0" step="1" placeholder="e.g. 8000" required />
-              <select id="sizeUnit">
-                <option value="sqft">sq ft</option>
-                <option value="acres">acres</option>
-              </select>
-            </div>
-            <small>Not sure? An approximate size is fine. Mowing has a $50 minimum; acreage mowing generally runs $95–$135 per acre.</small>
+            <label for="ef-name">Your Name</label>
+            <input type="text" id="ef-name" name="name" autocomplete="name" required />
           </div>
 
           <div class="calc-field">
-            <label for="frequency">Mowing Frequency</label>
-            <select id="frequency">
-              <option value="weekly">Weekly (best rate)</option>
-              <option value="biweekly">Bi-Weekly</option>
-              <option value="monthly">Monthly</option>
-              <option value="onetime">One-Time Cut</option>
-            </select>
+            <label for="ef-phone">Phone</label>
+            <input type="tel" id="ef-phone" name="phone" autocomplete="tel" required />
+            <small>Best way to reach you &mdash; Eli will call or text back.</small>
           </div>
 
           <div class="calc-field">
-            <label for="terrain">Yard Terrain</label>
-            <select id="terrain">
-              <option value="easy">Flat / Open, Few Obstacles</option>
-              <option value="moderate">Some Slopes, Trees, or Obstacles</option>
-              <option value="difficult">Steep / Heavily Obstructed</option>
-            </select>
-          </div>
+            <label for="ef-email">Email <span class="optional">(optional)</span></label>
+            <input type="email" id="ef-email" name="email" autocomplete="email" />
           </div>
 
-          <button type="submit" class="btn btn-primary btn-lg calc-submit">Calculate My Estimate</button>
+          <div class="calc-field">
+            <label for="ef-address">Property Address or Town</label>
+            <input type="text" id="ef-address" name="address" autocomplete="street-address" placeholder="e.g. Nixa, MO" required />
+          </div>
+
+          <fieldset class="addons">
+            <legend>What do you need? <span class="optional">(pick any)</span></legend>
+            <label class="checkbox"><input type="checkbox" name="service" value="Lawn Mowing & Trimming" /> Lawn Mowing & Trimming</label>
+            <label class="checkbox"><input type="checkbox" name="service" value="Landscaping & Bed Cleanups" /> Landscaping & Bed Cleanups</label>
+            <label class="checkbox"><input type="checkbox" name="service" value="Leaf & Seasonal Cleanups" /> Leaf & Seasonal Cleanups</label>
+            <label class="checkbox"><input type="checkbox" name="service" value="Aeration & Overseeding" /> Aeration & Overseeding</label>
+            <label class="checkbox"><input type="checkbox" name="service" value="Fertilization & Weed Control" /> Fertilization & Weed Control</label>
+            <label class="checkbox"><input type="checkbox" name="service" value="Mulch & Rock Installation" /> Mulch & Rock Installation</label>
+            <label class="checkbox"><input type="checkbox" name="service" value="Shrub Trimming" /> Shrub Trimming</label>
+            <label class="checkbox"><input type="checkbox" name="service" value="Pavers & Small Hardscaping" /> Pavers & Small Hardscaping</label>
+            <label class="checkbox"><input type="checkbox" name="service" value="Snow Removal" /> Snow Removal</label>
+            <label class="checkbox"><input type="checkbox" name="service" value="Pressure Washing" /> Pressure Washing</label>
+            <label class="checkbox"><input type="checkbox" name="service" value="Something else" /> Something else</label>
+          </fieldset>
+
+          <div class="calc-field">
+            <label for="ef-size">Property Size <span class="optional">(optional)</span></label>
+            <input type="text" id="ef-size" name="size" placeholder="e.g. about half an acre" />
+            <small>A rough guess is fine. Mowing starts at a $50 minimum and runs $95&ndash;$135 per acre.</small>
+          </div>
+
+          <div class="calc-field">
+            <label for="ef-time">Best Time To Reach You <span class="optional">(optional)</span></label>
+            <input type="text" id="ef-time" name="contactTime" placeholder="e.g. weekday evenings" />
+          </div>
+
+          <div class="calc-field">
+            <label for="ef-details">Anything Else? <span class="optional">(optional)</span></label>
+            <textarea id="ef-details" name="details" rows="4" placeholder="Gate code, problem areas, how soon you need it done..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg calc-submit">Send My Request</button>
+          <p class="form-note">No obligation, and nothing gets scheduled until you say so.</p>
         </form>
 
-        <div class="calc-result" id="calc-result" hidden>
-          <h3>Your Estimate</h3>
-          <div class="result-price" id="result-price">$0</div>
-          <div class="result-sub" id="result-sub"></div>
-          <ul class="result-breakdown" id="result-breakdown"></ul>
-          <p class="result-note">This is a ballpark estimate, not a final quote. Property condition, access, obstacles, and the amount of work required may affect the final price.</p>
-          <a href="#contact" class="btn btn-outline">Request My Free Estimate &rarr;</a>
+        <p class="estimate-status" id="estimate-status" hidden></p>
+
+        <div class="estimate-fallback" id="estimate-fallback" hidden>
+          <p>Mail app didn&rsquo;t open? Copy this and send it to <a href="mailto:etslawncare5@gmail.com">etslawncare5@gmail.com</a>, or just call <a href="tel:+14178497131">(417) 849-7131</a>.</p>
+          <textarea id="estimate-fallback-text" rows="8" readonly></textarea>
+          <button type="button" class="btn btn-outline" id="estimate-copy">Copy details</button>
         </div>
       </div>
     </div>
@@ -355,7 +363,7 @@
     <div class="container contact-inner">
       <div class="contact-info">
         <h2 class="section-title">Ready For a Greener Lawn?</h2>
-        <p>Get a quick ballpark above, or reach out for a free property-specific estimate.</p>
+        <p>Fill out the estimate form above, or skip it and reach Eli directly &mdash; calls and texts both work.</p>
         <a href="tel:+14178497131" class="contact-phone">📞 (417) 849-7131</a>
         <a href="mailto:etslawncare5@gmail.com" class="contact-email">✉️ etslawncare5@gmail.com</a>
         <p class="contact-note">Insured • Residential & commercial • One-time and recurring service available</p>
@@ -363,15 +371,17 @@
           <a href="https://www.facebook.com/profile.php?id=61571089534194" target="_blank" rel="noopener">Facebook</a>
         </div>
       </div>
-      <form class="contact-form" id="contact-form">
-        <h3>Send a Message</h3>
-        <input type="text" placeholder="Full Name" required />
-        <input type="email" placeholder="Email Address" required />
-        <input type="tel" placeholder="Phone Number" />
-        <textarea rows="4" placeholder="What service do you need? Tell us about your property..."></textarea>
-        <button type="submit" class="btn btn-primary">Send Message</button>
-        <p class="form-note" id="form-note" hidden>Thanks! This form isn't wired to an inbox yet — please call or message us on social media in the meantime.</p>
-      </form>
+      <div class="contact-card">
+        <h3>Free Estimates, Every Time</h3>
+        <ul class="check-list">
+          <li>5 years serving the Springfield area</li>
+          <li>Fully insured, residential and commercial</li>
+          <li>One-time jobs and recurring schedules, no contract</li>
+          <li>Travels 75+ miles for larger projects</li>
+        </ul>
+        <a href="#estimate" class="btn btn-primary btn-lg">Request a Free Estimate</a>
+        <a href="tel:+14178497131" class="btn btn-outline">Or Call (417) 849-7131</a>
+      </div>
     </div>
   </section>
 
@@ -400,6 +410,6 @@
   <span class="sticky-call-text">Call Now &middot; (417) 849-7131</span>
 </a>
 <script src="js/main.js"></script>
-<script src="js/calculator.js"></script>
+<script src="js/estimate-form.js"></script>
 </body>
 </html>

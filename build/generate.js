@@ -19,6 +19,7 @@ const faqs = JSON.parse(fs.readFileSync(path.join(__dirname, "data/faq.json"), "
 const SITE_NAME = "ET&rsquo;s Lawn Care &amp; More";
 const TAGLINE = "The grass is greener with us";
 const OWNER = "Eli";
+const YEARS_IN_BUSINESS = 5;
 
 const PHONE = "(417) 849-7131";
 const PHONE_HREF = "+14178497131";
@@ -266,10 +267,10 @@ function header(base) {
         <a href="${base}faq.html">FAQ</a>
         </div>
       </details>
-      <a href="${base}index.html#calculator">Get a Quote</a>
+      <a href="${base}index.html#estimate">Get a Quote</a>
       <a href="${base}index.html#contact">Contact</a>
     </nav>
-    <a href="${base}index.html#calculator" class="btn btn-primary nav-cta">Free Quote</a>
+    <a href="${base}index.html#estimate" class="btn btn-primary nav-cta">Free Quote</a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -363,7 +364,7 @@ function renderServicePage(service) {
       <div class="service-hero-icon">${service.icon}</div>
       <h1>${service.heroTitle}</h1>
       <p class="section-sub">${service.heroSubtitle}</p>
-      <a href="${base}index.html#calculator" class="btn btn-primary btn-lg">Get an Instant Estimate</a>
+      <a href="${base}index.html#estimate" class="btn btn-primary btn-lg">Request a Free Estimate</a>
     </div>
   </section>
 
@@ -387,8 +388,8 @@ function renderServicePage(service) {
       </div>
 
       <div class="cta-banner">
-        <p>Ready to see what this costs for your yard?</p>
-        <a href="${base}index.html#calculator" class="btn btn-primary">Use the Project Calculator</a>
+        <p>Want a price for your property?</p>
+        <a href="${base}index.html#estimate" class="btn btn-primary">Request a Free Estimate</a>
       </div>
     </div>
   </section>
@@ -452,7 +453,7 @@ function renderAreaHub() {
       <div class="service-hero-icon">📍</div>
       <h1>Service Areas</h1>
       <p class="section-sub">${SITE_NAME} is based in Springfield, MO and proudly serves homeowners and businesses within roughly a 60-mile radius. Don't see your town? Reach out — we're always adding areas.</p>
-      <a href="${base}index.html#calculator" class="btn btn-primary btn-lg">Get an Instant Estimate</a>
+      <a href="${base}index.html#estimate" class="btn btn-primary btn-lg">Request a Free Estimate</a>
     </div>
   </section>
 
@@ -524,7 +525,7 @@ function renderTownPage(town, index) {
       <div class="service-hero-icon">📍</div>
       <h1>Lawn Care in ${town.name}, MO</h1>
       <p class="section-sub">Approximately ${town.miles} miles ${town.direction.toLowerCase()} of Springfield, MO. Mowing, cleanup, fertilization, and more for homeowners and businesses in ${town.name}.</p>
-      <a href="${base}index.html#calculator" class="btn btn-primary btn-lg">Get an Instant Estimate</a>
+      <a href="${base}index.html#estimate" class="btn btn-primary btn-lg">Request a Free Estimate</a>
     </div>
   </section>
 
@@ -544,7 +545,7 @@ function renderTownPage(town, index) {
 
       <div class="cta-banner">
         <p>Curious what lawn care costs for your ${town.name} property?</p>
-        <a href="${base}index.html#calculator" class="btn btn-primary">Use the Project Calculator</a>
+        <a href="${base}index.html#estimate" class="btn btn-primary">Request a Free Estimate</a>
       </div>
     </div>
   </section>
@@ -592,7 +593,7 @@ function renderAboutPage() {
       <div class="service-hero-icon">🌿</div>
       <h1>About ${SITE_NAME}</h1>
       <p class="section-sub">Owner-operated lawn care, based in Springfield, MO. ${TAGLINE}.</p>
-      <a href="${base}index.html#calculator" class="btn btn-primary btn-lg">Get an Instant Estimate</a>
+      <a href="${base}index.html#estimate" class="btn btn-primary btn-lg">Request a Free Estimate</a>
     </div>
   </section>
 
@@ -619,7 +620,7 @@ function renderAboutPage() {
 
       <div class="cta-banner">
         <p>See what lawn care costs for your property.</p>
-        <a href="${base}index.html#calculator" class="btn btn-primary">Use the Project Calculator</a>
+        <a href="${base}index.html#estimate" class="btn btn-primary">Request a Free Estimate</a>
       </div>
     </div>
   </section>
@@ -827,6 +828,13 @@ function renderHomepage() {
     )
     .join("\n        ");
 
+  const estimateServiceBoxes = services
+    .map(
+      (x) =>
+        `<label class="checkbox"><input type="checkbox" name="service" value="${x.navLabel.replace(/&amp;/g, "&")}" /> ${x.navLabel}</label>`
+    )
+    .join("\n            ") + `\n            <label class="checkbox"><input type="checkbox" name="service" value="Something else" /> Something else</label>`;
+
   const areaSample = towns
     .slice()
     .sort((a, b) => a.miles - b.miles)
@@ -861,7 +869,7 @@ function renderHomepage() {
         <span class="mower-emoji">🚜</span>
       </div>
       <div class="hero-actions">
-        <a href="#calculator" class="btn btn-primary btn-lg">Calculate My Price</a>
+        <a href="#estimate" class="btn btn-primary btn-lg">Request a Free Estimate</a>
         <a href="#contact" class="btn btn-outline btn-lg">Contact Us</a>
       </div>
       <div class="hero-social">
@@ -891,68 +899,66 @@ function renderHomepage() {
     </div>
   </section>
 
-  <section id="calculator" class="section calculator-section">
+  <section id="estimate" class="section calculator-section">
     <div class="container">
-      <h2 class="section-title">Get a Quick Ballpark Estimate</h2>
-      <p class="section-sub">Choose a service below. We can give you a useful mowing range or starting price now, then confirm your exact price with a free estimate.</p>
+      <h2 class="section-title">Request a Free Estimate</h2>
+      <p class="section-sub">Tell ${OWNER} about your property and what you need. Every estimate is free, and you&rsquo;ll usually hear back the same day. In a hurry? Call or text <a href="tel:${PHONE_HREF}" class="inline-phone">${PHONE}</a>.</p>
 
-      <div class="calculator" id="calculator-tool">
-        <form id="calc-form" class="calc-form">
+      <div class="calculator">
+        <form id="estimate-form" class="calc-form" novalidate>
 
           <div class="calc-field">
-            <label for="serviceType">What service do you need?</label>
-            <select id="serviceType">
-              <option value="mowing">Lawn Mowing & Trimming</option>
-              <option value="leaf">Leaf / Seasonal Cleanup</option>
-              <option value="landscaping">Landscaping & Bed Cleanup</option>
-              <option value="aeration">Aeration & Overseeding</option>
-              <option value="other">Another Service</option>
-            </select>
-          </div>
-
-          <div id="mowing-fields">
-          <div class="calc-field">
-            <label for="lawnSize">Lawn Size</label>
-            <div class="input-row">
-              <input type="number" id="lawnSize" min="0" step="1" placeholder="e.g. 8000" required />
-              <select id="sizeUnit">
-                <option value="sqft">sq ft</option>
-                <option value="acres">acres</option>
-              </select>
-            </div>
-            <small>Not sure? An approximate size is fine. Mowing has a $50 minimum; acreage mowing generally runs $95–$135 per acre.</small>
+            <label for="ef-name">Your Name</label>
+            <input type="text" id="ef-name" name="name" autocomplete="name" required />
           </div>
 
           <div class="calc-field">
-            <label for="frequency">Mowing Frequency</label>
-            <select id="frequency">
-              <option value="weekly">Weekly (best rate)</option>
-              <option value="biweekly">Bi-Weekly</option>
-              <option value="monthly">Monthly</option>
-              <option value="onetime">One-Time Cut</option>
-            </select>
+            <label for="ef-phone">Phone</label>
+            <input type="tel" id="ef-phone" name="phone" autocomplete="tel" required />
+            <small>Best way to reach you &mdash; ${OWNER} will call or text back.</small>
           </div>
 
           <div class="calc-field">
-            <label for="terrain">Yard Terrain</label>
-            <select id="terrain">
-              <option value="easy">Flat / Open, Few Obstacles</option>
-              <option value="moderate">Some Slopes, Trees, or Obstacles</option>
-              <option value="difficult">Steep / Heavily Obstructed</option>
-            </select>
-          </div>
+            <label for="ef-email">Email <span class="optional">(optional)</span></label>
+            <input type="email" id="ef-email" name="email" autocomplete="email" />
           </div>
 
-          <button type="submit" class="btn btn-primary btn-lg calc-submit">Calculate My Estimate</button>
+          <div class="calc-field">
+            <label for="ef-address">Property Address or Town</label>
+            <input type="text" id="ef-address" name="address" autocomplete="street-address" placeholder="e.g. Nixa, MO" required />
+          </div>
+
+          <fieldset class="addons">
+            <legend>What do you need? <span class="optional">(pick any)</span></legend>
+            ${estimateServiceBoxes}
+          </fieldset>
+
+          <div class="calc-field">
+            <label for="ef-size">Property Size <span class="optional">(optional)</span></label>
+            <input type="text" id="ef-size" name="size" placeholder="e.g. about half an acre" />
+            <small>A rough guess is fine. Mowing starts at a $50 minimum and runs $95&ndash;$135 per acre.</small>
+          </div>
+
+          <div class="calc-field">
+            <label for="ef-time">Best Time To Reach You <span class="optional">(optional)</span></label>
+            <input type="text" id="ef-time" name="contactTime" placeholder="e.g. weekday evenings" />
+          </div>
+
+          <div class="calc-field">
+            <label for="ef-details">Anything Else? <span class="optional">(optional)</span></label>
+            <textarea id="ef-details" name="details" rows="4" placeholder="Gate code, problem areas, how soon you need it done..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg calc-submit">Send My Request</button>
+          <p class="form-note">No obligation, and nothing gets scheduled until you say so.</p>
         </form>
 
-        <div class="calc-result" id="calc-result" hidden>
-          <h3>Your Estimate</h3>
-          <div class="result-price" id="result-price">$0</div>
-          <div class="result-sub" id="result-sub"></div>
-          <ul class="result-breakdown" id="result-breakdown"></ul>
-          <p class="result-note">This is a ballpark estimate, not a final quote. Property condition, access, obstacles, and the amount of work required may affect the final price.</p>
-          <a href="#contact" class="btn btn-outline">Request My Free Estimate &rarr;</a>
+        <p class="estimate-status" id="estimate-status" hidden></p>
+
+        <div class="estimate-fallback" id="estimate-fallback" hidden>
+          <p>Mail app didn&rsquo;t open? Copy this and send it to <a href="mailto:${EMAIL}">${EMAIL}</a>, or just call <a href="tel:${PHONE_HREF}">${PHONE}</a>.</p>
+          <textarea id="estimate-fallback-text" rows="8" readonly></textarea>
+          <button type="button" class="btn btn-outline" id="estimate-copy">Copy details</button>
         </div>
       </div>
     </div>
@@ -986,7 +992,7 @@ function renderHomepage() {
     <div class="container contact-inner">
       <div class="contact-info">
         <h2 class="section-title">Ready For a Greener Lawn?</h2>
-        <p>Get a quick ballpark above, or reach out for a free property-specific estimate.</p>
+        <p>Fill out the estimate form above, or skip it and reach ${OWNER} directly &mdash; calls and texts both work.</p>
         <a href="tel:${PHONE_HREF}" class="contact-phone">📞 ${PHONE}</a>
         <a href="mailto:${EMAIL}" class="contact-email">✉️ ${EMAIL}</a>
         <p class="contact-note">Insured • Residential & commercial • One-time and recurring service available</p>
@@ -994,15 +1000,17 @@ function renderHomepage() {
           ${socialTextLinks("\n          ")}
         </div>
       </div>
-      <form class="contact-form" id="contact-form">
-        <h3>Send a Message</h3>
-        <input type="text" placeholder="Full Name" required />
-        <input type="email" placeholder="Email Address" required />
-        <input type="tel" placeholder="Phone Number" />
-        <textarea rows="4" placeholder="What service do you need? Tell us about your property..."></textarea>
-        <button type="submit" class="btn btn-primary">Send Message</button>
-        <p class="form-note" id="form-note" hidden>Thanks! This form isn't wired to an inbox yet — please call or message us on social media in the meantime.</p>
-      </form>
+      <div class="contact-card">
+        <h3>Free Estimates, Every Time</h3>
+        <ul class="check-list">
+          <li>${YEARS_IN_BUSINESS} years serving the Springfield area</li>
+          <li>Fully insured, residential and commercial</li>
+          <li>One-time jobs and recurring schedules, no contract</li>
+          <li>Travels 75+ miles for larger projects</li>
+        </ul>
+        <a href="#estimate" class="btn btn-primary btn-lg">Request a Free Estimate</a>
+        <a href="tel:${PHONE_HREF}" class="btn btn-outline">Or Call ${PHONE}</a>
+      </div>
     </div>
   </section>
 
@@ -1013,7 +1021,7 @@ function renderHomepage() {
     title: `${SITE_NAME} | Free Instant Lawn Care Quote`,
     description: `${SITE_NAME} provides insured mowing, landscaping, leaf cleanup, lawn care, and outdoor property services around Springfield, Missouri. Free estimates available.`,
     main,
-    extraScripts: `<script src="js/calculator.js"></script>`,
+    extraScripts: `<script src="js/estimate-form.js"></script>`,
   });
 }
 
