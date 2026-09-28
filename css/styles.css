@@ -1158,6 +1158,15 @@ fieldset.addons legend { padding: 0 6px; }
 .contact-card h3 { text-transform: uppercase; }
 .contact-card .btn { width: 100%; }
 
+/* Honeypot: off-screen rather than display:none, which some bots skip. */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 860px) {
   .contact-inner { grid-template-columns: 1fr; }

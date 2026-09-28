@@ -947,6 +947,11 @@ function renderHomepage() {
             <textarea id="ef-details" name="details" rows="4" placeholder="Gate code, problem areas, how soon you need it done..."></textarea>
           </div>
 
+          <div class="hp-field" aria-hidden="true">
+            <label for="ef-website">Website</label>
+            <input type="text" id="ef-website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+
           <button type="submit" class="btn btn-primary btn-lg calc-submit">Send My Request</button>
           <p class="form-note">No obligation, and nothing gets scheduled until you say so.</p>
         </form>
@@ -954,7 +959,7 @@ function renderHomepage() {
         <p class="estimate-status" id="estimate-status" hidden></p>
 
         <div class="estimate-fallback" id="estimate-fallback" hidden>
-          <p>Mail app didn&rsquo;t open? Copy this and send it to <a href="mailto:${EMAIL}">${EMAIL}</a>, or just call <a href="tel:${PHONE_HREF}">${PHONE}</a>.</p>
+          <p>Copy this and send it to <a href="mailto:${EMAIL}">${EMAIL}</a>, or just call <a href="tel:${PHONE_HREF}">${PHONE}</a>.</p>
           <textarea id="estimate-fallback-text" rows="8" readonly></textarea>
           <button type="button" class="btn btn-outline" id="estimate-copy">Copy details</button>
         </div>
