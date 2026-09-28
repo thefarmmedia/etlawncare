@@ -8,10 +8,9 @@
    the workarounds that dodge CORS can't set a JSON content type. So we try,
    in order:
 
-     1. A same-origin relay (/api/estimate or /.netlify/functions/estimate).
-        The relay forwards server-side as proper JSON. No CORS involved, and
-        we get a real status code back. This is the path that should win on
-        Vercel, Cloudflare Pages or Netlify.
+     1. The Netlify function at /.netlify/functions/estimate, which
+        forwards server-side as proper JSON. No CORS involved, and we get
+        a real status code back. This is the path that should win.
      2. A direct CORS POST, for the case where LeadConnector does allow it.
      3. A direct form-encoded POST with no-cors. Delivery can't be confirmed,
         so this is last and is never reported as confirmed.
@@ -22,7 +21,8 @@
 const WEBHOOK =
   "https://services.leadconnectorhq.com/hooks/aT7QZyzfYXGgnW4kOQHd/webhook-trigger/5cf07f68-781b-4d14-87d6-be4793913cf9";
 
-const RELAYS = ["/api/estimate", "/.netlify/functions/estimate"];
+// Netlify Functions live here. Kept as a list so another host can be added.
+const RELAYS = ["/.netlify/functions/estimate"];
 
 const CONTACT = {
   email: "etslawncare5@gmail.com",
