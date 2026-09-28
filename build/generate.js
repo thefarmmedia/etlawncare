@@ -958,11 +958,6 @@ function renderHomepage() {
 
         <p class="estimate-status" id="estimate-status" hidden></p>
 
-        <div class="estimate-fallback" id="estimate-fallback" hidden>
-          <p>Copy this and send it to <a href="mailto:${EMAIL}">${EMAIL}</a>, or just call <a href="tel:${PHONE_HREF}">${PHONE}</a>.</p>
-          <textarea id="estimate-fallback-text" rows="8" readonly></textarea>
-          <button type="button" class="btn btn-outline" id="estimate-copy">Copy details</button>
-        </div>
       </div>
     </div>
   </section>

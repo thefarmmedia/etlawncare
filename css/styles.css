@@ -1107,6 +1107,7 @@ fieldset.addons legend { padding: 0 6px; }
 
 .estimate-status {
   margin: 22px 0 0;
+  white-space: pre-line;
   padding: 16px 18px;
   border-radius: var(--radius);
   border: 1px solid var(--line);
@@ -1117,32 +1118,6 @@ fieldset.addons legend { padding: 0 6px; }
 .estimate-status-ok { border-left: 3px solid var(--lime); color: var(--white); }
 .estimate-status-pending { border-left: 3px solid var(--steel-dim); color: var(--muted); }
 .estimate-status-error { border-left: 3px solid var(--flag-red); color: var(--white); }
-
-.estimate-fallback {
-  max-width: 780px;
-  margin: 18px auto 0;
-  padding: 22px;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  display: grid;
-  gap: 14px;
-}
-.estimate-fallback p { margin: 0; font-size: .92rem; color: var(--muted); }
-.estimate-fallback a { color: var(--lime); font-weight: 600; }
-.estimate-fallback textarea {
-  width: 100%;
-  padding: 14px;
-  border-radius: 10px;
-  border: 2px solid var(--line);
-  background: var(--black);
-  color: var(--steel);
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: .85rem;
-  line-height: 1.6;
-  resize: vertical;
-}
-.estimate-fallback .btn { justify-self: start; }
 
 /* ===== Contact card (replaces the old dead form) ===== */
 .contact-card {
