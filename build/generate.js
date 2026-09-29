@@ -16,7 +16,11 @@ const services = JSON.parse(fs.readFileSync(path.join(__dirname, "data/services.
 const posts = JSON.parse(fs.readFileSync(path.join(__dirname, "data/posts.json"), "utf8"));
 const faqs = JSON.parse(fs.readFileSync(path.join(__dirname, "data/faq.json"), "utf8"));
 
+const SITE_URL = "https://etslawns.com";
 const SITE_NAME = "ET&rsquo;s Lawn Care &amp; More";
+// Entity-free copy of the name, for JSON-LD and the plain-text files where
+// HTML entities would show up literally.
+const SITE_NAME_TEXT = "ET's Lawn Care & More";
 const TAGLINE = "The grass is greener with us";
 const OWNER = "Eli";
 const YEARS_IN_BUSINESS = 5;
@@ -201,12 +205,52 @@ function serviceHeroBgStyle(base, photo) {
   return `background-image: linear-gradient(180deg, rgba(0,0,0,.86), rgba(7,9,10,.92)), url('${base}${photo}');`;
 }
 
-function head({ base, title, description }) {
+function toText(html) {
+  return String(html)
+    .replace(/&rsquo;/g, "\u2019")
+    .replace(/&lsquo;/g, "\u2018")
+    .replace(/&ldquo;/g, "\u201c")
+    .replace(/&rdquo;/g, "\u201d")
+    .replace(/&mdash;/g, "\u2014")
+    .replace(/&ndash;/g, "\u2013")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/<[^>]+>/g, "")
+    .trim();
+}
+
+// Absolute URL for a built page. index.html canonicalises to the bare domain.
+function absUrl(path) {
+  if (!path || path === "index.html") return `${SITE_URL}/`;
+  return `${SITE_URL}/${path}`;
+}
+
+// Escapes "<" so a value can never close the script tag early.
+function jsonLd(data) {
+  return `<script type="application/ld+json">${JSON.stringify(data).replace(/</g, "\\u003c")}</script>`;
+}
+
+const BUSINESS_ID = `${SITE_URL}/#business`;
+
+function head({ base, title, description, path, ogImage }) {
   return `<meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>${title}</title>
 <meta name="description" content="${description}" />
 <meta name="theme-color" content="#000000" />
+<link rel="canonical" href="${absUrl(path)}" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<meta property="og:type" content="${path === "index.html" ? "website" : "article"}" />
+<meta property="og:site_name" content="${SITE_NAME}" />
+<meta property="og:title" content="${title}" />
+<meta property="og:description" content="${description}" />
+<meta property="og:url" content="${absUrl(path)}" />
+<meta property="og:image" content="${SITE_URL}/${ogImage || "assets/logo.png"}" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="${title}" />
+<meta name="twitter:description" content="${description}" />
+<meta name="twitter:image" content="${SITE_URL}/${ogImage || "assets/logo.png"}" />
 <link rel="icon" href="${base}assets/favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -302,11 +346,14 @@ function footer(base) {
 <script src="${base}js/main.js"></script>`;
 }
 
-function page({ base, title, description, bodyClass, main, extraScripts = "" }) {
+function page({ base, title, description, path, bodyClass, main, extraScripts = "", ogImage, crumbs = [], schema = [] }) {
+  const blocks = [...schema];
+  if (crumbs.length > 1) blocks.push(breadcrumbSchema(crumbs));
   return `<!doctype html>
 <html lang="en">
 <head>
-${head({ base, title, description })}
+${head({ base, title, description, path, ogImage })}
+${blocks.map(jsonLd).join("\n")}
 </head>
 <body${bodyClass ? ` class="${bodyClass}"` : ""}>
 
@@ -320,6 +367,171 @@ ${extraScripts}
 </html>
 `;
 }
+
+/* ---------------------------- Structured data ----------------------------
+   Everything here describes things that are actually true of the business.
+   Review markup is deliberately conditional: see reviewSchema() below. */
+
+function breadcrumbSchema(items) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: toText(item.label),
+      ...(item.path ? { item: absUrl(item.path) } : {}),
+    })),
+  };
+}
+
+/* Google requires review markup to reflect genuine, first-party reviews.
+   TESTIMONIALS is empty, so nothing is emitted — inventing ratings would be
+   both dishonest and a structured-data violation. Add real reviews there and
+   the rating and review snippets appear automatically. */
+function reviewSchema() {
+  if (!TESTIMONIALS.length) return {};
+  return {
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5",
+      reviewCount: String(TESTIMONIALS.length),
+      bestRating: "5",
+    },
+    review: TESTIMONIALS.map((t) => ({
+      "@type": "Review",
+      author: { "@type": "Person", name: toText(t.name) },
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      reviewBody: toText(t.quote),
+    })),
+  };
+}
+
+function businessSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "LandscapingBusiness",
+    "@id": BUSINESS_ID,
+    name: SITE_NAME_TEXT,
+    slogan: TAGLINE,
+    description: `Insured, owner-operated lawn care and landscaping serving Springfield, Missouri and the surrounding towns. ${YEARS_IN_BUSINESS} years in business, free estimates.`,
+    url: `${SITE_URL}/`,
+    telephone: PHONE_HREF,
+    email: EMAIL,
+    image: `${SITE_URL}/assets/logo.png`,
+    logo: `${SITE_URL}/assets/logo.png`,
+    priceRange: "$$",
+    currenciesAccepted: "USD",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Springfield",
+      addressRegion: "MO",
+      addressCountry: "US",
+    },
+    founder: { "@type": "Person", name: OWNER },
+    areaServed: [
+      { "@type": "City", name: "Springfield", address: { "@type": "PostalAddress", addressRegion: "MO", addressCountry: "US" } },
+      ...towns.map((t) => ({
+        "@type": "City",
+        name: t.name,
+        address: { "@type": "PostalAddress", addressRegion: "MO", addressCountry: "US" },
+      })),
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Lawn care and outdoor services",
+      itemListElement: services.map((x) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: toText(x.navLabel),
+          url: absUrl(`services/${x.slug}.html`),
+        },
+      })),
+    },
+    sameAs: SOCIALS.map((x) => x.url),
+    ...reviewSchema(),
+  };
+}
+
+function websiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    url: `${SITE_URL}/`,
+    name: SITE_NAME_TEXT,
+    publisher: { "@id": BUSINESS_ID },
+    inLanguage: "en-US",
+  };
+}
+
+function serviceSchema(service) {
+  const offer = SERVICE_PRICING[service.slug];
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: toText(service.navLabel),
+    description: toText(service.metaDescription),
+    serviceType: toText(service.navLabel),
+    url: absUrl(`services/${service.slug}.html`),
+    provider: { "@id": BUSINESS_ID },
+    areaServed: {
+      "@type": "GeoCircle",
+      geoMidpoint: { "@type": "GeoCoordinates", addressCountry: "US" },
+      description: "Springfield, Missouri and surrounding towns",
+    },
+    ...(offer
+      ? {
+          offers: {
+            "@type": "Offer",
+            priceCurrency: "USD",
+            priceSpecification: {
+              "@type": "PriceSpecification",
+              minPrice: offer.min,
+              priceCurrency: "USD",
+              valueAddedTaxIncluded: false,
+            },
+            description: offer.note,
+          },
+        }
+      : {}),
+  };
+}
+
+function faqSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: toText(f.q),
+      acceptedAnswer: { "@type": "Answer", text: toText(f.a) },
+    })),
+  };
+}
+
+function blogPostSchema(post) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: toText(post.title),
+    description: toText(post.excerpt),
+    url: absUrl(`blog/${post.slug}.html`),
+    mainEntityOfPage: absUrl(`blog/${post.slug}.html`),
+    image: `${SITE_URL}/${PHOTOS[post.photo]}`,
+    ...(post.date ? { datePublished: post.date } : {}),
+    author: { "@type": "Person", name: OWNER },
+    publisher: { "@id": BUSINESS_ID },
+  };
+}
+
+// Only the rates Eli actually quoted. Everything else is priced per property,
+// so it carries no price markup.
+const SERVICE_PRICING = {
+  "mowing-trimming": { min: 50, note: "$50 minimum; $95-$135 per acre depending on the property" },
+  "leaf-seasonal-cleanups": { min: 150, note: "Leaf and seasonal cleanups start at $150" },
+};
 
 function breadcrumb(base, items) {
   const parts = items
@@ -336,6 +548,11 @@ function breadcrumb(base, items) {
 
 function renderServicePage(service) {
   const base = "../";
+  const crumbs = [
+    { label: "Home", href: `${base}index.html`, path: "index.html" },
+    { label: "Services", href: `${base}services/${service.slug}.html`, path: `services/${service.slug}.html` },
+    { label: service.navLabel, path: `services/${service.slug}.html` },
+  ];
   const otherServices = services.filter((s) => s.slug !== service.slug);
 
   const includedItems = service.included.map((i) => `<li>${i}</li>`).join("\n            ");
@@ -350,11 +567,7 @@ function renderServicePage(service) {
     .join("\n        ");
 
   const main = `<main>
-  ${breadcrumb(base, [
-    { label: "Home", href: `${base}index.html` },
-    { label: "Services", href: `${base}services/${service.slug}.html` },
-    { label: service.navLabel },
-  ])}
+  ${breadcrumb(base, crumbs)}
 
   <section class="section service-hero">
     <div class="service-hero-bg" style="${serviceHeroBgStyle(base, SERVICE_HERO_PHOTOS[service.slug])}" aria-hidden="true"></div>
@@ -414,6 +627,10 @@ function renderServicePage(service) {
     base,
     title: `${service.navLabel} | ${SITE_NAME}`,
     description: service.metaDescription,
+    path: `services/${service.slug}.html`,
+    ogImage: service.photo,
+    crumbs,
+    schema: [serviceSchema(service)],
     main,
   });
 }
@@ -422,6 +639,10 @@ function renderServicePage(service) {
 
 function renderAreaHub() {
   const base = "../";
+  const crumbs = [
+    { label: "Home", href: `${base}index.html`, path: "index.html" },
+    { label: "Service Areas", path: "service-areas/index.html" },
+  ];
   const directions = [...new Set(towns.map((t) => t.direction))];
   const groups = directions
     .map((dir) => {
@@ -443,7 +664,7 @@ function renderAreaHub() {
     .join("\n        ");
 
   const main = `<main>
-  ${breadcrumb(base, [{ label: "Home", href: `${base}index.html` }, { label: "Service Areas" }])}
+  ${breadcrumb(base, crumbs)}
 
   <section class="section service-hero">
     <div class="service-hero-bg" style="${serviceHeroBgStyle(base, PHOTOS.largeBrickHome)}" aria-hidden="true"></div>
@@ -470,7 +691,9 @@ function renderAreaHub() {
   return page({
     base,
     title: `Service Areas Near Springfield, MO | ${SITE_NAME}`,
-    description: `${SITE_NAME} serves Springfield, MO and towns within about a 60-mile radius, including Ozark, Nixa, Republic, Branson, and more.`,
+    description: `${SITE_NAME} serves Springfield, MO and the surrounding towns &mdash; Ozark, Nixa, Republic, Branson and more &mdash; travelling 75+ miles for larger jobs.`,
+    path: "service-areas/index.html",
+    crumbs,
     main,
   });
 }
@@ -497,6 +720,11 @@ const WHY_VARIANTS = [
 
 function renderTownPage(town, index) {
   const base = "../";
+  const crumbs = [
+    { label: "Home", href: `${base}index.html`, path: "index.html" },
+    { label: "Service Areas", href: `${base}service-areas/index.html`, path: "service-areas/index.html" },
+    { label: `${town.name}, MO`, path: `service-areas/${town.slug}.html` },
+  ];
   const heroPhoto = TOWN_HERO_PHOTOS[index % TOWN_HERO_PHOTOS.length];
   const why = WHY_VARIANTS[index % WHY_VARIANTS.length];
   const whyItems = why.map((i) => `<li>${i}</li>`).join("\n            ");
@@ -511,11 +739,7 @@ function renderTownPage(town, index) {
     .join("\n        ");
 
   const main = `<main>
-  ${breadcrumb(base, [
-    { label: "Home", href: `${base}index.html` },
-    { label: "Service Areas", href: `${base}service-areas/index.html` },
-    { label: `${town.name}, MO` },
-  ])}
+  ${breadcrumb(base, crumbs)}
 
   <section class="section service-hero">
     <div class="service-hero-bg" style="${serviceHeroBgStyle(base, heroPhoto)}" aria-hidden="true"></div>
@@ -560,7 +784,25 @@ function renderTownPage(town, index) {
   return page({
     base,
     title: `Lawn Care in ${town.name}, MO | ${SITE_NAME}`,
-    description: `${SITE_NAME} provides mowing, cleanup, fertilization, and mulching for homes and businesses in ${town.name}, MO, about ${town.miles} miles ${town.direction.toLowerCase()} of Springfield. Get an instant online estimate.`,
+    description: `Insured lawn mowing, landscaping and leaf cleanup in ${town.name}, MO. Free estimates from ${SITE_NAME}, ${town.miles} miles from Springfield.`,
+    path: `service-areas/${town.slug}.html`,
+    ogImage: heroPhoto,
+    crumbs,
+    schema: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: `Lawn care in ${town.name}, MO`,
+        description: `Mowing, landscaping, leaf cleanup and outdoor services for homes and businesses in ${town.name}, Missouri.`,
+        url: absUrl(`service-areas/${town.slug}.html`),
+        provider: { "@id": BUSINESS_ID },
+        areaServed: {
+          "@type": "City",
+          name: town.name,
+          address: { "@type": "PostalAddress", addressLocality: town.name, addressRegion: "MO", addressCountry: "US" },
+        },
+      },
+    ],
     main,
   });
 }
@@ -569,6 +811,10 @@ function renderTownPage(town, index) {
 
 function renderAboutPage() {
   const base = "";
+  const crumbs = [
+    { label: "Home", href: `${base}index.html`, path: "index.html" },
+    { label: "About", path: "about.html" },
+  ];
   const featuredTestimonials = TESTIMONIALS.slice(0, 2);
   const aboutTestimonials = featuredTestimonials.length
     ? `<section class="section testimonials">
@@ -583,7 +829,7 @@ function renderAboutPage() {
     : "";
 
   const main = `<main>
-  ${breadcrumb(base, [{ label: "Home", href: `${base}index.html` }, { label: "About" }])}
+  ${breadcrumb(base, crumbs)}
 
   <section class="section service-hero">
     <div class="service-hero-bg" style="${serviceHeroBgStyle(base, PHOTOS.crewOnProperty)}" aria-hidden="true"></div>
@@ -647,8 +893,19 @@ function renderAboutPage() {
 
   return page({
     base,
-    title: `About Us | ${SITE_NAME}`,
-    description: `${SITE_NAME} is a locally owned, owner-operated lawn care company based in Springfield, MO. Learn about our values and service area.`,
+    title: `About ${OWNER} | ${SITE_NAME}`,
+    description: `Meet ${OWNER}, owner of ${SITE_NAME} &mdash; ${YEARS_IN_BUSINESS} years of insured, owner-operated lawn care and landscaping around Springfield, MO.`,
+    path: "about.html",
+    ogImage: "assets/eli-owner.jpg",
+    crumbs,
+    schema: [
+      {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        url: absUrl("about.html"),
+        mainEntity: { "@id": BUSINESS_ID },
+      },
+    ],
     main,
   });
 }
@@ -662,6 +919,10 @@ function formatDate(iso) {
 
 function renderBlogIndex() {
   const base = "../";
+  const crumbs = [
+    { label: "Home", href: `${base}index.html`, path: "index.html" },
+    { label: "Blog", path: "blog/index.html" },
+  ];
   const cards = posts
     .slice()
     .sort((a, b) => new Date(b.date) - new Date(a.date))
@@ -679,7 +940,7 @@ function renderBlogIndex() {
     .join("\n        ");
 
   const main = `<main>
-  ${breadcrumb(base, [{ label: "Home", href: `${base}index.html` }, { label: "Blog" }])}
+  ${breadcrumb(base, crumbs)}
 
   <section class="section service-hero">
     <div class="service-hero-bg" style="${serviceHeroBgStyle(base, PHOTOS.deckShadedLawn)}" aria-hidden="true"></div>
@@ -702,22 +963,34 @@ function renderBlogIndex() {
   return page({
     base,
     title: `Lawn Care Tips & Guides | ${SITE_NAME}`,
-    description: `Seasonal lawn care tips and guides for the Springfield, MO area from ${SITE_NAME}.`,
+    description: `Seasonal lawn care tips and guides for the Springfield, MO area from ${SITE_NAME} &mdash; mowing, cleanups, fertilizing and more.`,
+    path: "blog/index.html",
+    crumbs,
+    schema: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        url: absUrl("blog/index.html"),
+        name: `Lawn Care Tips & Guides`,
+        publisher: { "@id": BUSINESS_ID },
+      },
+    ],
     main,
   });
 }
 
 function renderBlogPost(post) {
   const base = "../";
+  const crumbs = [
+    { label: "Home", href: `${base}index.html`, path: "index.html" },
+    { label: "Blog", href: `${base}blog/index.html`, path: "blog/index.html" },
+    { label: post.title, path: `blog/${post.slug}.html` },
+  ];
   const bodyHtml = post.body.map((p) => `<p>${p}</p>`).join("\n        ");
   const related = services.find((s) => s.slug === post.relatedService);
 
   const main = `<main>
-  ${breadcrumb(base, [
-    { label: "Home", href: `${base}index.html` },
-    { label: "Blog", href: `${base}blog/index.html` },
-    { label: post.title },
-  ])}
+  ${breadcrumb(base, crumbs)}
 
   <article class="section blog-post">
     <div class="container narrow">
@@ -746,6 +1019,10 @@ function renderBlogPost(post) {
     base,
     title: `${post.title} | ${SITE_NAME} Blog`,
     description: post.excerpt,
+    path: `blog/${post.slug}.html`,
+    ogImage: PHOTOS[post.photo],
+    crumbs,
+    schema: [blogPostSchema(post)],
     main,
   });
 }
@@ -754,6 +1031,10 @@ function renderBlogPost(post) {
 
 function renderFAQPage() {
   const base = "";
+  const crumbs = [
+    { label: "Home", href: `${base}index.html`, path: "index.html" },
+    { label: "FAQ", path: "faq.html" },
+  ];
   const items = faqs
     .map(
       (f) => `<details class="faq-item">
@@ -764,7 +1045,7 @@ function renderFAQPage() {
     .join("\n        ");
 
   const main = `<main>
-  ${breadcrumb(base, [{ label: "Home", href: `${base}index.html` }, { label: "FAQ" }])}
+  ${breadcrumb(base, crumbs)}
 
   <section class="section service-hero">
     <div class="service-hero-bg" style="${serviceHeroBgStyle(base, PHOTOS.streetViewBeds)}" aria-hidden="true"></div>
@@ -792,7 +1073,10 @@ function renderFAQPage() {
   return page({
     base,
     title: `Frequently Asked Questions | ${SITE_NAME}`,
-    description: `Common questions about scheduling, pricing, service areas, and more, answered by ${SITE_NAME}.`,
+    description: `Pricing, service areas, insurance and scheduling questions answered by ${SITE_NAME}. $50 mowing minimum, free estimates, fully insured.`,
+    path: "faq.html",
+    crumbs,
+    schema: [faqSchema()],
     main,
   });
 }
@@ -1016,8 +1300,10 @@ function renderHomepage() {
 
   return page({
     base,
-    title: `${SITE_NAME} | Free Instant Lawn Care Quote`,
-    description: `${SITE_NAME} provides insured mowing, landscaping, leaf cleanup, lawn care, and outdoor property services around Springfield, Missouri. Free estimates available.`,
+    title: `Lawn Care in Springfield, MO | ${SITE_NAME}`,
+    description: `Insured mowing, landscaping and leaf cleanup around Springfield, MO. ${YEARS_IN_BUSINESS} years, free estimates, $50 mowing minimum. Call (417) 849-7131.`,
+    path: "index.html",
+    schema: [businessSchema(), websiteSchema()],
     main,
     extraScripts: `<script src="js/estimate-form.js"></script>`,
   });
@@ -1043,4 +1329,87 @@ services.forEach((s) => write(`services/${s.slug}.html`, renderServicePage(s)));
 write("service-areas/index.html", renderAreaHub());
 towns.forEach((t, i) => write(`service-areas/${t.slug}.html`, renderTownPage(t, i)));
 
-console.log(`\nGenerated ${5 + services.length + towns.length + posts.length} pages.`);
+/* ------------------------ Sitemap, robots, llms.txt ----------------------- */
+
+// priority is a hint only; the ordering reflects how central each page is.
+const SITEMAP_PAGES = [
+  { path: "index.html", priority: "1.0", changefreq: "weekly" },
+  { path: "about.html", priority: "0.7", changefreq: "monthly" },
+  { path: "faq.html", priority: "0.7", changefreq: "monthly" },
+  { path: "service-areas/index.html", priority: "0.7", changefreq: "monthly" },
+  { path: "blog/index.html", priority: "0.6", changefreq: "weekly" },
+  ...services.map((x) => ({ path: `services/${x.slug}.html`, priority: "0.9", changefreq: "monthly" })),
+  ...towns.map((x) => ({ path: `service-areas/${x.slug}.html`, priority: "0.8", changefreq: "monthly" })),
+  ...posts.map((x) => ({ path: `blog/${x.slug}.html`, priority: "0.5", changefreq: "yearly" })),
+];
+
+const today = new Date().toISOString().slice(0, 10);
+
+write(
+  "sitemap.xml",
+  `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${SITEMAP_PAGES.map(
+  (x) => `  <url>
+    <loc>${absUrl(x.path)}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>${x.changefreq}</changefreq>
+    <priority>${x.priority}</priority>
+  </url>`
+).join("\n")}
+</urlset>
+`
+);
+
+write(
+  "robots.txt",
+  `User-agent: *
+Allow: /
+
+Sitemap: ${SITE_URL}/sitemap.xml
+`
+);
+
+/* llms.txt — the emerging convention for describing a site to AI crawlers
+   and assistants in plain language. Only facts Eli confirmed go in here. */
+write(
+  "llms.txt",
+  `# ${SITE_NAME_TEXT}
+
+> ${TAGLINE}. Insured, owner-operated lawn care and landscaping serving Springfield, Missouri and the surrounding towns. ${YEARS_IN_BUSINESS} years in business, free estimates on every job.
+
+- Owner: ${OWNER}
+- Phone: ${PHONE} (call or text)
+- Email: ${EMAIL}
+- Based in: Springfield, Missouri
+- Service area: Springfield and surrounding towns; travels 75+ miles for larger jobs
+- Customers: residential and commercial
+- Scheduling: one-time jobs and recurring service, no contract required
+- Insured: yes
+- Estimates: always free
+
+## Pricing
+
+- Lawn mowing: $50 minimum; $95-$135 per acre depending on terrain, obstacles and grass height
+- Leaf and seasonal cleanups: $150 minimum, final price based on property size and leaf volume
+- Everything else (landscaping, aeration and overseeding, fertilization and weed control, mulch and rock, shrub trimming, pavers and hardscaping, pressure washing, snow removal) is quoted per property after a free estimate
+
+## Services
+
+${services.map((x) => `- [${toText(x.navLabel)}](${absUrl(`services/${x.slug}.html`)}): ${toText(x.heroSubtitle)}`).join("\n")}
+
+## Pages
+
+- [Home](${absUrl("index.html")}): services, photos of recent work, and the estimate request form
+- [About ${OWNER}](${absUrl("about.html")}): who runs the business and how it operates
+- [FAQ](${absUrl("faq.html")}): pricing, insurance, service areas, scheduling
+- [Service Areas](${absUrl("service-areas/index.html")}): every town covered
+- [Blog](${absUrl("blog/index.html")}): seasonal lawn care guides for southwest Missouri
+
+## Service areas
+
+${towns.map((x) => `- [${x.name}, MO](${absUrl(`service-areas/${x.slug}.html`)}): about ${x.miles} miles ${x.direction.toLowerCase()} of Springfield`).join("\n")}
+`
+);
+
+console.log(`\nGenerated ${5 + services.length + towns.length + posts.length} pages, plus sitemap.xml, robots.txt and llms.txt.`);
