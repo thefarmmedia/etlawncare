@@ -16,7 +16,11 @@ const services = JSON.parse(fs.readFileSync(path.join(__dirname, "data/services.
 const posts = JSON.parse(fs.readFileSync(path.join(__dirname, "data/posts.json"), "utf8"));
 const faqs = JSON.parse(fs.readFileSync(path.join(__dirname, "data/faq.json"), "utf8"));
 
-const SITE_URL = "https://etslawns.com";
+/* www is the canonical host: www.etslawns.com CNAMEs straight to the Netlify
+   site, while the apex sits on Netlify's load balancer and 301s to it. Pointing
+   canonicals and the sitemap at the apex meant every URL redirected, which is
+   why Search Console reported "Couldn't fetch". */
+const SITE_URL = "https://www.etslawns.com";
 const SITE_NAME = "ET&rsquo;s Lawn Care &amp; More";
 // Entity-free copy of the name, for JSON-LD and the plain-text files where
 // HTML entities would show up literally.

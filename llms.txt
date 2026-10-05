@@ -20,55 +20,55 @@
 
 ## Services
 
-- [Lawn Mowing & Trimming](https://etslawns.com/services/mowing-trimming): Recurring or one-time mowing for residential and commercial properties.
-- [Landscaping & Bed Cleanups](https://etslawns.com/services/landscaping-bed-cleanups): Bed cleanups, outdoor improvements, and larger landscaping projects.
-- [Leaf & Seasonal Cleanups](https://etslawns.com/services/leaf-seasonal-cleanups): One-time cleanups starting at $150, based on property size and conditions.
-- [Aeration & Overseeding](https://etslawns.com/services/aeration-overseeding): Core aeration and overseeding with free property-specific estimates.
-- [Fertilization & Weed Control](https://etslawns.com/services/fertilization-weed-control): Fertilization and weed-control service tailored to your property.
-- [Mulch & Rock Installation](https://etslawns.com/services/mulch-rock-installation): Refresh landscape beds and improve curb appeal with a free custom estimate.
-- [Shrub Trimming](https://etslawns.com/services/shrub-trimming): Professional shrub trimming for a neater, more polished property.
-- [Pavers & Small Hardscaping](https://etslawns.com/services/pavers-small-hardscaping): Pavers and smaller outdoor projects designed around your space.
-- [Snow Removal](https://etslawns.com/services/snow-removal): Seasonal snow-removal help for residential and commercial properties.
-- [Pressure Washing](https://etslawns.com/services/pressure-washing): Pressure washing to freshen up exterior surfaces around your property.
+- [Lawn Mowing & Trimming](https://www.etslawns.com/services/mowing-trimming): Recurring or one-time mowing for residential and commercial properties.
+- [Landscaping & Bed Cleanups](https://www.etslawns.com/services/landscaping-bed-cleanups): Bed cleanups, outdoor improvements, and larger landscaping projects.
+- [Leaf & Seasonal Cleanups](https://www.etslawns.com/services/leaf-seasonal-cleanups): One-time cleanups starting at $150, based on property size and conditions.
+- [Aeration & Overseeding](https://www.etslawns.com/services/aeration-overseeding): Core aeration and overseeding with free property-specific estimates.
+- [Fertilization & Weed Control](https://www.etslawns.com/services/fertilization-weed-control): Fertilization and weed-control service tailored to your property.
+- [Mulch & Rock Installation](https://www.etslawns.com/services/mulch-rock-installation): Refresh landscape beds and improve curb appeal with a free custom estimate.
+- [Shrub Trimming](https://www.etslawns.com/services/shrub-trimming): Professional shrub trimming for a neater, more polished property.
+- [Pavers & Small Hardscaping](https://www.etslawns.com/services/pavers-small-hardscaping): Pavers and smaller outdoor projects designed around your space.
+- [Snow Removal](https://www.etslawns.com/services/snow-removal): Seasonal snow-removal help for residential and commercial properties.
+- [Pressure Washing](https://www.etslawns.com/services/pressure-washing): Pressure washing to freshen up exterior surfaces around your property.
 
 ## Pages
 
-- [Home](https://etslawns.com/): services, photos of recent work, and the estimate request form
-- [About Eli](https://etslawns.com/about): who runs the business and how it operates
-- [FAQ](https://etslawns.com/faq): pricing, insurance, service areas, scheduling
-- [Service Areas](https://etslawns.com/service-areas): every town covered
-- [Blog](https://etslawns.com/blog): seasonal lawn care guides for southwest Missouri
+- [Home](https://www.etslawns.com/): services, photos of recent work, and the estimate request form
+- [About Eli](https://www.etslawns.com/about): who runs the business and how it operates
+- [FAQ](https://www.etslawns.com/faq): pricing, insurance, service areas, scheduling
+- [Service Areas](https://www.etslawns.com/service-areas): every town covered
+- [Blog](https://www.etslawns.com/blog): seasonal lawn care guides for southwest Missouri
 
 ## Service areas
 
-- [Springfield, MO](https://etslawns.com/service-areas/springfield-mo): about 0 miles home base of Springfield
-- [Ozark, MO](https://etslawns.com/service-areas/ozark-mo): about 12 miles southeast of Springfield
-- [Nixa, MO](https://etslawns.com/service-areas/nixa-mo): about 16 miles southwest of Springfield
-- [Republic, MO](https://etslawns.com/service-areas/republic-mo): about 12 miles southwest of Springfield
-- [Willard, MO](https://etslawns.com/service-areas/willard-mo): about 10 miles northwest of Springfield
-- [Fair Grove, MO](https://etslawns.com/service-areas/fair-grove-mo): about 15 miles north of Springfield
-- [Battlefield, MO](https://etslawns.com/service-areas/battlefield-mo): about 8 miles south of Springfield
-- [Strafford, MO](https://etslawns.com/service-areas/strafford-mo): about 12 miles east of Springfield
-- [Rogersville, MO](https://etslawns.com/service-areas/rogersville-mo): about 14 miles east of Springfield
-- [Clever, MO](https://etslawns.com/service-areas/clever-mo): about 18 miles southwest of Springfield
-- [Ash Grove, MO](https://etslawns.com/service-areas/ash-grove-mo): about 18 miles northwest of Springfield
-- [Billings, MO](https://etslawns.com/service-areas/billings-mo): about 20 miles southwest of Springfield
-- [Walnut Grove, MO](https://etslawns.com/service-areas/walnut-grove-mo): about 20 miles northwest of Springfield
-- [Marshfield, MO](https://etslawns.com/service-areas/marshfield-mo): about 20 miles northeast of Springfield
-- [Highlandville, MO](https://etslawns.com/service-areas/highlandville-mo): about 20 miles south of Springfield
-- [Sparta, MO](https://etslawns.com/service-areas/sparta-mo): about 22 miles south of Springfield
-- [Marionville, MO](https://etslawns.com/service-areas/marionville-mo): about 27 miles southwest of Springfield
-- [Bolivar, MO](https://etslawns.com/service-areas/bolivar-mo): about 28 miles northwest of Springfield
-- [Mount Vernon, MO](https://etslawns.com/service-areas/mount-vernon-mo): about 28 miles southwest of Springfield
-- [Aurora, MO](https://etslawns.com/service-areas/aurora-mo): about 30 miles southwest of Springfield
-- [Seymour, MO](https://etslawns.com/service-areas/seymour-mo): about 30 miles east of Springfield
-- [Crane, MO](https://etslawns.com/service-areas/crane-mo): about 32 miles southwest of Springfield
-- [Buffalo, MO](https://etslawns.com/service-areas/buffalo-mo): about 35 miles north of Springfield
-- [Monett, MO](https://etslawns.com/service-areas/monett-mo): about 40 miles southwest of Springfield
-- [Greenfield, MO](https://etslawns.com/service-areas/greenfield-mo): about 40 miles west of Springfield
-- [Branson, MO](https://etslawns.com/service-areas/branson-mo): about 42 miles south of Springfield
-- [Hollister, MO](https://etslawns.com/service-areas/hollister-mo): about 44 miles south of Springfield
-- [Stockton, MO](https://etslawns.com/service-areas/stockton-mo): about 45 miles northwest of Springfield
-- [Forsyth, MO](https://etslawns.com/service-areas/forsyth-mo): about 48 miles south of Springfield
-- [Cassville, MO](https://etslawns.com/service-areas/cassville-mo): about 48 miles southwest of Springfield
-- [Lebanon, MO](https://etslawns.com/service-areas/lebanon-mo): about 50 miles northeast of Springfield
+- [Springfield, MO](https://www.etslawns.com/service-areas/springfield-mo): about 0 miles home base of Springfield
+- [Ozark, MO](https://www.etslawns.com/service-areas/ozark-mo): about 12 miles southeast of Springfield
+- [Nixa, MO](https://www.etslawns.com/service-areas/nixa-mo): about 16 miles southwest of Springfield
+- [Republic, MO](https://www.etslawns.com/service-areas/republic-mo): about 12 miles southwest of Springfield
+- [Willard, MO](https://www.etslawns.com/service-areas/willard-mo): about 10 miles northwest of Springfield
+- [Fair Grove, MO](https://www.etslawns.com/service-areas/fair-grove-mo): about 15 miles north of Springfield
+- [Battlefield, MO](https://www.etslawns.com/service-areas/battlefield-mo): about 8 miles south of Springfield
+- [Strafford, MO](https://www.etslawns.com/service-areas/strafford-mo): about 12 miles east of Springfield
+- [Rogersville, MO](https://www.etslawns.com/service-areas/rogersville-mo): about 14 miles east of Springfield
+- [Clever, MO](https://www.etslawns.com/service-areas/clever-mo): about 18 miles southwest of Springfield
+- [Ash Grove, MO](https://www.etslawns.com/service-areas/ash-grove-mo): about 18 miles northwest of Springfield
+- [Billings, MO](https://www.etslawns.com/service-areas/billings-mo): about 20 miles southwest of Springfield
+- [Walnut Grove, MO](https://www.etslawns.com/service-areas/walnut-grove-mo): about 20 miles northwest of Springfield
+- [Marshfield, MO](https://www.etslawns.com/service-areas/marshfield-mo): about 20 miles northeast of Springfield
+- [Highlandville, MO](https://www.etslawns.com/service-areas/highlandville-mo): about 20 miles south of Springfield
+- [Sparta, MO](https://www.etslawns.com/service-areas/sparta-mo): about 22 miles south of Springfield
+- [Marionville, MO](https://www.etslawns.com/service-areas/marionville-mo): about 27 miles southwest of Springfield
+- [Bolivar, MO](https://www.etslawns.com/service-areas/bolivar-mo): about 28 miles northwest of Springfield
+- [Mount Vernon, MO](https://www.etslawns.com/service-areas/mount-vernon-mo): about 28 miles southwest of Springfield
+- [Aurora, MO](https://www.etslawns.com/service-areas/aurora-mo): about 30 miles southwest of Springfield
+- [Seymour, MO](https://www.etslawns.com/service-areas/seymour-mo): about 30 miles east of Springfield
+- [Crane, MO](https://www.etslawns.com/service-areas/crane-mo): about 32 miles southwest of Springfield
+- [Buffalo, MO](https://www.etslawns.com/service-areas/buffalo-mo): about 35 miles north of Springfield
+- [Monett, MO](https://www.etslawns.com/service-areas/monett-mo): about 40 miles southwest of Springfield
+- [Greenfield, MO](https://www.etslawns.com/service-areas/greenfield-mo): about 40 miles west of Springfield
+- [Branson, MO](https://www.etslawns.com/service-areas/branson-mo): about 42 miles south of Springfield
+- [Hollister, MO](https://www.etslawns.com/service-areas/hollister-mo): about 44 miles south of Springfield
+- [Stockton, MO](https://www.etslawns.com/service-areas/stockton-mo): about 45 miles northwest of Springfield
+- [Forsyth, MO](https://www.etslawns.com/service-areas/forsyth-mo): about 48 miles south of Springfield
+- [Cassville, MO](https://www.etslawns.com/service-areas/cassville-mo): about 48 miles southwest of Springfield
+- [Lebanon, MO](https://www.etslawns.com/service-areas/lebanon-mo): about 50 miles northeast of Springfield

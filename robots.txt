@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://etslawns.com/sitemap.xml
+Sitemap: https://www.etslawns.com/sitemap.xml
