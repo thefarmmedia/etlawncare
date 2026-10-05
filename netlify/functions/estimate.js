@@ -14,6 +14,8 @@
    Reachable via POST only. Returns 200 {ok:true} on success, 502 if the
    webhook rejected it, so the form can tell the visitor the truth. */
 
+const https = require("https");
+
 const WEBHOOK =
   "https://services.leadconnectorhq.com/hooks/aT7QZyzfYXGgnW4kOQHd/webhook-trigger/5cf07f68-781b-4d14-87d6-be4793913cf9";
 
@@ -37,7 +39,6 @@ function postJson(url, payload) {
   }
 
   return new Promise((resolve, reject) => {
-    const https = require("https");
     const req = https.request(
       url,
       {
