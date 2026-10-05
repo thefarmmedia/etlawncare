@@ -2,307 +2,313 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://etslawns.com/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/about.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/about</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/faq.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/faq</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/index.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/blog/index.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/blog</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/services/mowing-trimming.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/services/mowing-trimming</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/services/landscaping-bed-cleanups.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/services/landscaping-bed-cleanups</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/services/leaf-seasonal-cleanups.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/services/leaf-seasonal-cleanups</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/services/aeration-overseeding.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/services/aeration-overseeding</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/services/fertilization-weed-control.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/services/fertilization-weed-control</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/services/mulch-rock-installation.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/services/mulch-rock-installation</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/services/shrub-trimming.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/services/shrub-trimming</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/services/pavers-small-hardscaping.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/services/pavers-small-hardscaping</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/services/snow-removal.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/services/snow-removal</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/services/pressure-washing.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/services/pressure-washing</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/ozark-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/springfield-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/nixa-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/ozark-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/republic-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/nixa-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/willard-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/republic-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/battlefield-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/willard-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/rogersville-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/fair-grove-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/strafford-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/battlefield-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/clever-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/strafford-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/billings-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/rogersville-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/fair-grove-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/clever-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/ash-grove-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/ash-grove-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/walnut-grove-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/billings-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/marshfield-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/walnut-grove-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/sparta-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/marshfield-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/highlandville-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/highlandville-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/bolivar-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/sparta-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/mount-vernon-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/marionville-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/marionville-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/bolivar-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/aurora-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/mount-vernon-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/seymour-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/aurora-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/buffalo-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/seymour-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/crane-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/crane-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/monett-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/buffalo-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/branson-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/monett-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/hollister-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/greenfield-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/stockton-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/branson-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/lebanon-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/hollister-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/forsyth-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/stockton-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/cassville-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/forsyth-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/service-areas/greenfield-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/cassville-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/blog/when-to-start-mowing-springfield-mo.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/service-areas/lebanon-mo</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://etslawns.com/blog/when-to-start-mowing-springfield-mo</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/blog/how-often-should-you-mow.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/blog/how-often-should-you-mow</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/blog/fall-cleanup-checklist.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/blog/fall-cleanup-checklist</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/blog/fertilization-timing-guide.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/blog/fertilization-timing-guide</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/blog/why-core-aeration-matters.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/blog/why-core-aeration-matters</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://etslawns.com/blog/choosing-the-right-mulch.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://etslawns.com/blog/choosing-the-right-mulch</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>

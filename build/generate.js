@@ -219,10 +219,13 @@ function toText(html) {
     .trim();
 }
 
-// Absolute URL for a built page. index.html canonicalises to the bare domain.
+/* Absolute URL for a built page, in the extension-less form Netlify serves.
+   index.html becomes the bare domain; "about.html" becomes "/about". The
+   generated _redirects file guarantees these resolve with a 200 whether or
+   not Netlify's Pretty URLs setting is on, so no sitemap URL ever redirects. */
 function absUrl(path) {
   if (!path || path === "index.html") return `${SITE_URL}/`;
-  return `${SITE_URL}/${path}`;
+  return `${SITE_URL}/${path.replace(/(^|\/)index\.html$/, "").replace(/\.html$/, "")}`;
 }
 
 // Escapes "<" so a value can never close the script tag early.
@@ -617,7 +620,7 @@ function renderServicePage(service) {
   <section class="section area-teaser">
     <div class="container">
       <h2 class="section-title">Proudly Serving Springfield, MO &amp; Beyond</h2>
-      <p class="section-sub">We serve homeowners and businesses within about a 60-mile radius of Springfield, Missouri.</p>
+      <p class="section-sub">Springfield, Ozark, Nixa, Republic, Willard and Fair Grove are the core of the route, with travel 75+ miles out for larger jobs.</p>
       <a href="${base}service-areas/index.html" class="btn btn-outline">See All Service Areas</a>
     </div>
   </section>
@@ -671,18 +674,33 @@ function renderAreaHub() {
     <div class="container">
       <div class="service-hero-icon">📍</div>
       <h1>Service Areas</h1>
-      <p class="section-sub">${SITE_NAME} is based in Springfield, MO and proudly serves homeowners and businesses within roughly a 60-mile radius. Don't see your town? Reach out — we're always adding areas.</p>
+      <p class="section-sub">${SITE_NAME} is based in Springfield, MO. Heaviest coverage is Springfield, Ozark, Nixa, Republic, Willard and Fair Grove, and ${OWNER} travels 75+ miles for larger jobs. Don&rsquo;t see your town? Reach out and ask.</p>
       <a href="${base}index.html#estimate" class="btn btn-primary btn-lg">Request a Free Estimate</a>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <div class="area-groups">
+      <h2 class="section-title">Primary Service Areas</h2>
+      <p class="section-sub">The towns ${OWNER} is on most often.</p>
+      <div class="mini-cards">
+        ${towns
+          .filter((t) => t.priority)
+          .map(
+            (t) => `<a class="mini-card" href="${t.slug}.html">
+          <span class="card-icon">📍</span>
+          <span>${t.name}, MO</span>
+        </a>`
+          )
+          .join("\n        ")}
+      </div>
+
+      <h2 class="section-title" style="margin-top:64px;">Every Town Covered</h2>
+      <div class="area-groups" style="margin-top:32px;">
         ${groups}
       </div>
       <p class="result-note" style="text-align:center; max-width:640px; margin:32px auto 0;">
-        Distances above are approximate driving estimates from Springfield, MO. Not sure if we cover your address? <a href="${base}index.html#contact">Contact us</a> and we'll let you know.
+        Distances are approximate driving estimates from Springfield, MO. Not sure whether your address is covered? <a href="${base}index.html#contact">Get in touch</a> and ${OWNER} will tell you straight.
       </p>
     </div>
   </section>
@@ -726,6 +744,12 @@ function renderTownPage(town, index) {
     { label: `${town.name}, MO`, path: `service-areas/${town.slug}.html` },
   ];
   const heroPhoto = TOWN_HERO_PHOTOS[index % TOWN_HERO_PHOTOS.length];
+  const isBase = town.miles === 0;
+  // Where the town sits relative to the shop, phrased for each context.
+  const located = `${town.name} sits about ${town.miles} miles ${town.direction.toLowerCase()} of Springfield, well inside the regular route.`;
+  const heroSub = isBase
+    ? `Home base. Mowing, landscaping, leaf cleanup and more for ${town.name} homes and businesses.`
+    : `About ${town.miles} miles ${town.direction.toLowerCase()} of Springfield. Mowing, landscaping, leaf cleanup and more for ${town.name} homes and businesses.`;
   const why = WHY_VARIANTS[index % WHY_VARIANTS.length];
   const whyItems = why.map((i) => `<li>${i}</li>`).join("\n            ");
 
@@ -746,14 +770,19 @@ function renderTownPage(town, index) {
     <div class="container">
       <div class="service-hero-icon">📍</div>
       <h1>Lawn Care in ${town.name}, MO</h1>
-      <p class="section-sub">Approximately ${town.miles} miles ${town.direction.toLowerCase()} of Springfield, MO. Mowing, cleanup, fertilization, and more for homeowners and businesses in ${town.name}.</p>
+      <p class="section-sub">${heroSub}</p>
       <a href="${base}index.html#estimate" class="btn btn-primary btn-lg">Request a Free Estimate</a>
     </div>
   </section>
 
   <section class="section">
     <div class="container narrow">
-      <p class="service-intro">${SITE_NAME} is based in Springfield, MO and regularly serves properties in ${town.name} and the surrounding area. Whether you need weekly mowing, a one-time cleanup, or a full-season treatment plan, our crew can put together a plan for your property.</p>
+      <p class="service-intro">${isBase
+        ? `${SITE_NAME} is based right here in ${town.name}, which is where most of the route runs.`
+        : `${SITE_NAME} is based in Springfield, MO, and ${located}`} Whether you need weekly mowing, a one-time cleanup, or a plan for the whole season, ${OWNER} will put together something that fits the property &mdash; residential or commercial, no contract required.</p>
+
+      <h2>Lawn Care in ${town.name} Through the Year</h2>
+      <p class="service-intro">Southwest Missouri lawns are mostly cool-season fescue, with zoysia and bermuda scattered through the newer subdivisions, and the clay underneath compacts hard. That shapes the year: mowing starts around March and runs into October, fescue wants to be cut high through the summer heat rather than scalped, aeration and overseeding land best in early fall when the soil is still warm, and leaves need clearing before they mat down over winter. ${town.name} properties get the same approach ${OWNER} uses on every lawn on the route.</p>
 
       <h2>Services Available in ${town.name}</h2>
       <div class="mini-cards">
@@ -775,7 +804,7 @@ function renderTownPage(town, index) {
   <section class="section area-teaser">
     <div class="container">
       <h2 class="section-title">Also Serving Nearby</h2>
-      <p class="section-sub">See every town we cover within about 60 miles of Springfield, MO.</p>
+      <p class="section-sub">${OWNER} covers Springfield and the surrounding towns, and travels 75+ miles for larger jobs.</p>
       <a href="${base}service-areas/index.html" class="btn btn-outline">See All Service Areas</a>
     </div>
   </section>
@@ -784,7 +813,7 @@ function renderTownPage(town, index) {
   return page({
     base,
     title: `Lawn Care in ${town.name}, MO | ${SITE_NAME}`,
-    description: `Insured lawn mowing, landscaping and leaf cleanup in ${town.name}, MO. Free estimates from ${SITE_NAME}, ${town.miles} miles from Springfield.`,
+    description: `Insured lawn mowing, landscaping and leaf cleanup in ${town.name}, MO. ${YEARS_IN_BUSINESS} years, free estimates, $50 mowing minimum. Call (417) 849-7131.`,
     path: `service-areas/${town.slug}.html`,
     ogImage: heroPhoto,
     crumbs,
@@ -947,7 +976,7 @@ function renderBlogIndex() {
     <div class="container">
       <div class="service-hero-icon">📝</div>
       <h1>Lawn Care Tips &amp; Guides</h1>
-      <p class="section-sub">Seasonal advice for Springfield, MO area lawns, straight from our crew.</p>
+      <p class="section-sub">Seasonal advice for southwest Missouri lawns, straight from ${OWNER}.</p>
     </div>
   </section>
 
@@ -1117,10 +1146,9 @@ function renderHomepage() {
     )
     .join("\n            ") + `\n            <label class="checkbox"><input type="checkbox" name="service" value="Something else" /> Something else</label>`;
 
+  // Eli's priority markets, in the order he ranked them.
   const areaSample = towns
-    .slice()
-    .sort((a, b) => a.miles - b.miles)
-    .slice(0, 8)
+    .filter((t) => t.priority)
     .map((t) => `<a href="service-areas/${t.slug}.html">${t.name}, MO</a>`)
     .join("\n        ");
 
@@ -1249,7 +1277,7 @@ function renderHomepage() {
   <section id="service-areas" class="section area-teaser">
     <div class="container">
       <h2 class="section-title">Proudly Serving Springfield, MO &amp; Beyond</h2>
-      <p class="section-sub">Routine service throughout the Springfield area, with travel of 75+ miles available for larger landscaping and outdoor projects.</p>
+      <p class="section-sub">Springfield, Ozark, Nixa, Republic, Willard and Fair Grove are the core of the route, with travel of 75+ miles available for larger landscaping and outdoor projects.</p>
       <div class="area-sample">
         ${areaSample}
       </div>
@@ -1339,7 +1367,11 @@ const SITEMAP_PAGES = [
   { path: "service-areas/index.html", priority: "0.7", changefreq: "monthly" },
   { path: "blog/index.html", priority: "0.6", changefreq: "weekly" },
   ...services.map((x) => ({ path: `services/${x.slug}.html`, priority: "0.9", changefreq: "monthly" })),
-  ...towns.map((x) => ({ path: `service-areas/${x.slug}.html`, priority: "0.8", changefreq: "monthly" })),
+  ...towns.map((x) => ({
+    path: `service-areas/${x.slug}.html`,
+    priority: x.priority ? "0.9" : "0.7",
+    changefreq: "monthly",
+  })),
   ...posts.map((x) => ({ path: `blog/${x.slug}.html`, priority: "0.5", changefreq: "yearly" })),
 ];
 
@@ -1358,6 +1390,19 @@ ${SITEMAP_PAGES.map(
   </url>`
 ).join("\n")}
 </urlset>
+`
+);
+
+write(
+  "_redirects",
+  `# Serve the extension-less URLs used in canonical tags and the sitemap.
+# 200 is a rewrite, not a redirect, so nothing in the sitemap ever bounces.
+${SITEMAP_PAGES.filter((x) => x.path !== "index.html")
+  .map((x) => {
+    const clean = "/" + x.path.replace(/(^|\/)index\.html$/, "").replace(/\.html$/, "");
+    return `${clean.padEnd(42)} /${x.path}  200`;
+  })
+  .join("\n")}
 `
 );
 

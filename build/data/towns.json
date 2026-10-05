@@ -1,32 +1,219 @@
 [
-  { "name": "Ozark", "slug": "ozark-mo", "direction": "Southeast", "miles": 12 },
-  { "name": "Nixa", "slug": "nixa-mo", "direction": "Southwest", "miles": 16 },
-  { "name": "Republic", "slug": "republic-mo", "direction": "Southwest", "miles": 12 },
-  { "name": "Willard", "slug": "willard-mo", "direction": "Northwest", "miles": 10 },
-  { "name": "Battlefield", "slug": "battlefield-mo", "direction": "South", "miles": 8 },
-  { "name": "Rogersville", "slug": "rogersville-mo", "direction": "East", "miles": 14 },
-  { "name": "Strafford", "slug": "strafford-mo", "direction": "East", "miles": 12 },
-  { "name": "Clever", "slug": "clever-mo", "direction": "Southwest", "miles": 18 },
-  { "name": "Billings", "slug": "billings-mo", "direction": "Southwest", "miles": 20 },
-  { "name": "Fair Grove", "slug": "fair-grove-mo", "direction": "North", "miles": 15 },
-  { "name": "Ash Grove", "slug": "ash-grove-mo", "direction": "Northwest", "miles": 18 },
-  { "name": "Walnut Grove", "slug": "walnut-grove-mo", "direction": "Northwest", "miles": 20 },
-  { "name": "Marshfield", "slug": "marshfield-mo", "direction": "Northeast", "miles": 20 },
-  { "name": "Sparta", "slug": "sparta-mo", "direction": "South", "miles": 22 },
-  { "name": "Highlandville", "slug": "highlandville-mo", "direction": "South", "miles": 20 },
-  { "name": "Bolivar", "slug": "bolivar-mo", "direction": "Northwest", "miles": 28 },
-  { "name": "Mount Vernon", "slug": "mount-vernon-mo", "direction": "Southwest", "miles": 28 },
-  { "name": "Marionville", "slug": "marionville-mo", "direction": "Southwest", "miles": 27 },
-  { "name": "Aurora", "slug": "aurora-mo", "direction": "Southwest", "miles": 30 },
-  { "name": "Seymour", "slug": "seymour-mo", "direction": "East", "miles": 30 },
-  { "name": "Buffalo", "slug": "buffalo-mo", "direction": "North", "miles": 35 },
-  { "name": "Crane", "slug": "crane-mo", "direction": "Southwest", "miles": 32 },
-  { "name": "Monett", "slug": "monett-mo", "direction": "Southwest", "miles": 40 },
-  { "name": "Branson", "slug": "branson-mo", "direction": "South", "miles": 42 },
-  { "name": "Hollister", "slug": "hollister-mo", "direction": "South", "miles": 44 },
-  { "name": "Stockton", "slug": "stockton-mo", "direction": "Northwest", "miles": 45 },
-  { "name": "Lebanon", "slug": "lebanon-mo", "direction": "Northeast", "miles": 50 },
-  { "name": "Forsyth", "slug": "forsyth-mo", "direction": "South", "miles": 48 },
-  { "name": "Cassville", "slug": "cassville-mo", "direction": "Southwest", "miles": 48 },
-  { "name": "Greenfield", "slug": "greenfield-mo", "direction": "West", "miles": 40 }
+  {
+    "name": "Springfield",
+    "slug": "springfield-mo",
+    "miles": 0,
+    "direction": "Home base",
+    "priority": true
+  },
+  {
+    "name": "Ozark",
+    "slug": "ozark-mo",
+    "direction": "Southeast",
+    "miles": 12,
+    "priority": true
+  },
+  {
+    "name": "Nixa",
+    "slug": "nixa-mo",
+    "direction": "Southwest",
+    "miles": 16,
+    "priority": true
+  },
+  {
+    "name": "Republic",
+    "slug": "republic-mo",
+    "direction": "Southwest",
+    "miles": 12,
+    "priority": true
+  },
+  {
+    "name": "Willard",
+    "slug": "willard-mo",
+    "direction": "Northwest",
+    "miles": 10,
+    "priority": true
+  },
+  {
+    "name": "Fair Grove",
+    "slug": "fair-grove-mo",
+    "direction": "North",
+    "miles": 15,
+    "priority": true
+  },
+  {
+    "name": "Battlefield",
+    "slug": "battlefield-mo",
+    "direction": "South",
+    "miles": 8,
+    "priority": false
+  },
+  {
+    "name": "Strafford",
+    "slug": "strafford-mo",
+    "direction": "East",
+    "miles": 12,
+    "priority": false
+  },
+  {
+    "name": "Rogersville",
+    "slug": "rogersville-mo",
+    "direction": "East",
+    "miles": 14,
+    "priority": false
+  },
+  {
+    "name": "Clever",
+    "slug": "clever-mo",
+    "direction": "Southwest",
+    "miles": 18,
+    "priority": false
+  },
+  {
+    "name": "Ash Grove",
+    "slug": "ash-grove-mo",
+    "direction": "Northwest",
+    "miles": 18,
+    "priority": false
+  },
+  {
+    "name": "Billings",
+    "slug": "billings-mo",
+    "direction": "Southwest",
+    "miles": 20,
+    "priority": false
+  },
+  {
+    "name": "Walnut Grove",
+    "slug": "walnut-grove-mo",
+    "direction": "Northwest",
+    "miles": 20,
+    "priority": false
+  },
+  {
+    "name": "Marshfield",
+    "slug": "marshfield-mo",
+    "direction": "Northeast",
+    "miles": 20,
+    "priority": false
+  },
+  {
+    "name": "Highlandville",
+    "slug": "highlandville-mo",
+    "direction": "South",
+    "miles": 20,
+    "priority": false
+  },
+  {
+    "name": "Sparta",
+    "slug": "sparta-mo",
+    "direction": "South",
+    "miles": 22,
+    "priority": false
+  },
+  {
+    "name": "Marionville",
+    "slug": "marionville-mo",
+    "direction": "Southwest",
+    "miles": 27,
+    "priority": false
+  },
+  {
+    "name": "Bolivar",
+    "slug": "bolivar-mo",
+    "direction": "Northwest",
+    "miles": 28,
+    "priority": false
+  },
+  {
+    "name": "Mount Vernon",
+    "slug": "mount-vernon-mo",
+    "direction": "Southwest",
+    "miles": 28,
+    "priority": false
+  },
+  {
+    "name": "Aurora",
+    "slug": "aurora-mo",
+    "direction": "Southwest",
+    "miles": 30,
+    "priority": false
+  },
+  {
+    "name": "Seymour",
+    "slug": "seymour-mo",
+    "direction": "East",
+    "miles": 30,
+    "priority": false
+  },
+  {
+    "name": "Crane",
+    "slug": "crane-mo",
+    "direction": "Southwest",
+    "miles": 32,
+    "priority": false
+  },
+  {
+    "name": "Buffalo",
+    "slug": "buffalo-mo",
+    "direction": "North",
+    "miles": 35,
+    "priority": false
+  },
+  {
+    "name": "Monett",
+    "slug": "monett-mo",
+    "direction": "Southwest",
+    "miles": 40,
+    "priority": false
+  },
+  {
+    "name": "Greenfield",
+    "slug": "greenfield-mo",
+    "direction": "West",
+    "miles": 40,
+    "priority": false
+  },
+  {
+    "name": "Branson",
+    "slug": "branson-mo",
+    "direction": "South",
+    "miles": 42,
+    "priority": false
+  },
+  {
+    "name": "Hollister",
+    "slug": "hollister-mo",
+    "direction": "South",
+    "miles": 44,
+    "priority": false
+  },
+  {
+    "name": "Stockton",
+    "slug": "stockton-mo",
+    "direction": "Northwest",
+    "miles": 45,
+    "priority": false
+  },
+  {
+    "name": "Forsyth",
+    "slug": "forsyth-mo",
+    "direction": "South",
+    "miles": 48,
+    "priority": false
+  },
+  {
+    "name": "Cassville",
+    "slug": "cassville-mo",
+    "direction": "Southwest",
+    "miles": 48,
+    "priority": false
+  },
+  {
+    "name": "Lebanon",
+    "slug": "lebanon-mo",
+    "direction": "Northeast",
+    "miles": 50,
+    "priority": false
+  }
 ]
