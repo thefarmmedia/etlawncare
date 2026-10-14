@@ -25,6 +25,10 @@ const SITE_NAME = "ET&rsquo;s Lawn Care &amp; More";
 // Entity-free copy of the name, for JSON-LD and the plain-text files where
 // HTML entities would show up literally.
 const SITE_NAME_TEXT = "ET's Lawn Care & More";
+/* Short brand for <title>. The full name costs ~230px of a ~580px desktop
+   budget (~490px on mobile, where most local searches happen) on a brand
+   nobody is searching for yet. That space sells better than it brands. */
+const BRAND_SHORT = "ET&rsquo;s Lawn Care";
 const TAGLINE = "The grass is greener with us";
 const OWNER = "Eli";
 const YEARS_IN_BUSINESS = 5;
@@ -527,7 +531,7 @@ function blogPostSchema(post) {
     url: absUrl(`blog/${post.slug}.html`),
     mainEntityOfPage: absUrl(`blog/${post.slug}.html`),
     image: `${SITE_URL}/${PHOTOS[post.photo]}`,
-    ...(post.date ? { datePublished: post.date } : {}),
+    ...(post.date ? { datePublished: post.date, dateModified: post.date } : {}),
     author: { "@type": "Person", name: OWNER },
     publisher: { "@id": BUSINESS_ID },
   };
@@ -632,7 +636,7 @@ function renderServicePage(service) {
 
   return page({
     base,
-    title: `${service.navLabel} | ${SITE_NAME}`,
+    title: `${service.navLabel} in Springfield, MO | ${BRAND_SHORT}`,
     description: service.metaDescription,
     path: `services/${service.slug}.html`,
     ogImage: service.photo,
@@ -712,8 +716,8 @@ function renderAreaHub() {
 
   return page({
     base,
-    title: `Service Areas Near Springfield, MO | ${SITE_NAME}`,
-    description: `${SITE_NAME} serves Springfield, MO and the surrounding towns &mdash; Ozark, Nixa, Republic, Branson and more &mdash; travelling 75+ miles for larger jobs.`,
+    title: `Service Areas &mdash; ${towns.length} Towns Near Springfield, MO`,
+    description: `Lawn care in Springfield, Ozark, Nixa, Republic, Willard, Fair Grove and ${towns.length - 6} more towns. Mowing from $50, free estimates. Call ${PHONE}.`,
     path: "service-areas/index.html",
     crumbs,
     main,
@@ -816,8 +820,8 @@ function renderTownPage(town, index) {
 
   return page({
     base,
-    title: `Lawn Care in ${town.name}, MO | ${SITE_NAME}`,
-    description: `Insured lawn mowing, landscaping and leaf cleanup in ${town.name}, MO. ${YEARS_IN_BUSINESS} years, free estimates, $50 mowing minimum. Call (417) 849-7131.`,
+    title: `Lawn Mowing in ${town.name}, MO &mdash; From $50 | Free Estimates`,
+    description: `Mowing starts at $50 in ${town.name}, MO &mdash; a real price up front. Landscaping and leaf cleanup too. Insured, ${YEARS_IN_BUSINESS} years local. Free estimate: ${PHONE}.`,
     path: `service-areas/${town.slug}.html`,
     ogImage: heroPhoto,
     crumbs,
@@ -926,8 +930,8 @@ function renderAboutPage() {
 
   return page({
     base,
-    title: `About ${OWNER} | ${SITE_NAME}`,
-    description: `Meet ${OWNER}, owner of ${SITE_NAME} &mdash; ${YEARS_IN_BUSINESS} years of insured, owner-operated lawn care and landscaping around Springfield, MO.`,
+    title: `Meet ${OWNER}, Owner &mdash; ${YEARS_IN_BUSINESS} Years | ${BRAND_SHORT}`,
+    description: `${OWNER} owns and runs ${SITE_NAME} &mdash; ${YEARS_IN_BUSINESS} years mowing and landscaping around Springfield, MO. Same person every visit. Insured, free estimates.`,
     path: "about.html",
     ogImage: "assets/eli-owner.jpg",
     crumbs,
@@ -995,8 +999,8 @@ function renderBlogIndex() {
 
   return page({
     base,
-    title: `Lawn Care Tips & Guides | ${SITE_NAME}`,
-    description: `Seasonal lawn care tips and guides for the Springfield, MO area from ${SITE_NAME} &mdash; mowing, cleanups, fertilizing and more.`,
+    title: `Missouri Lawn Care Tips by Season | ${BRAND_SHORT}`,
+    description: `When to mow, when to aerate, when to clean up &mdash; seasonal lawn care guides written for southwest Missouri yards by ${OWNER}.`,
     path: "blog/index.html",
     crumbs,
     schema: [
@@ -1050,7 +1054,7 @@ function renderBlogPost(post) {
 
   return page({
     base,
-    title: `${post.title} | ${SITE_NAME} Blog`,
+    title: `${post.title.length > 42 ? post.title : `${post.title} | ${BRAND_SHORT}`}`,
     description: post.excerpt,
     path: `blog/${post.slug}.html`,
     ogImage: PHOTOS[post.photo],
@@ -1105,8 +1109,8 @@ function renderFAQPage() {
 
   return page({
     base,
-    title: `Frequently Asked Questions | ${SITE_NAME}`,
-    description: `Pricing, service areas, insurance and scheduling questions answered by ${SITE_NAME}. $50 mowing minimum, free estimates, fully insured.`,
+    title: `Lawn Care Pricing &amp; FAQs | ${BRAND_SHORT}`,
+    description: `What lawn care actually costs around Springfield, MO: $50 mowing minimum, $95&ndash;$135 per acre, $150 leaf cleanups. Insured, free estimates, no contract.`,
     path: "faq.html",
     crumbs,
     schema: [faqSchema()],
@@ -1332,8 +1336,8 @@ function renderHomepage() {
 
   return page({
     base,
-    title: `Lawn Care in Springfield, MO | ${SITE_NAME}`,
-    description: `Insured mowing, landscaping and leaf cleanup around Springfield, MO. ${YEARS_IN_BUSINESS} years, free estimates, $50 mowing minimum. Call (417) 849-7131.`,
+    title: `Lawn Care &amp; Landscaping in Springfield, MO | ${BRAND_SHORT}`,
+    description: `Mowing from $50 around Springfield, MO. Landscaping and leaf cleanup too. Insured, ${YEARS_IN_BUSINESS} years local, free estimates. Call or text ${PHONE}.`,
     path: "index.html",
     schema: [businessSchema(), websiteSchema()],
     main,
