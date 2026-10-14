@@ -1142,6 +1142,27 @@ fieldset.addons legend { padding: 0 6px; }
   overflow: hidden;
 }
 
+/* ===== Google rating proof ===== */
+.hero-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 auto 26px;
+  padding: 9px 18px;
+  background: rgba(255,255,255,.07);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: .92rem;
+  font-weight: 600;
+  color: var(--white);
+  transition: border-color .15s ease, background .15s ease;
+}
+.hero-rating:hover { border-color: var(--lime); background: rgba(14,242,1,.1); }
+.hero-stars { color: #ffc107; letter-spacing: 2px; }
+.trust-item-link { text-decoration: none; transition: border-color .15s ease; }
+.trust-item-link:hover { border-color: var(--lime); }
+.trust-item .trust-icon { line-height: 1; }
+
 /* ===== Responsive ===== */
 @media (max-width: 860px) {
   .contact-inner { grid-template-columns: 1fr; }

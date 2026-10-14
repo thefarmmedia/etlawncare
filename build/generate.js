@@ -41,7 +41,18 @@ const FACEBOOK = "https://www.facebook.com/profile.php?id=61571089534194";
 
 // Only the channels we actually have for this brand. Add { label, url, icon }
 // entries here and every social block on the site picks them up.
-const SOCIALS = [{ label: "Facebook", url: FACEBOOK, icon: "facebook" }];
+const GOOGLE_PROFILE = "https://maps.app.goo.gl/KbBbT5uhv8ZSQqPY9";
+/* Live figures from the Google Business Profile. Shown as an attributed,
+   linked claim — NOT as AggregateRating markup, because Google does not allow
+   reviews collected on a third-party site (including Google itself) to be
+   marked up as your own. Bump these as the count grows. */
+const GOOGLE_RATING = "5.0";
+const GOOGLE_REVIEWS = 13;
+
+const SOCIALS = [
+  { label: "Facebook", url: FACEBOOK, icon: "facebook" },
+  { label: "Google", url: GOOGLE_PROFILE, icon: "google" },
+];
 
 const socialTextLinks = (sep = "\n      ") =>
   SOCIALS.map((x) => `<a href="${x.url}" target="_blank" rel="noopener">${x.label}</a>`).join(sep);
@@ -173,12 +184,18 @@ const TESTIMONIALS = [];
 const SERVICE_HERO_PHOTOS = Object.fromEntries(services.map((x) => [x.slug, x.photo]));
 
 const SOCIAL_ICONS = {
+  google: `<svg viewBox="0 0 24 24"><path d="M21.35 11.1h-9.17v2.96h5.27c-.23 1.37-1.6 4.02-5.27 4.02-3.17 0-5.76-2.63-5.76-5.87s2.59-5.87 5.76-5.87c1.81 0 3.02.77 3.71 1.43l2.53-2.44C16.82 3.72 14.7 2.8 12.18 2.8 7.1 2.8 3 6.9 3 12s4.1 9.2 9.18 9.2c5.3 0 8.82-3.73 8.82-8.98 0-.6-.07-1.06-.15-1.12Z"/></svg>`,
   facebook: `<svg viewBox="0 0 24 24"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.89h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94Z"/></svg>`,
   instagram: `<svg viewBox="0 0 24 24"><path d="M12 2c2.72 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.21.6 1.76 1.15.55.55.89 1.1 1.15 1.76.25.64.42 1.37.47 2.43.05 1.06.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.15 1.76 4.9 4.9 0 0 1-1.76 1.15c-.64.25-1.37.42-2.43.47-1.06.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.76-1.15 4.9 4.9 0 0 1-1.15-1.76c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.21 1.15-1.76A4.9 4.9 0 0 1 5.44.54C6.08.29 6.81.12 7.87.07 8.94.02 9.28 0 12 0Zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4Zm5.2-8.4a1.17 1.17 0 1 1 0-2.34 1.17 1.17 0 0 1 0 2.34Z"/></svg>`,
   youtube: `<svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.51 3.5 12 3.5 12 3.5s-7.51 0-9.38.55A3.02 3.02 0 0 0 .5 6.19 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.81 3.02 3.02 0 0 0 2.12 2.14c1.87.55 9.38.55 9.38.55s7.51 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.81ZM9.6 15.5v-7l6.42 3.5Z"/></svg>`,
 };
 
 const TRUST_POINTS = [
+  {
+    icon: "★",
+    label: `${GOOGLE_RATING} on Google &middot; ${GOOGLE_REVIEWS} reviews`,
+    href: GOOGLE_PROFILE,
+  },
   { icon: "🗓️", label: "5 Years in Business" },
   { icon: "🛡️", label: "Fully Insured" },
   { icon: "💬", label: "Free Estimates" },
@@ -187,9 +204,12 @@ const TRUST_POINTS = [
 
 function trustStrip() {
   return `<div class="trust-strip">
-        ${TRUST_POINTS.map(
-          (t) => `<div class="trust-item"><span class="trust-icon">${t.icon}</span><span>${t.label}</span></div>`
-        ).join("\n        ")}
+        ${TRUST_POINTS.map((t) => {
+          const inner = `<span class="trust-icon">${t.icon}</span><span>${t.label}</span>`;
+          return t.href
+            ? `<a class="trust-item trust-item-link" href="${t.href}" target="_blank" rel="noopener">${inner}</a>`
+            : `<div class="trust-item">${inner}</div>`;
+        }).join("\n        ")}
       </div>`;
 }
 
@@ -460,6 +480,7 @@ function businessSchema() {
         },
       })),
     },
+    hasMap: GOOGLE_PROFILE,
     sameAs: SOCIALS.map((x) => x.url),
     ...reviewSchema(),
   };
@@ -1182,6 +1203,10 @@ function renderHomepage() {
       <img src="assets/logo.png" alt="${SITE_NAME} — ${TAGLINE}" class="hero-logo" />
       <h1>The Grass Is <span>Greener</span> With Us.</h1>
       <p class="hero-sub">Dependable mowing, landscaping, leaf cleanup, and outdoor property care for homes and businesses around Springfield, MO.</p>
+      <a class="hero-rating" href="${GOOGLE_PROFILE}" target="_blank" rel="noopener">
+        <span class="hero-stars" aria-hidden="true">★★★★★</span>
+        <span>${GOOGLE_RATING} from ${GOOGLE_REVIEWS} Google reviews</span>
+      </a>
       <div class="hero-mow-strip" aria-hidden="true">
         <span class="mow-trail"></span>
         <span class="mower-emoji">🚜</span>
@@ -1313,7 +1338,8 @@ function renderHomepage() {
         <p>Fill out the estimate form above, or skip it and reach ${OWNER} directly &mdash; calls and texts both work.</p>
         <a href="tel:${PHONE_HREF}" class="contact-phone">📞 ${PHONE}</a>
         <a href="mailto:${EMAIL}" class="contact-email">✉️ ${EMAIL}</a>
-        <p class="contact-note">Insured • Residential & commercial • One-time and recurring service available</p>
+        <p class="contact-note">Insured • Residential &amp; commercial • One-time and recurring service available</p>
+        <p class="contact-note"><a href="${GOOGLE_PROFILE}" target="_blank" rel="noopener" class="inline-phone">Find ${OWNER} on Google &rarr;</a></p>
         <div class="social-links">
           ${socialTextLinks("\n          ")}
         </div>
@@ -1434,6 +1460,7 @@ write(
 - Owner: ${OWNER}
 - Phone: ${PHONE} (call or text)
 - Email: ${EMAIL}
+- Google Business Profile: ${GOOGLE_PROFILE} (${GOOGLE_RATING} stars from ${GOOGLE_REVIEWS} reviews)
 - Based in: Springfield, Missouri
 - Service area: Springfield and surrounding towns; travels 75+ miles for larger jobs
 - Customers: residential and commercial
