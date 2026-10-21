@@ -15,12 +15,13 @@ const towns = JSON.parse(fs.readFileSync(path.join(__dirname, "data/towns.json")
 const services = JSON.parse(fs.readFileSync(path.join(__dirname, "data/services.json"), "utf8"));
 const posts = JSON.parse(fs.readFileSync(path.join(__dirname, "data/posts.json"), "utf8"));
 const faqs = JSON.parse(fs.readFileSync(path.join(__dirname, "data/faq.json"), "utf8"));
+const localContent = JSON.parse(fs.readFileSync(path.join(__dirname, "data/local-content.json"), "utf8"));
+const serviceDetails = JSON.parse(fs.readFileSync(path.join(__dirname, "data/service-details.json"), "utf8"));
+const imageSizes = JSON.parse(fs.readFileSync(path.join(__dirname, "data/image-sizes.json"), "utf8"));
 
-/* www is the canonical host: www.etslawns.com CNAMEs straight to the Netlify
-   site, while the apex sits on Netlify's load balancer and 301s to it. Pointing
-   canonicals and the sitemap at the apex meant every URL redirected, which is
-   why Search Console reported "Couldn't fetch". */
-const SITE_URL = "https://www.etslawns.com";
+// Production redirects www to this apex host. Keep links, schema, and sitemap
+// aligned with the actual 200 response, not with a redirecting hostname.
+const SITE_URL = "https://etslawns.com";
 const SITE_NAME = "ET&rsquo;s Lawn Care &amp; More";
 // Entity-free copy of the name, for JSON-LD and the plain-text files where
 // HTML entities would show up literally.
@@ -251,9 +252,38 @@ function toText(html) {
    index.html becomes the bare domain; "about.html" becomes "/about". The
    generated _redirects file guarantees these resolve with a 200 whether or
    not Netlify's Pretty URLs setting is on, so no sitemap URL ever redirects. */
-function absUrl(path) {
-  if (!path || path === "index.html") return `${SITE_URL}/`;
-  return `${SITE_URL}/${path.replace(/(^|\/)index\.html$/, "").replace(/\.html$/, "")}`;
+function routeFor(filePath) {
+  const relative = filePath.replace(/^\//, "");
+  if (!relative || relative === "index.html") return "/";
+  return "/" + relative.replace(/(^|\/)index\.html$/, "$1").replace(/\.html$/, "");
+}
+
+function absUrl(filePath) {
+  return SITE_URL + routeFor(filePath);
+}
+
+// Root-relative links also work at directory hubs and do not depend on
+// Netlify post-processing to repair paths after a URL changes.
+function normalizePageLinks(html, filePath) {
+  return html.replace(/\b(href|src)="([^"\s]+)"/g, (match, attr, value) => {
+    if (/^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i.test(value)) return match;
+    const [, pathname, suffix] = value.match(/^([^?#]*)(.*)$/);
+    const resolved = pathname.startsWith("/") ? pathname : "/" + path.posix.normalize(path.posix.join(path.posix.dirname(filePath), pathname));
+    return `${attr}="${attr === "href" && resolved.endsWith(".html") ? routeFor(resolved) : resolved}${suffix}"`;
+  }).replace(/<img\b([^>]*?)\s*\/?>(?!<\/img>)/g, (match, attrs) => {
+    const src = attrs.match(/\bsrc="\/([^\"]+)"/);
+    const size = src && imageSizes[src[1]];
+    if (!size || /\bwidth=/.test(attrs)) return match;
+    return `<img${attrs.trimEnd().replace(/\/$/, "")} width="${size.width}" height="${size.height}" decoding="async" />`;
+  });
+}
+
+function detailSections(items = []) {
+  return items.map((item) => `<h2>${item.title}</h2>\n      <p class="service-intro">${item.text}</p>`).join("\n      ");
+}
+
+function questions(items = []) {
+  return `<div class="faq-list">${items.map((item) => `<details class="faq-item"><summary>${item.q}</summary><p>${item.a}</p></details>`).join("\n")}</div>`;
 }
 
 // Escapes "<" so a value can never close the script tag early.
@@ -321,6 +351,7 @@ function header(base) {
       <details class="nav-dropdown">
         <summary>Services</summary>
         <div class="nav-dropdown-menu">
+        <a href="${base}services/index.html">All Lawn Care Services</a>
         ${serviceLinks}
         </div>
       </details>
@@ -363,6 +394,8 @@ function footer(base) {
       <a href="mailto:${EMAIL}">${EMAIL}</a>
     </div>
     <div class="footer-social">
+      <a href="${base}services/index.html">Services</a>
+      <a href="${base}service-areas/index.html">Service Areas</a>
       ${socialTextLinks()}
     </div>
     <p class="footer-tagline">&ldquo;${TAGLINE}&rdquo;</p>
@@ -378,9 +411,9 @@ function footer(base) {
 }
 
 function page({ base, title, description, path, bodyClass, main, extraScripts = "", ogImage, crumbs = [], schema = [] }) {
-  const blocks = [...schema];
+  const blocks = [businessSchema(), ...schema.filter((item) => item["@type"] !== "LandscapingBusiness")];
   if (crumbs.length > 1) blocks.push(breadcrumbSchema(crumbs));
-  return `<!doctype html>
+  return normalizePageLinks(`<!doctype html>
 <html lang="en">
 <head>
 ${head({ base, title, description, path, ogImage })}
@@ -396,7 +429,7 @@ ${footer(base)}
 ${extraScripts}
 </body>
 </html>
-`;
+`, path);
 }
 
 /* ---------------------------- Structured data ----------------------------
@@ -461,7 +494,6 @@ function businessSchema() {
     },
     founder: { "@type": "Person", name: OWNER },
     areaServed: [
-      { "@type": "City", name: "Springfield", address: { "@type": "PostalAddress", addressRegion: "MO", addressCountry: "US" } },
       ...towns.map((t) => ({
         "@type": "City",
         name: t.name,
@@ -508,11 +540,10 @@ function serviceSchema(service) {
     serviceType: toText(service.navLabel),
     url: absUrl(`services/${service.slug}.html`),
     provider: { "@id": BUSINESS_ID },
-    areaServed: {
-      "@type": "GeoCircle",
-      geoMidpoint: { "@type": "GeoCoordinates", addressCountry: "US" },
-      description: "Springfield, Missouri and surrounding towns",
-    },
+    areaServed: towns.filter((town) => town.priority).map((town) => ({
+      "@type": "City", name: town.name,
+      address: { "@type": "PostalAddress", addressRegion: "MO", addressCountry: "US" },
+    })),
     ...(offer
       ? {
           offers: {
@@ -580,9 +611,10 @@ function breadcrumb(base, items) {
 
 function renderServicePage(service) {
   const base = "../";
+  const details = serviceDetails[service.slug];
   const crumbs = [
     { label: "Home", href: `${base}index.html`, path: "index.html" },
-    { label: "Services", href: `${base}services/${service.slug}.html`, path: `services/${service.slug}.html` },
+    { label: "Services", href: `${base}services/index.html`, path: "services/index.html" },
     { label: service.navLabel, path: `services/${service.slug}.html` },
   ];
   const otherServices = services.filter((s) => s.slug !== service.slug);
@@ -605,7 +637,7 @@ function renderServicePage(service) {
     <div class="service-hero-bg" style="${serviceHeroBgStyle(base, SERVICE_HERO_PHOTOS[service.slug])}" aria-hidden="true"></div>
     <div class="container">
       <div class="service-hero-icon">${service.icon}</div>
-      <h1>${service.heroTitle}</h1>
+      <h1>${service.navLabel} in Springfield, MO</h1>
       <p class="section-sub">${service.heroSubtitle}</p>
       <a href="${base}index.html#estimate" class="btn btn-primary btn-lg">Request a Free Estimate</a>
     </div>
@@ -630,6 +662,15 @@ function renderServicePage(service) {
         </div>
       </div>
 
+      ${detailSections(details.sections)}
+      <h2>Questions About ${service.navLabel}</h2>
+      ${questions(details.faqs)}
+
+      <h2>Related Lawn Care Guides</h2>
+      <ul class="check-list">
+        ${posts.filter((post) => post.relatedService === service.slug).map((post) => `<li><a href="${base}blog/${post.slug}.html">${post.title}</a></li>`).join("\n") || `<li><a href="${base}faq.html">Pricing, scheduling, and service questions</a></li>`}
+      </ul>
+
       <div class="cta-banner">
         <p>Want a price for your property?</p>
         <a href="${base}index.html#estimate" class="btn btn-primary">Request a Free Estimate</a>
@@ -650,6 +691,7 @@ function renderServicePage(service) {
     <div class="container">
       <h2 class="section-title">Proudly Serving Springfield, MO &amp; Beyond</h2>
       <p class="section-sub">Springfield, Ozark, Nixa, Republic, Willard and Fair Grove are the core of the route, with travel 75+ miles out for larger jobs.</p>
+      <div class="area-sample">${towns.filter((town) => town.priority).map((town) => `<a href="${base}service-areas/${town.slug}.html">${town.name}, MO</a>`).join("\n")}</div>
       <a href="${base}service-areas/index.html" class="btn btn-outline">See All Service Areas</a>
     </div>
   </section>
@@ -664,6 +706,33 @@ function renderServicePage(service) {
     crumbs,
     schema: [serviceSchema(service)],
     main,
+  });
+}
+
+function renderServicesHub() {
+  const base = "../";
+  const crumbs = [
+    { label: "Home", href: `${base}index.html`, path: "index.html" },
+    { label: "Services", path: "services/index.html" },
+  ];
+  return page({
+    base,
+    title: `Lawn Care Services in Springfield, MO | ${BRAND_SHORT}`,
+    description: `Explore lawn mowing, landscaping, leaf removal, aeration and other outdoor services in Springfield, MO. Free estimates from ET's Lawn Care & More.`,
+    path: "services/index.html",
+    crumbs,
+    main: `<main>
+      ${breadcrumb(base, crumbs)}
+      <section class="section service-hero"><div class="container">
+        <h1>Lawn Care &amp; Landscaping Services in Springfield, MO</h1>
+        <p class="section-sub">Choose routine lawn maintenance, a seasonal cleanup, or a larger outdoor project. Residential and commercial estimates are free.</p>
+        <a href="${base}index.html#estimate" class="btn btn-primary">Request a Free Estimate</a>
+      </div></section>
+      <section class="section"><div class="container">
+        <div class="cards cards-feature">${services.map((service) => `<a class="card card-feature" href="${service.slug}.html"><div class="card-body"><div class="card-icon">${service.icon}</div><h2>${service.navLabel}</h2><p>${service.heroSubtitle}</p><span class="card-link">Service details &rarr;</span></div></a>`).join("\n")}</div>
+        <p class="gallery-cta">See <a href="${base}faq.html">pricing and common questions</a> or <a href="${base}service-areas/index.html">check your service area</a>.</p>
+      </div></section>
+    </main>`,
   });
 }
 
@@ -751,7 +820,7 @@ const WHY_VARIANTS = [
   [
     "Local crew that knows the area",
     "Flexible scheduling around your week",
-    "Instant online pricing, no waiting on a callback",
+    "Free property-specific estimates before work is scheduled",
   ],
   [
     "Consistent, on-schedule service every visit",
@@ -767,6 +836,7 @@ const WHY_VARIANTS = [
 
 function renderTownPage(town, index) {
   const base = "../";
+  const local = localContent[town.slug];
   const crumbs = [
     { label: "Home", href: `${base}index.html`, path: "index.html" },
     { label: "Service Areas", href: `${base}service-areas/index.html`, path: "service-areas/index.html" },
@@ -775,10 +845,9 @@ function renderTownPage(town, index) {
   const heroPhoto = TOWN_HERO_PHOTOS[index % TOWN_HERO_PHOTOS.length];
   const isBase = town.miles === 0;
   // Where the town sits relative to the shop, phrased for each context.
-  const located = `${town.name} sits about ${town.miles} miles ${town.direction.toLowerCase()} of Springfield, well inside the regular route.`;
   const heroSub = isBase
     ? `Home base. Mowing, landscaping, leaf cleanup and more for ${town.name} homes and businesses.`
-    : `About ${town.miles} miles ${town.direction.toLowerCase()} of Springfield. Mowing, landscaping, leaf cleanup and more for ${town.name} homes and businesses.`;
+    : `Mowing, landscaping, and seasonal cleanup estimates for ${town.name} homes and businesses. Contact ${OWNER} to confirm availability for your address.`;
   const why = WHY_VARIANTS[index % WHY_VARIANTS.length];
   const whyItems = why.map((i) => `<li>${i}</li>`).join("\n            ");
 
@@ -798,7 +867,7 @@ function renderTownPage(town, index) {
     <div class="service-hero-bg" style="${serviceHeroBgStyle(base, heroPhoto)}" aria-hidden="true"></div>
     <div class="container">
       <div class="service-hero-icon">📍</div>
-      <h1>Lawn Care in ${town.name}, MO</h1>
+      <h1>Lawn Mowing &amp; Lawn Care in ${town.name}, MO</h1>
       <p class="section-sub">${heroSub}</p>
       <a href="${base}index.html#estimate" class="btn btn-primary btn-lg">Request a Free Estimate</a>
     </div>
@@ -806,12 +875,11 @@ function renderTownPage(town, index) {
 
   <section class="section">
     <div class="container narrow">
-      <p class="service-intro">${isBase
+      <p class="service-intro">${local ? local.intro : isBase
         ? `${SITE_NAME} is based right here in ${town.name}, which is where most of the route runs.`
-        : `${SITE_NAME} is based in Springfield, MO, and ${located}`} Whether you need weekly mowing, a one-time cleanup, or a plan for the whole season, ${OWNER} will put together something that fits the property &mdash; residential or commercial, no contract required.</p>
+        : `${SITE_NAME} offers lawn mowing, landscaping, and seasonal cleanup estimates for ${town.name}, MO. Send ${OWNER} the property address, services needed, and preferred frequency so he can confirm route availability and provide a free estimate before scheduling.`}</p>
 
-      <h2>Lawn Care in ${town.name} Through the Year</h2>
-      <p class="service-intro">Southwest Missouri lawns are mostly cool-season fescue, with zoysia and bermuda scattered through the newer subdivisions, and the clay underneath compacts hard. That shapes the year: mowing starts around March and runs into October, fescue wants to be cut high through the summer heat rather than scalped, aeration and overseeding land best in early fall when the soil is still warm, and leaves need clearing before they mat down over winter. ${town.name} properties get the same approach ${OWNER} uses on every lawn on the route.</p>
+      ${local ? detailSections(local.sections) : `<h2>Planning Lawn Care for Your ${town.name} Property</h2><p class="service-intro">Include the approximate mowable area, gate access, obstacles, and current grass height in your request. If you also need leaves removed, shrubs trimmed, or landscape beds cleaned, describe those areas separately so the estimate covers the work you want. One-time jobs and recurring maintenance can be discussed based on the property and availability.</p>`}
 
       <h2>Services Available in ${town.name}</h2>
       <div class="mini-cards">
@@ -822,6 +890,10 @@ function renderTownPage(town, index) {
       <ul class="check-list">
         ${whyItems}
       </ul>
+
+      <h2 style="margin-top:36px;">Lawn Care Pricing and Scheduling</h2>
+      <p class="service-intro">Mowing has a $50 minimum. Larger mowing jobs typically run $95&ndash;$135 per acre depending on terrain, obstacles, and grass height. Leaf cleanups start at $150. Landscaping and other outdoor work receive a custom estimate. ${OWNER} confirms the scope, price, and availability for your address before anything is scheduled.</p>
+      ${questions([{ q: local ? local.question : `How do I request lawn care in ${town.name}?`, a: local ? local.answer : `Send the property address and a description of the work through the free-estimate form, or call or text ${PHONE}. Include whether you want one-time or recurring service so ${OWNER} can confirm availability and pricing.` }])}
 
       <div class="cta-banner">
         <p>Curious what lawn care costs for your ${town.name} property?</p>
@@ -834,6 +906,7 @@ function renderTownPage(town, index) {
     <div class="container">
       <h2 class="section-title">Also Serving Nearby</h2>
       <p class="section-sub">${OWNER} covers Springfield and the surrounding towns, and travels 75+ miles for larger jobs.</p>
+      <div class="area-sample">${(local ? local.nearby : towns.filter((item) => item.priority && item.slug !== town.slug).slice(0, 3).map((item) => item.slug)).map((slug) => { const nearby = towns.find((item) => item.slug === slug); return `<a href="${base}service-areas/${slug}.html">${nearby.name}, MO</a>`; }).join("\n")}</div>
       <a href="${base}service-areas/index.html" class="btn btn-outline">See All Service Areas</a>
     </div>
   </section>
@@ -841,7 +914,7 @@ function renderTownPage(town, index) {
 
   return page({
     base,
-    title: `Lawn Mowing in ${town.name}, MO &mdash; From $50 | Free Estimates`,
+    title: `Lawn Care &amp; Mowing in ${town.name}, MO | ${BRAND_SHORT}`,
     description: `Mowing starts at $50 in ${town.name}, MO &mdash; a real price up front. Landscaping and leaf cleanup too. Insured, ${YEARS_IN_BUSINESS} years local. Free estimate: ${PHONE}.`,
     path: `service-areas/${town.slug}.html`,
     ogImage: heroPhoto,
@@ -1054,6 +1127,7 @@ function renderBlogPost(post) {
     <div class="container narrow">
       <span class="blog-date">${formatDate(post.date)}</span>
       <h1>${post.title}</h1>
+      <p class="blog-author">By <a href="${base}about.html">${OWNER}, owner of ${SITE_NAME}</a></p>
       <div class="blog-post-img" style="background-image:url('${base}${PHOTOS[post.photo]}')"></div>
       <div class="blog-post-body">
         ${bodyHtml}
@@ -1201,7 +1275,8 @@ function renderHomepage() {
     <div class="hero-bg" style="${heroBgStyle(base, PHOTOS.farmhouseSunset)}" aria-hidden="true"></div>
     <div class="container hero-inner">
       <img src="assets/logo.png" alt="${SITE_NAME} — ${TAGLINE}" class="hero-logo" />
-      <h1>The Grass Is <span>Greener</span> With Us.</h1>
+      <h1>Lawn Care &amp; Mowing in <span>Springfield, MO</span></h1>
+      <p class="hero-tagline">${TAGLINE}.</p>
       <p class="hero-sub">Dependable mowing, landscaping, leaf cleanup, and outdoor property care for homes and businesses around Springfield, MO.</p>
       <a class="hero-rating" href="${GOOGLE_PROFILE}" target="_blank" rel="noopener">
         <span class="hero-stars" aria-hidden="true">★★★★★</span>
@@ -1239,6 +1314,7 @@ function renderHomepage() {
       <div class="mini-cards">
         ${otherServiceCards}
       </div>
+      <p class="gallery-cta"><a href="services/index.html">Compare all lawn care and landscaping services &rarr;</a></p>
     </div>
   </section>
 
@@ -1365,6 +1441,7 @@ function renderHomepage() {
     title: `Lawn Care &amp; Landscaping in Springfield, MO | ${BRAND_SHORT}`,
     description: `Mowing from $50 around Springfield, MO. Landscaping and leaf cleanup too. Insured, ${YEARS_IN_BUSINESS} years local, free estimates. Call or text ${PHONE}.`,
     path: "index.html",
+    ogImage: PHOTOS.farmhouseSunset,
     schema: [businessSchema(), websiteSchema()],
     main,
     extraScripts: `<script src="js/estimate-form.js"></script>`,
@@ -1373,9 +1450,14 @@ function renderHomepage() {
 
 /* --------------------------------- Write --------------------------------- */
 
+const previousSitemap = fs.existsSync(path.join(ROOT, "sitemap.xml")) ? fs.readFileSync(path.join(ROOT, "sitemap.xml"), "utf8") : "";
+const previousDates = new Map([...previousSitemap.matchAll(/<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g)].map((item) => [new URL(item[1]).pathname, item[2]]));
+const changedPages = new Set();
+
 function write(relPath, contents) {
   const fullPath = path.join(ROOT, relPath);
   fs.mkdirSync(path.dirname(fullPath), { recursive: true });
+  if (!fs.existsSync(fullPath) || fs.readFileSync(fullPath, "utf8") !== contents) changedPages.add(relPath);
   fs.writeFileSync(fullPath, contents);
   console.log("wrote", relPath);
 }
@@ -1387,6 +1469,7 @@ write("blog/index.html", renderBlogIndex());
 posts.forEach((p) => write(`blog/${p.slug}.html`, renderBlogPost(p)));
 
 services.forEach((s) => write(`services/${s.slug}.html`, renderServicePage(s)));
+write("services/index.html", renderServicesHub());
 
 write("service-areas/index.html", renderAreaHub());
 towns.forEach((t, i) => write(`service-areas/${t.slug}.html`, renderTownPage(t, i)));
@@ -1398,6 +1481,7 @@ const SITEMAP_PAGES = [
   { path: "index.html", priority: "1.0", changefreq: "weekly" },
   { path: "about.html", priority: "0.7", changefreq: "monthly" },
   { path: "faq.html", priority: "0.7", changefreq: "monthly" },
+  { path: "services/index.html", priority: "0.9", changefreq: "monthly" },
   { path: "service-areas/index.html", priority: "0.7", changefreq: "monthly" },
   { path: "blog/index.html", priority: "0.6", changefreq: "weekly" },
   ...services.map((x) => ({ path: `services/${x.slug}.html`, priority: "0.9", changefreq: "monthly" })),
@@ -1409,7 +1493,7 @@ const SITEMAP_PAGES = [
   ...posts.map((x) => ({ path: `blog/${x.slug}.html`, priority: "0.5", changefreq: "yearly" })),
 ];
 
-const today = new Date().toISOString().slice(0, 10);
+const today = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
 
 write(
   "sitemap.xml",
@@ -1418,7 +1502,7 @@ write(
 ${SITEMAP_PAGES.map(
   (x) => `  <url>
     <loc>${absUrl(x.path)}</loc>
-    <lastmod>${today}</lastmod>
+    <lastmod>${changedPages.has(x.path) ? today : previousDates.get(routeFor(x.path)) || today}</lastmod>
     <changefreq>${x.changefreq}</changefreq>
     <priority>${x.priority}</priority>
   </url>`
@@ -1429,14 +1513,21 @@ ${SITEMAP_PAGES.map(
 
 write(
   "_redirects",
-  `# Serve the extension-less URLs used in canonical tags and the sitemap.
-# 200 is a rewrite, not a redirect, so nothing in the sitemap ever bounces.
-${SITEMAP_PAGES.filter((x) => x.path !== "index.html")
-  .map((x) => {
-    const clean = "/" + x.path.replace(/(^|\/)index\.html$/, "").replace(/\.html$/, "");
-    return `${clean.padEnd(42)} /${x.path}  200`;
-  })
-  .join("\n")}
+  `# One production host, with no competing www versions.
+https://www.etslawns.com/* https://etslawns.com/:splat 301!
+http://www.etslawns.com/* https://etslawns.com/:splat 301!
+http://etslawns.com/* https://etslawns.com/:splat 301!
+
+# Consolidate existing HTML and directory-index URLs into canonical paths.
+${SITEMAP_PAGES.map((x) => `/${x.path} ${routeFor(x.path)} 301!`).join("\n")}
+
+# Directory hubs keep a trailing slash, matching Netlify's directory handling.
+/services /services/ 301!
+/service-areas /service-areas/ 301!
+/blog /blog/ 301!
+
+# Canonical routes serve the existing static files without a browser redirect.
+${SITEMAP_PAGES.filter((x) => x.path !== "index.html").map((x) => `${routeFor(x.path)} /${x.path} 200`).join("\n")}
 `
 );
 
@@ -1492,4 +1583,4 @@ ${towns.map((x) => `- [${x.name}, MO](${absUrl(`service-areas/${x.slug}.html`)})
 `
 );
 
-console.log(`\nGenerated ${5 + services.length + towns.length + posts.length} pages, plus sitemap.xml, robots.txt and llms.txt.`);
+console.log(`\nGenerated ${SITEMAP_PAGES.length} pages, plus sitemap.xml, robots.txt and llms.txt.`);

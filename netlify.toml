@@ -1,0 +1,10 @@
+[build]
+  command = "node build/generate.js && node build/check.js"
+  publish = "."
+
+[functions]
+  directory = "netlify/functions"
+
+# Routing is explicit in _redirects; do not rewrite links during deployment.
+[build.processing.html]
+  pretty_urls = false
