@@ -25,6 +25,9 @@ const redirects = read("_redirects").split("\n").filter((line) => line && !line.
 const titles = new Set();
 const incoming = new Set(["/"]);
 let linksChecked = 0;
+for (const [from, to, status] of redirects) {
+  if (status.startsWith("3")) assert.notEqual(from.replace(/\/$/, ""), to.replace(/\/$/, ""), `Netlify normalizes trailing slashes: redirect loop at ${from}`);
+}
 
 for (const post of posts) {
   assert(services.some((item) => item.slug === post.relatedService), `Unknown related service in ${post.slug}`);

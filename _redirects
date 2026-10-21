@@ -59,10 +59,8 @@ http://etslawns.com/* https://etslawns.com/:splat 301!
 /blog/choosing-the-right-mulch.html /blog/choosing-the-right-mulch 301!
 /blog/lawn-mowing-cost-springfield-mo.html /blog/lawn-mowing-cost-springfield-mo 301!
 
-# Directory hubs keep a trailing slash, matching Netlify's directory handling.
-/services /services/ 301!
-/service-areas /service-areas/ 301!
-/blog /blog/ 301!
+# Netlify adds directory slashes itself. An explicit /hub -> /hub/ rule
+# would also match /hub/ after normalization and cause a redirect loop.
 
 # Canonical routes serve the existing static files without a browser redirect.
 /about /about.html 200

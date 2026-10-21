@@ -1521,10 +1521,8 @@ http://etslawns.com/* https://etslawns.com/:splat 301!
 # Consolidate existing HTML and directory-index URLs into canonical paths.
 ${SITEMAP_PAGES.map((x) => `/${x.path} ${routeFor(x.path)} 301!`).join("\n")}
 
-# Directory hubs keep a trailing slash, matching Netlify's directory handling.
-/services /services/ 301!
-/service-areas /service-areas/ 301!
-/blog /blog/ 301!
+# Netlify adds directory slashes itself. An explicit /hub -> /hub/ rule
+# would also match /hub/ after normalization and cause a redirect loop.
 
 # Canonical routes serve the existing static files without a browser redirect.
 ${SITEMAP_PAGES.filter((x) => x.path !== "index.html").map((x) => `${routeFor(x.path)} /${x.path} 200`).join("\n")}
