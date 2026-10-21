@@ -5,7 +5,7 @@
     "date": "2026-03-02",
     "excerpt": "Southwest Missouri sits in the transition zone, so timing your first cut right matters. Here's how to know when your lawn is ready.",
     "photo": "brickHomeFront",
-    "relatedService": "mowing-edging",
+    "relatedService": "mowing-trimming",
     "body": [
       "Springfield sits in what turf experts call the \"transition zone\" — too far south for purely cool-season grass and too far north for warm-season grass to thrive year-round. That mix means the right time to start mowing depends more on your grass's growth, not the date on the calendar.",
       "For cool-season lawns (fescue, bluegrass), growth typically picks up in late March to early April once soil temperatures climb. For warm-season lawns (Bermuda, zoysia), things stay dormant and brown longer, often not greening up until late April or May.",
@@ -19,7 +19,7 @@
     "date": "2026-04-10",
     "excerpt": "Weekly, bi-weekly, or something else? The right frequency depends on the season and how fast your grass is growing, not a fixed schedule.",
     "photo": "mowingInProgress",
-    "relatedService": "mowing-edging",
+    "relatedService": "mowing-trimming",
     "body": [
       "The most common mowing mistake we see isn't cutting too short — it's cutting on a rigid schedule instead of a schedule that matches how fast the grass is actually growing.",
       "During peak growing season (typically May through June in southwest Missouri), weekly mowing is usually necessary to avoid removing too much leaf blade at once. In the heat of summer or during dry spells, growth slows down and bi-weekly can be enough. In early spring and late fall, growth is slower still.",
@@ -33,7 +33,7 @@
     "date": "2025-09-18",
     "excerpt": "Leaves, debris, and a few key tasks now set your lawn up for a healthier spring green-up. Here's what to prioritize before winter.",
     "photo": "countryWideLawn",
-    "relatedService": "yard-cleanup",
+    "relatedService": "leaf-seasonal-cleanups",
     "body": [
       "A thick layer of wet leaves left on the lawn all winter blocks sunlight and traps moisture against the grass, which can lead to matted, damaged patches come spring. Regular leaf removal through fall is one of the highest-value things you can do for your lawn's health.",
       "Beyond leaves, fall cleanup is a good time to clear out summer's dead annuals, cut back perennials, and pull any lingering debris out of garden beds before mulching for winter.",
@@ -61,7 +61,7 @@
     "date": "2026-05-05",
     "excerpt": "Compacted soil chokes out a healthy lawn from the roots up. Here's what aeration actually does and how to know if your yard needs it.",
     "photo": "leafCleanup",
-    "relatedService": "mulching-aeration",
+    "relatedService": "aeration-overseeding",
     "body": [
       "Foot traffic, heavy clay soil, and mowing over the years all compact the soil underneath your lawn. Compacted soil makes it harder for water, air, and nutrients to reach the roots — even a lawn that gets fertilized regularly can struggle if the soil underneath is too dense.",
       "Core aeration pulls small plugs of soil out of the lawn, relieving that compaction and giving roots room to grow deeper and stronger. Deeper roots mean better drought tolerance and a lawn that bounces back faster from stress.",
@@ -75,12 +75,29 @@
     "date": "2026-06-12",
     "excerpt": "Mulch does more than look tidy — it holds moisture, blocks weeds, and protects roots. Here's how to pick the right type for your landscaping.",
     "photo": "rockBedLandscaping",
-    "relatedService": "mulching-aeration",
+    "relatedService": "mulch-rock-installation",
     "body": [
       "Beyond curb appeal, a good layer of mulch helps beds retain moisture between waterings, suppresses weed growth by blocking sunlight, and moderates soil temperature for plant roots.",
       "Hardwood mulch breaks down over time and adds organic matter back into the soil, making it a solid all-around choice for most garden beds. Dyed mulches hold their color longer through the season, which matters if curb appeal is a priority. Lighter materials like straw or pine needles work well around more delicate plantings.",
       "A fresh 2-3 inch layer is usually the sweet spot — too thin and it won't suppress weeds effectively, too thick and it can actually hold too much moisture against plant stems.",
       "Most beds benefit from a fresh top-up once a year, typically in spring before the growing season kicks into gear."
+    ]
+  },
+  {
+    "slug": "lawn-mowing-cost-springfield-mo",
+    "title": "How Much Does Lawn Mowing Cost in Springfield, MO?",
+    "date": "2026-10-20",
+    "excerpt": "ET's Lawn Care & More has a $50 mowing minimum, with larger properties typically $95–$135 per acre. Here is what changes your estimate around Springfield.",
+    "photo": "mowerLargeProperty",
+    "relatedService": "mowing-trimming",
+    "body": [
+      "ET's Lawn Care & More has a $50 minimum for mowing service around Springfield, Missouri. Larger mowing jobs typically run $95–$135 per acre, depending on the property. Those figures help you plan, but the final price comes from a free estimate for the actual lawn and the work involved.",
+      "The minimum and the acreage range describe different situations. A small yard does not automatically cost a fraction of the per-acre rate: travel, unloading, mowing, trimming, and cleanup still take time. For a larger property, the open area may be quick to cut while fences, trees, and outbuildings add detail work. Tell Eli which parts of the parcel you want maintained so the estimate is based on the mowable area.",
+      "Grass height and condition also matter. A lawn that is already maintained can involve different work from a one-time cut after weeks of growth. Include a recent photo or describe the height, wet spots, slopes, and obstacles when asking for a quote. That helps define the first visit as well as the recurring service you may want afterward.",
+      "ET's mowing service includes cutting at an appropriate height, trimming around trees, fences, beds, and structures, and clearing clippings from hard surfaces. Leaf removal, shrub trimming, landscape bed cleanup, and new mulch or rock are separate types of work that can be discussed in the same estimate request. Leaf cleanups start at $150, while landscaping is priced for the project.",
+      "Frequency should fit the lawn's growth. Weekly, bi-weekly, and one-time mowing options are available, with the schedule discussed for your property and current conditions. A longer interval does not necessarily mean the same amount of work at each visit, particularly when grass has grown tall. Ask Eli to explain the proposed scope and schedule before deciding.",
+      "To request a useful estimate, send the property address, approximate lawn size, preferred frequency, and access details. Mention gates, pets, parked vehicles, or areas that need extra trimming. If you manage a commercial property, include the exact areas you want maintained and any access arrangements the crew needs to follow.",
+      "Springfield, Ozark, Nixa, Republic, Willard, and Fair Grove are priority service areas. For other addresses, Eli will confirm route availability before scheduling. Estimates are free, and one-time or recurring service is available without a contract. Use the website estimate form or call or text (417) 849-7131 to get a price for your lawn."
     ]
   }
 ]

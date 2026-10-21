@@ -203,6 +203,8 @@ h1, h2, h3, h4 {
   letter-spacing: .01em;
 }
 .hero h1 span { color: var(--lime); text-shadow: 0 0 26px rgba(14,242,1,.5); }
+.hero-tagline { color: var(--lime); margin-bottom: 16px; }
+.blog-author { color: var(--muted); margin: 16px 0 24px; }
 .hero-sub {
   max-width: 580px;
   margin: 0 auto 32px;

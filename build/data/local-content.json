@@ -1,0 +1,82 @@
+{
+  "springfield-mo": {
+    "intro": "Looking for a lawn care company in Springfield that can handle the mowing and the details around it? ET's Lawn Care & More offers residential and commercial mowing, trimming, landscape bed cleanups, and seasonal leaf removal. Eli is based in Springfield and provides free estimates so you can choose recurring maintenance or a one-time visit around the work your property actually needs.",
+    "sections": [
+      {"title": "Mowing for Springfield Homes and Businesses", "text": "A small front lawn, a fenced backyard, and a business frontage take different amounts of time to maintain. Tell Eli about gates, parked vehicles, trees, and areas that stay wet when you request a mowing estimate. The visit can include cutting the lawn, trimming around obstacles, and clearing clippings from hard surfaces. Weekly, bi-weekly, and one-time options depend on grass growth and property conditions."},
+      {"title": "Keep the Beds and Lawn on the Same Plan", "text": "Mowing alone will not tidy an overgrown foundation bed or remove leaves trapped beneath shrubs. If those areas need attention, ask for bed cleanup, shrub trimming, or mulch and rock installation in the same estimate. Separating routine mowing from seasonal work makes it easier to see what each part costs and decide what to tackle first."}
+    ],
+    "nearby": ["willard-mo", "republic-mo", "fair-grove-mo"],
+    "question": "What information helps with a Springfield lawn mowing estimate?",
+    "answer": "Send the property address, approximate mowable area, preferred frequency, and any access issues. Photos of the front, back, and side yards help Eli understand the scope. Mowing has a $50 minimum; larger properties typically run $95–$135 per acre depending on conditions."
+  },
+  "ozark-mo": {
+    "intro": "ET's Lawn Care & More provides lawn mowing, trimming, and landscaping services in Ozark, Missouri. Whether you need the yard maintained between busy workweeks or want an overgrown landscape bed brought back into shape, start with a free estimate from Eli. Ozark is one of the business's priority service areas for residential and commercial property care.",
+    "sections": [
+      {"title": "A Mowing Estimate Built Around Your Ozark Yard", "text": "Sloped sections, narrow side yards, and fences can change how a lawn is maintained. When you request service, include gate access and any areas that need a smaller mower or extra trimming. Eli can discuss a recurring mowing schedule or a one-time cut, with the price based on the grassed area and the work involved rather than the total size of the parcel."},
+      {"title": "Landscape Bed Cleanup and Seasonal Work", "text": "For a property that looks unevenly maintained, a bed cleanup can be a useful starting point before adding fresh mulch or decorative rock. Shrub trimming and leaf removal can be quoted alongside the lawn work. If the grass is thin, ask about aeration and overseeding so the estimate addresses the lawn itself as well as its edges."}
+    ],
+    "nearby": ["nixa-mo", "sparta-mo", "highlandville-mo"],
+    "question": "Can Ozark lawn mowing and landscaping be quoted together?",
+    "answer": "Yes. Select both services on the estimate form and describe the beds or outdoor areas that need work. Eli can discuss routine mowing separately from the cleanup or installation work so you can choose the scope that fits your property."
+  },
+  "nixa-mo": {
+    "intro": "Need lawn mowing or a yard cleanup in Nixa, MO? ET's Lawn Care & More handles grass cutting, trimming, landscape bed cleanups, and leaf removal for homes and commercial properties. Nixa is a priority service area, and Eli provides a free property-specific estimate before any work is scheduled.",
+    "sections": [
+      {"title": "Recurring Lawn Mowing in Nixa", "text": "A dependable mowing plan starts with how quickly the lawn grows and how you use the yard. Mention pets, backyard gates, play equipment, and landscaping that needs careful trimming. Weekly mowing can make sense during faster growth; bi-weekly or one-time service may suit other situations. Eli will review the property and discuss a schedule instead of assuming every yard needs the same visit frequency."},
+      {"title": "Tidy Up the Parts a Mower Cannot Reach", "text": "Fence lines, shrub beds, and the edges of patios can keep a freshly cut lawn from looking finished. Ask to include trimming, bed cleanup, or shrub shaping in the estimate. For seasonal leaf buildup, describe whether the leaves are spread across the lawn, packed into beds, or already gathered. That helps define the cleanup and removal work before a price is agreed."}
+    ],
+    "nearby": ["ozark-mo", "battlefield-mo", "clever-mo"],
+    "question": "Can I request a one-time lawn service in Nixa?",
+    "answer": "Yes. One-time mowing and cleanups are available as well as recurring service. Include the current grass height and any leaf or debris buildup in your request so Eli can quote the initial work accurately. Availability is confirmed before scheduling."
+  },
+  "republic-mo": {
+    "intro": "ET's Lawn Care & More offers lawn mowing, trimming, and landscape maintenance in Republic, Missouri. From a one-time cleanup to ongoing residential or commercial mowing, Eli will review the property and provide a free estimate. Republic is one of the core service areas, with other outdoor work available to quote alongside routine lawn care.",
+    "sections": [
+      {"title": "Price the Mowable Lawn, Including the Details", "text": "For a Republic mowing estimate, the open grass is only part of the job. Trees, fence lines, drainage areas, and tight access can add trimming or change which equipment fits. Send an approximate lawn size and photos of the areas you want maintained. Mowing starts at a $50 minimum, while larger properties typically run $95–$135 per acre depending on the terrain, obstacles, and grass condition."},
+      {"title": "Options for Thin Grass and Untidy Beds", "text": "If your goal is a fuller-looking lawn, tell Eli about bare patches and compacted areas when you request service. Aeration and overseeding can be discussed separately from mowing. For the landscape, bed cleanups, mulch and rock installation, and shrub trimming address areas that grass cutting does not cover. Choose the work in stages if the lawn and beds need different levels of attention."}
+    ],
+    "nearby": ["battlefield-mo", "billings-mo", "clever-mo"],
+    "question": "Does an acreage price cover every Republic property?",
+    "answer": "No. The $95–$135 per-acre range is a guide for larger mowing jobs. Actual pricing depends on the mowable area, access, obstacles, terrain, and grass height. Eli provides a free estimate for your property before scheduling."
+  },
+  "willard-mo": {
+    "intro": "For lawn mowing, trimming, and seasonal property care in Willard, MO, ET's Lawn Care & More offers free estimates for homeowners and businesses. Willard is a priority area on Eli's service route. You can request recurring maintenance, a one-time cut, or cleanup work to get the property ready for easier ongoing care.",
+    "sections": [
+      {"title": "Small Yards and Larger Willard Properties", "text": "An open lawn and a yard divided by fences need different mowing plans. For larger properties, identify which areas are regularly mowed and which are outside the requested scope. For smaller yards, gate width and backyard access matter just as much as square footage. Sharing those details helps Eli quote mowing and trimming together without relying on a rough parcel-size estimate."},
+      {"title": "A Seasonal Reset Before Regular Maintenance", "text": "If leaves, tall grass, or overgrown beds have accumulated, describe the initial cleanup separately from the maintenance you want afterward. Leaf removal, shrub trimming, and bed cleanups can be included in a custom estimate. For lawns beneath trees, note the areas with shade or heavy leaf cover so the conversation covers those trouble spots rather than just the visible front yard."}
+    ],
+    "nearby": ["ash-grove-mo", "walnut-grove-mo", "springfield-mo"],
+    "question": "What should I include when requesting lawn care in Willard?",
+    "answer": "Include your address, the lawn size if known, whether you want one-time or recurring service, and any gates or rough areas. If several outdoor jobs need attention, list each one so mowing, leaf removal, and landscape work can be discussed together."
+  },
+  "fair-grove-mo": {
+    "intro": "ET's Lawn Care & More provides lawn mowing, trimming, landscaping, and seasonal cleanups in Fair Grove, Missouri. Fair Grove is one of Eli's priority service areas. Whether you want help with a residential yard or a larger property, a free estimate starts with the lawn area and the work you want handled.",
+    "sections": [
+      {"title": "Mowing Around the Way You Use Your Property", "text": "For a Fair Grove lawn with a shed, fencing, trees, or outbuildings, point out the grass you want included and any places that need extra trimming. An acreage total does not always describe the mowable yard. Share access details and the current grass height so Eli can discuss a first visit and a recurring schedule based on the actual maintenance area."},
+      {"title": "Leaf Removal and Landscape Cleanup", "text": "Leaves collecting along fences and beneath shrubs can take more cleanup time than leaves on an open lawn. Describe those areas when requesting a seasonal cleanup. Bed cleanups, shrub trimming, and fresh mulch or decorative rock can also be quoted if you want the landscaping tidied up with the grass. Larger projects and routine maintenance are scoped to the property before work is scheduled."}
+    ],
+    "nearby": ["springfield-mo", "strafford-mo", "buffalo-mo"],
+    "question": "Can you quote a larger Fair Grove lawn?",
+    "answer": "Yes. Send the address and approximate area you want mowed, along with photos or a description of obstacles and slopes. Larger mowing jobs typically run $95–$135 per acre, with final pricing based on the property. The minimum mowing service is $50."
+  },
+  "ash-grove-mo": {
+    "intro": "Looking for lawn mowing in Ash Grove, MO? ET's Lawn Care & More offers mowing, trimming, landscaping, and seasonal yard cleanup with free estimates. Send Eli the property address and the work you need so he can confirm route availability and quote the right scope for a one-time visit or recurring care.",
+    "sections": [
+      {"title": "An Ash Grove Mowing Quote With a Clear Scope", "text": "Start with the areas you want cut: the front and back lawns, side yard, or a larger open section of the property. Let Eli know about fencing, trees, access, and grass that has become overgrown. Mowing includes trimming around obstacles and clearing clippings from hard surfaces. The $50 minimum is a starting point; the actual estimate reflects the size and condition of the job."},
+      {"title": "Improving the Lawn You Already Have", "text": "If you are searching for help because the grass is thin or patchy, describe that goal along with your mowing request. ET's offers core aeration and overseeding options for existing lawns, as well as bed cleanup and mulch or rock installation for surrounding landscaping. Eli can review the property and discuss which available services fit the work you have in mind."}
+    ],
+    "nearby": ["willard-mo", "walnut-grove-mo", "springfield-mo"],
+    "question": "How do I find out whether my Ash Grove address is on the route?",
+    "answer": "Send the property address through the free-estimate form or call or text (417) 849-7131. Include the service and frequency you want. Eli will confirm availability and pricing before anything is scheduled."
+  },
+  "branson-mo": {
+    "intro": "ET's Lawn Care & More offers lawn care and landscaping estimates for Branson, Missouri properties. Tell Eli whether you need mowing, a landscape bed cleanup, leaf removal, or a larger outdoor project. Branson work is scheduled around the job's scope and route availability, with a free estimate before you commit.",
+    "sections": [
+      {"title": "Landscaping and Property Cleanup in Branson", "text": "For an outdoor space that needs more than mowing, list the areas you want refreshed: foundation beds, shrubs, mulch, decorative rock, or a small paver project. Photos help show existing materials, access, and the amount of preparation required. Larger landscaping jobs can be considered beyond the core Springfield route, so describe the complete project when you ask about availability."},
+      {"title": "Mowing Access and Maintenance Needs", "text": "If your Branson property has slopes, retaining walls, narrow access, or grass divided into several sections, include those details in the estimate request. They can affect equipment access and the time needed for mowing and trimming. For seasonal cleanup, identify leaf buildup in beds as well as on the lawn. Eli will confirm which services can be scheduled for the address before a visit is booked."}
+    ],
+    "nearby": ["hollister-mo", "forsyth-mo", "highlandville-mo"],
+    "question": "Is recurring lawn service available at every Branson address?",
+    "answer": "Availability depends on the address, job size, and route. Send the property details and preferred frequency for confirmation. Larger landscaping projects can be considered separately from recurring mowing; every estimate is free."
+  }
+}
