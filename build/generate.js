@@ -194,14 +194,56 @@ const SOCIAL_ICONS = {
 const TRUST_POINTS = [
   {
     icon: "★",
-    label: `${GOOGLE_RATING} on Google &middot; ${GOOGLE_REVIEWS} reviews`,
+    label: `<span data-count="${GOOGLE_RATING}" data-decimals="1">${GOOGLE_RATING}</span> on Google &middot; <span data-count="${GOOGLE_REVIEWS}">${GOOGLE_REVIEWS}</span> reviews`,
     href: GOOGLE_PROFILE,
   },
-  { icon: "🗓️", label: "5 Years in Business" },
+  { icon: "🗓️", label: `<span data-count="${YEARS_IN_BUSINESS}">${YEARS_IN_BUSINESS}</span> Years in Business` },
   { icon: "🛡️", label: "Fully Insured" },
   { icon: "💬", label: "Free Estimates" },
   { icon: "🏠", label: "Residential &amp; Commercial" },
 ];
+
+/* Wraps each word in a mask so the hero headline can rise word by word.
+   The text itself is untouched, so it reads and indexes normally. */
+function splitWords(text, startIndex) {
+  return text
+    .split(" ")
+    .map((word, i) => `<span class="w"><span style="--i:${startIndex + i}">${word}</span></span>`)
+    .join(" ");
+}
+
+/* Two ribbons running opposite ways: services, then priority towns. Each
+   track is doubled so the loop is seamless. Decorative — it repeats content
+   that's already in the nav — so it's hidden from assistive tech. */
+function marqueeBand() {
+  // Short, punchy labels — trimming the nav labels at "&" left "LEAF" alone.
+  const SHORT = {
+    "mowing-trimming": "Lawn Mowing",
+    "landscaping-bed-cleanups": "Landscaping",
+    "leaf-seasonal-cleanups": "Leaf Cleanup",
+    "aeration-overseeding": "Aeration",
+    "fertilization-weed-control": "Weed Control",
+    "mulch-rock-installation": "Mulch & Rock",
+    "shrub-trimming": "Shrub Trimming",
+    "pavers-small-hardscaping": "Pavers",
+    "snow-removal": "Snow Removal",
+    "pressure-washing": "Pressure Washing",
+  };
+  // Uppercase plain text first, then escape — uppercasing "&amp;" breaks it.
+  const esc = (t) => t.replace(/&/g, "&amp;");
+  const serviceWords = services.map((x) => esc((SHORT[x.slug] || toText(x.navLabel)).toUpperCase()));
+  const townWords = towns.filter((t) => t.priority).map((t) => t.name.toUpperCase());
+  const track = (words) =>
+    words
+      .map((w, i) => `<span class="marquee-item ${i % 2 ? "ghost" : "solid"}">${w}</span><span class="marquee-item star">&#10022;</span>`)
+      .join("");
+  const ribbon = (words, cls) =>
+    `<div class="marquee ${cls}"><div class="marquee-track">${track(words)}</div><div class="marquee-track">${track(words)}</div></div>`;
+  return `<div class="marquee-band" aria-hidden="true">
+    ${ribbon(serviceWords, "")}
+    ${ribbon(townWords.concat(["&amp; 75+ MILES OUT"]), "reverse")}
+  </div>`;
+}
 
 function trustStrip() {
   return `<div class="trust-strip">
@@ -316,7 +358,9 @@ function head({ base, title, description, path, ogImage }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="${base}css/styles.css" />`;
+<link rel="stylesheet" href="${base}css/styles.css" />
+<link rel="stylesheet" href="${base}css/motion.css" />
+<script>(function(h){h.classList.add("js");setTimeout(function(){if(!h.classList.contains("motion-ready"))h.classList.add("motion-off")},2500)})(document.documentElement)</script>`;
 }
 
 function header(base) {
@@ -407,7 +451,8 @@ function footer(base) {
   <span class="sticky-call-icon" aria-hidden="true">&#128222;</span>
   <span class="sticky-call-text">Call Now &middot; ${PHONE}</span>
 </a>
-<script src="${base}js/main.js"></script>`;
+<script src="${base}js/main.js"></script>
+<script src="${base}js/motion.js" defer></script>`;
 }
 
 function page({ base, title, description, path, bodyClass, main, extraScripts = "", ogImage, crumbs = [], schema = [] }) {
@@ -1274,17 +1319,24 @@ function renderHomepage() {
   <section class="hero">
     <div class="hero-bg" style="${heroBgStyle(base, PHOTOS.farmhouseSunset)}" aria-hidden="true"></div>
     <div class="container hero-inner">
-      <img src="assets/logo.png" alt="${SITE_NAME} — ${TAGLINE}" class="hero-logo" />
-      <h1>Lawn Care &amp; Mowing in <span>Springfield, MO</span></h1>
+      <span class="hero-logo-wrap"><img src="assets/logo.png" alt="${SITE_NAME} — ${TAGLINE}" class="hero-logo" fetchpriority="high" /></span>
+      <h1>${splitWords("Lawn Care &amp; Mowing in", 0)} <span class="w"><span class="neon" style="--i:5">Springfield, MO</span></span></h1>
       <p class="hero-tagline">${TAGLINE}.</p>
       <p class="hero-sub">Dependable mowing, landscaping, leaf cleanup, and outdoor property care for homes and businesses around Springfield, MO.</p>
       <a class="hero-rating" href="${GOOGLE_PROFILE}" target="_blank" rel="noopener">
-        <span class="hero-stars" aria-hidden="true">★★★★★</span>
+        <span class="hero-stars" aria-hidden="true">${[0, 1, 2, 3, 4].map((i) => `<span class="star" style="--i:${i}">★</span>`).join("")}</span>
         <span>${GOOGLE_RATING} from ${GOOGLE_REVIEWS} Google reviews</span>
       </a>
       <div class="hero-mow-strip" aria-hidden="true">
         <span class="mow-trail"></span>
-        <span class="mower-emoji">🚜</span>
+        <svg class="mower-svg" viewBox="0 0 46 30" aria-hidden="true">
+          <rect x="4" y="13" width="30" height="9" rx="3" fill="#0ef201"/>
+          <path d="M22 13 V4 h6 v9" fill="none" stroke="#c0bfbf" stroke-width="2.5" stroke-linecap="round"/>
+          <rect x="26" y="2" width="9" height="3" rx="1.5" fill="#c0bfbf"/>
+          <rect x="32" y="17" width="12" height="4" rx="2" fill="#0a7a06"/>
+          <g class="wheel"><circle cx="10" cy="24" r="5" fill="#111" stroke="#2a2f31" stroke-width="2"/><path d="M10 20 v8 M6 24 h8" stroke="#3a4144" stroke-width="1.2"/></g>
+          <g class="wheel"><circle cx="29" cy="24" r="5" fill="#111" stroke="#2a2f31" stroke-width="2"/><path d="M29 20 v8 M25 24 h8" stroke="#3a4144" stroke-width="1.2"/></g>
+        </svg>
       </div>
       <div class="hero-actions">
         <a href="#estimate" class="btn btn-primary btn-lg">Request a Free Estimate</a>
@@ -1301,6 +1353,8 @@ function renderHomepage() {
       ${trustStrip()}
     </div>
   </section>
+
+  ${marqueeBand()}
 
   <section id="services" class="section services">
     <div class="container">
@@ -1454,7 +1508,47 @@ const previousSitemap = fs.existsSync(path.join(ROOT, "sitemap.xml")) ? fs.readF
 const previousDates = new Map([...previousSitemap.matchAll(/<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g)].map((item) => [new URL(item[1]).pathname, item[2]]));
 const changedPages = new Set();
 
+/* Which elements animate in on scroll, and how. Applied to the finished HTML
+   so templates stay clean, and done at build time rather than in the browser
+   so nothing flashes visible before it hides. */
+const REVEAL_MAP = {
+  "section-title": "rv",
+  "card": "rv",
+  "mini-card": "rv",
+  "trust-item": "rv rv-zoom",
+  "testimonial-card": "rv",
+  "faq-item": "rv",
+  "blog-card": "rv",
+  "area-group": "rv",
+  "pricing-note": "rv",
+  "cta-banner": "rv rv-zoom",
+  "contact-info": "rv rv-left",
+  "contact-card": "rv rv-right",
+  "owner-photo": "rv rv-left",
+  "calculator": "rv",
+  "service-intro": "rv",
+  "check-list": "rv",
+  "service-columns": "rv",
+  "area-sample": "rv",
+  "subsection-title": "rv",
+  "gallery-item": "rv-wipe",
+};
+
+function addMotionHooks(html) {
+  // Leave everything inside the homepage hero alone: it has its own intro.
+  return html.replace(/class="([^"]*)"/g, (match, cls) => {
+    const tokens = cls.split(/\s+/);
+    for (const t of tokens) {
+      if (REVEAL_MAP[t] && !tokens.includes("rv") && !tokens.includes("rv-wipe")) {
+        return `class="${cls} ${REVEAL_MAP[t]}"`;
+      }
+    }
+    return match;
+  });
+}
+
 function write(relPath, contents) {
+  if (relPath.endsWith(".html")) contents = addMotionHooks(contents);
   const fullPath = path.join(ROOT, relPath);
   fs.mkdirSync(path.dirname(fullPath), { recursive: true });
   if (!fs.existsSync(fullPath) || fs.readFileSync(fullPath, "utf8") !== contents) changedPages.add(relPath);
