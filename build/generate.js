@@ -1020,7 +1020,7 @@ function renderAboutPage() {
   <section class="section">
     <div class="container narrow">
       <figure class="owner-photo owner-photo-inline">
-        <img src="${base}assets/eli-owner.jpg" alt="${OWNER}, owner of ${SITE_NAME}" />
+        <img src="${base}assets/eli-owner-portrait.jpg" alt="${OWNER}, owner of ${SITE_NAME}" />
         <figcaption>${OWNER} &mdash; Owner, ${SITE_NAME}</figcaption>
       </figure>
       <p class="eyebrow">Meet the owner</p>

@@ -981,9 +981,12 @@ fieldset.addons legend { padding: 0 6px; }
 .trust-icon { font-size: 1.3rem; }
 
 /* ===== Owner photo (About) ===== */
-.owner-photo { margin: 0 0 28px; }
+.owner-photo { margin: 0 auto 28px; max-width: 340px; }
 .owner-photo img {
   width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
   border-radius: var(--radius);
   border: 1px solid var(--line);
   border-top: 3px solid var(--lime);

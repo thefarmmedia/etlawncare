@@ -1,7 +1,11 @@
 {
+  "assets/eli-owner-portrait.jpg": {
+    "width": 560,
+    "height": 700
+  },
   "assets/eli-owner.jpg": {
     "width": 1100,
-    "height": 724
+    "height": 700
   },
   "assets/favicon.png": {
     "width": 96,
